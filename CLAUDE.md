@@ -19,30 +19,34 @@ deployed on Vercel and viewed on a phone.
   `build_fonts.py` (it fetches Google Fonts and needs internet, which the cloud
   sandbox blocks). The fonts are already embedded in `fonts_embedded.css`.
 
-## Workflow: explore via HTML file, ship on approval (USER PREFERENCE)
+## Workflow: explore on a preview URL, ship on approval (USER PREFERENCE)
 
-Tom's chosen loop (set 2026-05-28) for iterating on slides:
+Tom's chosen loop (confirmed 2026-05-28) for iterating on slides:
 
 1. Edit `deck.template.html`, then `python3 build_deck.py`.
-2. **Send the rebuilt self-contained `index.html` to Tom as a file**
-   (`SendUserFile`) so he opens the live interactive deck in a browser; tell him
-   the slide number. He wants the real HTML to interact with — do NOT send PNG
-   screenshots, and do NOT deploy just to preview. `index.html` is fully
-   self-contained (fonts/JS embedded), so it renders offline in any browser
-   (tap right = next, left 22% = back; append `#<n>` to deep-link).
-3. **Only when Tom approves**, ship to production: commit BOTH
-   `deck.template.html` and `index.html`, push the working branch, then merge to
-   `main` (Vercel auto-deploys production). Pre-authorized once he approves — he
-   can also say "push it live" anytime.
-4. After pushing, reply with a **cache-busted deep link** to that slide:
+2. Commit BOTH `deck.template.html` and `index.html` and push the working
+   branch. Vercel auto-builds a **preview** for that branch (~1 min). Give Tom
+   the branch preview URL (deep-link the slide with `#<n>`):
+   ```
+   https://product-unleashed-talk-git-<branch-slug>-tomprioruk-2872s-projects.vercel.app/#<slide-number>
+   ```
+   The branch alias auto-updates to the latest build on every push, so Tom just
+   refreshes in Chrome. Vercel **Deployment Protection → Require Log In is OFF**,
+   so preview URLs are publicly viewable (he flipped it 2026-05-28).
+3. **Only when Tom approves**, ship to production: merge the branch to `main`
+   (Vercel auto-deploys production). Pre-authorized once he approves — he can
+   also say "push it live" anytime. Then reply with a cache-busted production
+   deep link:
    ```
    https://product-unleashed-talk.vercel.app/?v=<short-sha>#<slide-number>
    ```
    `?v=<short-sha>` busts mobile Safari's cache; `#<n>` deep-links the slide (1–17).
 
-Production URL: `product-unleashed-talk.vercel.app`. Vercel preview URLs are 403
-behind Deployment Protection (useless on phone) — that's why we send the HTML
-file for review and ship straight to production on approval.
+**Claude cannot verify any URL itself**: the sandbox egress allowlist blocks all
+`*.vercel.app` hosts (`x-deny-reason: host_not_allowed`), so Tom is the one who
+confirms a preview/production URL loads. Fallback if a preview ever won't build:
+send the self-contained `index.html` via `SendUserFile` (renders offline in any
+browser). Do NOT send PNG screenshots — Tom wants the real interactive HTML.
 
 ## Verifying
 
