@@ -1,0 +1,837 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learn to ship native, with AI — Tom · Product Unleashed</title>
+<style>
+/* ─────────────────────────────────────────────────────────
+   EMBEDDED FONTS (injected by build_deck.py)
+   ───────────────────────────────────────────────────────── */
+/*FONTS_EMBEDDED*/
+
+/* ─────────────────────────────────────────────────────────
+   DESIGN SYSTEM
+   ───────────────────────────────────────────────────────── */
+:root{
+  --cream:#fbf7f2;
+  --ink:#1c1a24;
+  --coral:#d4604f;
+  --violet:#c074e8;
+  --green:#5fa572;
+  --muted-coral:#ff9b8a;
+  --serif:'EB Garamond','Tiempos Headline','Playfair Display',Georgia,serif;
+  --mono:'JetBrains Mono','SF Mono',ui-monospace,Menlo,monospace;
+  --sans:'Inter',-apple-system,'SF Pro Display',system-ui,sans-serif;
+  --inset:96px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;background:var(--cream);overflow:hidden;}
+body{font-family:var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+
+/* deck stage scaled to fit the viewport */
+.deck{position:fixed;left:50%;top:50%;width:1920px;height:1080px;
+  transform-origin:center center;}
+
+/* slides stack; cross-dissolve via opacity + a "leaving" hold layer */
+.slide{position:absolute;inset:0;width:1920px;height:1080px;
+  background:var(--cream);overflow:hidden;color:var(--ink);
+  opacity:0;z-index:0;pointer-events:none;
+  transition:opacity .6s ease;will-change:opacity;}
+.slide.leaving{opacity:1;z-index:1;transition:none;}
+.slide.active{opacity:1;z-index:2;pointer-events:auto;}
+
+/* gradient wash + grain (every slide) */
+.wash{position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(58% 52% at 88% 6%, rgba(255,168,145,.35), transparent 70%),
+    radial-gradient(60% 58% at 6% 102%, rgba(190,170,230,.32), transparent 72%);}
+.grain{position:absolute;inset:0;pointer-events:none;opacity:.08;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* topbar */
+.topbar{position:absolute;top:48px;left:var(--inset);right:var(--inset);
+  display:flex;justify-content:space-between;align-items:flex-start;
+  font-family:var(--mono);font-size:16px;text-transform:uppercase;
+  letter-spacing:2px;color:rgba(28,26,36,.65);
+  padding-bottom:22px;border-bottom:1px solid rgba(28,26,36,.2);z-index:5;}
+.topbar .meta{text-align:right;line-height:1.55;}
+
+/* footer */
+.footer{position:absolute;bottom:46px;left:var(--inset);right:var(--inset);
+  display:flex;justify-content:space-between;align-items:flex-end;
+  font-family:var(--mono);font-size:14px;text-transform:uppercase;
+  letter-spacing:2px;color:rgba(28,26,36,.5);z-index:5;}
+
+/* body content zone */
+.body{position:absolute;left:var(--inset);right:var(--inset);
+  top:188px;bottom:128px;display:flex;flex-direction:column;}
+.body.center{justify-content:center;}
+.body.end{justify-content:flex-end;}
+.fill{flex:1;min-height:0;}
+
+/* type */
+.kicker{font-family:var(--mono);font-size:22px;text-transform:uppercase;
+  letter-spacing:3px;color:rgba(28,26,36,.55);}
+.phasenum{font-family:var(--mono);font-size:22px;text-transform:uppercase;
+  letter-spacing:3px;color:rgba(28,26,36,.55);}
+.phasenum b{color:var(--coral);font-weight:500;}
+.headline{font-family:var(--serif);font-weight:500;line-height:1.02;
+  letter-spacing:-3px;color:var(--ink);}
+.h-xl{font-size:138px;line-height:.98;letter-spacing:-5px;}
+.h-lg{font-size:112px;letter-spacing:-4px;}
+.h-md{font-size:92px;letter-spacing:-3px;}
+.h-sm{font-size:76px;letter-spacing:-2px;}
+.ci{font-style:italic;color:var(--coral);}
+.vi{font-style:italic;color:var(--violet);}
+.sub{font-family:var(--serif);font-style:italic;color:rgba(28,26,36,.78);}
+.grad-underline{background-image:linear-gradient(90deg,var(--coral),var(--violet));
+  background-repeat:no-repeat;background-position:0 .92em;background-size:100% 9px;}
+
+/* reveal animation (subtle editorial) */
+.reveal{opacity:0;transform:translateY(28px);
+  transition:opacity .7s ease, transform .7s cubic-bezier(.2,.75,.25,1);
+  transition-delay:var(--d,0ms);}
+.slide.active .reveal,.slide.leaving .reveal{opacity:1;transform:none;}
+.slide:not(.active):not(.leaving) .reveal{transition:none;}
+
+/* contrast columns */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:46px;height:100%;}
+.col{border-radius:26px;padding:50px 54px;display:flex;flex-direction:column;}
+.col-dark{background:var(--ink);color:#f1ebe2;}
+.col-light{background:rgba(255,255,255,.72);border:2px solid var(--ink);}
+.col .ctitle{font-family:var(--serif);font-weight:500;font-size:48px;letter-spacing:-1px;}
+.col-dark .ctitle{color:#fff;}
+.col .csub{font-family:var(--mono);font-size:16px;text-transform:uppercase;
+  letter-spacing:2px;opacity:.6;margin-top:10px;}
+.col ul{list-style:none;margin-top:34px;display:flex;flex-direction:column;gap:24px;}
+.col li{font-family:var(--serif);font-size:33px;line-height:1.24;
+  display:flex;gap:18px;align-items:baseline;}
+.mark{font-family:var(--mono);font-weight:500;font-size:24px;flex:none;line-height:1;}
+.col-dark .mark{color:var(--muted-coral);}
+.col-light .mark{color:var(--green);}
+.boxnote{margin-top:auto;padding-top:30px;font-family:var(--mono);font-size:18px;
+  text-transform:uppercase;letter-spacing:2px;}
+.col-dark .boxnote{color:var(--muted-coral);}
+.col-light .boxnote{color:var(--green);}
+
+/* pipeline */
+.pipe{display:flex;align-items:stretch;height:100%;}
+.node{flex:1;background:rgba(255,255,255,.66);border:2px solid rgba(28,26,36,.22);
+  border-radius:24px;padding:44px 34px;display:flex;flex-direction:column;}
+.node.accent{border-color:var(--coral);background:rgba(212,96,79,.07);}
+.node .ntag{font-family:var(--mono);font-size:15px;text-transform:uppercase;
+  letter-spacing:2px;color:var(--coral);}
+.node .ntitle{font-family:var(--serif);font-weight:500;font-size:46px;
+  margin-top:16px;letter-spacing:-1px;line-height:1.02;}
+.node .ndesc{font-family:var(--serif);font-style:italic;font-size:25px;
+  color:rgba(28,26,36,.7);margin-top:auto;padding-top:18px;line-height:1.3;}
+.harrow{flex:none;width:78px;align-self:center;color:var(--coral);}
+.harrow svg{display:block;width:100%;height:auto;}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:46px;
+  align-items:center;height:100%;}
+.stat{display:flex;flex-direction:column;align-items:flex-start;}
+.stat .fig{font-family:var(--serif);font-weight:500;font-size:172px;
+  line-height:.86;letter-spacing:-6px;}
+.stat .fig .u{color:var(--coral);}
+.stat .lbl{font-family:var(--serif);font-style:italic;font-size:30px;
+  line-height:1.3;margin-top:26px;color:rgba(28,26,36,.78);}
+
+/* emphasis strip */
+.strip{font-family:var(--serif);font-style:italic;font-size:38px;color:var(--ink);
+  border-top:1px solid rgba(28,26,36,.2);padding-top:30px;margin-top:8px;}
+
+/* map */
+.map{display:flex;align-items:center;justify-content:center;height:100%;gap:24px;}
+.phase{display:flex;flex-direction:column;align-items:flex-start;}
+.phase .pnum{font-family:var(--mono);font-size:22px;letter-spacing:3px;color:var(--coral);}
+.phase .pword{font-family:var(--serif);font-weight:500;font-size:90px;
+  line-height:.92;letter-spacing:-3px;margin-top:20px;}
+.phase .pword .top{display:block;color:var(--coral);font-style:italic;}
+.mapline{flex:none;width:120px;color:var(--violet);}
+.mapline svg{display:block;width:100%;height:auto;}
+
+/* hinge (vibing -> orchestrating) */
+.hinge{display:flex;align-items:center;justify-content:center;gap:54px;height:100%;}
+.hword{font-family:var(--serif);font-weight:500;font-size:128px;letter-spacing:-4px;line-height:1;}
+.hword.from{color:rgba(28,26,36,.38);}
+.hword.to{color:var(--ink);}
+.bigarrow{flex:none;width:160px;color:var(--coral);}
+.bigarrow svg{display:block;width:100%;height:auto;}
+
+/* timeline bars */
+.bars{display:flex;flex-direction:column;gap:50px;}
+.bar-cap{font-family:var(--mono);font-size:18px;text-transform:uppercase;
+  letter-spacing:2px;color:rgba(28,26,36,.55);margin-bottom:16px;}
+.bar-cap b{color:var(--ink);font-weight:500;}
+.bar-line{display:flex;align-items:center;gap:26px;}
+.track{height:74px;border-radius:14px;width:0;
+  transition:width 1s cubic-bezier(.2,.8,.2,1) var(--d,0ms);}
+.t-grey{background:rgba(28,26,36,.14);}
+.t-coral{background:var(--coral);min-width:24px;}
+.t-navy{background:var(--ink);}
+.bar-val{font-family:var(--mono);font-size:24px;text-transform:uppercase;
+  letter-spacing:2px;color:var(--ink);white-space:nowrap;}
+.slide.active .t-grey,.slide.leaving .t-grey{width:84%;}
+.slide.active .t-coral,.slide.leaving .t-coral{width:3.5%;}
+.slide.active .t-navy,.slide.leaving .t-navy{width:22%;}
+
+/* curve chart */
+.chartwrap{flex:1;min-height:0;display:flex;align-items:center;}
+.chart{width:100%;height:100%;}
+.curve{fill:none;stroke-width:6;stroke-linecap:round;
+  stroke-dasharray:1;stroke-dashoffset:1;
+  transition:stroke-dashoffset 1.4s ease var(--d,0ms);}
+.slide.active .curve,.slide.leaving .curve{stroke-dashoffset:0;}
+.axis{stroke:rgba(28,26,36,.28);stroke-width:2;}
+.axislabel{font-family:var(--mono);font-size:18px;letter-spacing:2px;
+  text-transform:uppercase;fill:rgba(28,26,36,.5);}
+.curvelabel{font-family:var(--serif);font-style:italic;font-size:30px;}
+
+/* numbered reasons */
+.reasons{display:flex;flex-direction:column;gap:40px;}
+.reason{display:flex;gap:26px;align-items:flex-start;}
+.reason .rn{font-family:var(--serif);font-weight:500;font-size:64px;
+  color:var(--coral);line-height:1;flex:none;letter-spacing:-2px;}
+.reason .rt{font-family:var(--serif);font-weight:500;font-size:44px;letter-spacing:-1px;}
+.reason .rd{font-family:var(--serif);font-style:italic;font-size:28px;
+  color:rgba(28,26,36,.72);line-height:1.35;margin-top:8px;}
+
+/* placeholders */
+.ph{border:2px dashed rgba(28,26,36,.4);border-radius:24px;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  font-family:var(--mono);font-size:18px;text-transform:uppercase;letter-spacing:2px;
+  color:rgba(28,26,36,.5);padding:40px;background:rgba(255,255,255,.35);}
+.ph-phone{width:430px;height:100%;border-radius:54px;border-width:3px;margin:0 auto;}
+.ph-phone .notch{position:absolute;}
+.phonewrap{position:relative;height:100%;display:flex;justify-content:center;}
+
+/* big faint ? */
+.ghostq{position:absolute;font-family:var(--serif);font-weight:500;
+  font-size:1180px;line-height:1;color:rgba(28,26,36,.06);
+  top:-360px;right:-30px;pointer-events:none;z-index:0;}
+
+/* QR placeholder */
+.qrbox{width:300px;height:300px;border:2px solid var(--ink);border-radius:20px;
+  padding:24px;background:#fff;position:relative;display:grid;
+  grid-template-columns:repeat(7,1fr);grid-template-rows:repeat(7,1fr);gap:8px;}
+.qrbox i{background:rgba(28,26,36,.16);border-radius:3px;}
+.qrbox i.on{background:var(--ink);}
+.qrlabel{font-family:var(--mono);font-size:20px;text-transform:uppercase;
+  letter-spacing:2px;color:var(--coral);margin-top:24px;}
+
+/* progress bar (screen space, unscaled) */
+.progress{position:fixed;left:0;bottom:0;height:4px;background:var(--coral);
+  width:0;z-index:50;transition:width .5s ease;}
+
+/* first-slide nav hint */
+.hint{position:absolute;bottom:46px;left:50%;transform:translateX(-50%);
+  font-family:var(--mono);font-size:14px;text-transform:uppercase;letter-spacing:3px;
+  color:rgba(28,26,36,.4);z-index:6;transition:opacity .5s ease;}
+.hint.gone{opacity:0;}
+
+@media (prefers-reduced-motion: reduce){
+  .reveal,.track,.curve,.slide{transition:none!important;}
+}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <!-- ============ SLIDE 01 — HOOK ============ -->
+  <section class="slide" data-i="1">
+    <div class="wash"></div>
+    <div class="ghostq">?</div>
+    <div class="grain"></div>
+    <header class="topbar"><div>Learn to ship native, with AI</div>
+      <div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+    <div class="body center">
+      <div class="kicker reveal" style="--d:60ms">To start</div>
+      <h1 class="headline h-lg reveal" style="--d:200ms;margin-top:36px;max-width:1500px">
+        How many of you have an app idea<br>
+        you <span class="grad-underline">haven't built</span> yet?
+      </h1>
+    </div>
+    <footer class="footer"><div>01 / 17</div><div>Design + AI launch event</div></footer>
+  </section>
+
+  <!-- ============ SLIDE 02 — MIGRAPULSE ============ -->
+  <section class="slide" data-i="2">
+    <div class="wash"></div><div class="grain"></div>
+    <header class="topbar"><div>Learn to ship native, with AI</div>
+      <div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+    <div class="body">
+      <div style="display:grid;grid-template-columns:1.15fr .85fr;gap:64px;height:100%;align-items:center">
+        <div>
+          <div class="kicker reveal" style="--d:60ms">What I built</div>
+          <h1 class="headline h-md reveal" style="--d:160ms;margin-top:28px">
+            This is <span class="ci">Migrapulse.</span>
+          </h1>
+          <div style="margin-top:44px;display:flex;flex-direction:column;gap:22px">
+            <div class="sub reveal" style="--d:300ms;font-size:38px">Voice-first migraine tracker.</div>
+            <div class="sub reveal" style="--d:420ms;font-size:38px">Live in the App Store, with real users.</div>
+            <div class="sub reveal" style="--d:540ms;font-size:38px">Built with AI — and I'm a designer, not a developer.</div>
+          </div>
+        </div>
+        <div class="phonewrap reveal" style="--d:360ms">
+          <div class="ph ph-phone">Migrapulse screenshot<br>— swap in later</div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer"><div>02 / 17</div><div>Two months in Lovable first — then I started over</div></footer>
+  </section>
+
+  <!-- ============ SLIDE 03 — INFLATABLE FURNITURE ============ -->
+  <section class="slide" data-i="3">
+    <div class="wash"></div><div class="grain"></div>
+    <header class="topbar"><div>Learn to ship native, with AI</div>
+      <div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+    <div class="body center">
+      <div class="kicker reveal" style="--d:60ms">The problem</div>
+      <h1 class="headline h-md reveal" style="--d:200ms;margin-top:30px;max-width:1560px">
+        A vibe-coded app is<br><span class="ci">inflatable furniture.</span>
+      </h1>
+      <div class="sub reveal" style="--d:420ms;font-size:46px;margin-top:46px">
+        Looks great. Until you sit on it.
+      </div>
+    </div>
+    <footer class="footer"><div>03 / 17</div><div>Fast to make · familiar shape · the air goes out</div></footer>
+  </section>
+
+  <!-- ============ SLIDE 04 — GAMBLING ============ -->
+  <section class="slide" data-i="4">
+    <div class="wash"></div><div class="grain"></div>
+    <header class="topbar"><div>Learn to ship native, with AI</div>
+      <div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+    <div class="body">
+      <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:64px;height:100%;align-items:center">
+        <div>
+          <div class="kicker reveal" style="--d:60ms">My false start</div>
+          <h1 class="headline h-md reveal" style="--d:160ms;margin-top:28px">
+            I tried Lovable.<br>It felt like <span class="ci">gambling.</span>
+          </h1>
+          <div style="margin-top:42px;display:flex;flex-direction:column;gap:18px">
+            <div class="sub reveal" style="--d:340ms;font-size:40px">Pull the lever. Maybe it works.</div>
+            <div class="sub reveal" style="--d:460ms;font-size:40px">Two months. No app.</div>
+          </div>
+        </div>
+        <div class="reveal" style="--d:320ms;height:100%">
+          <div class="ph" style="height:100%">Slot machine /<br>gambling image</div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer"><div>04 / 17</div><div>Great for some things. Not for this.</div></footer>
+  </section>
+
+  <!-- ============ SLIDE 05 — HINGE: VIBING → ORCHESTRATING ============ -->
+  <section class="slide" data-i="5">
+    <div class="wash"></div><div class="grain"></div>
+    <header class="topbar"><div>Learn to ship native, with AI</div>
+      <div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+    <div class="body center">
+      <div class="kicker reveal" style="--d:60ms;text-align:center;width:100%">The level-up</div>
+      <div class="hinge" style="flex:none;height:auto;margin-top:50px">
+        <div class="hword from reveal" style="--d:200ms">Vibing</div>
+        <div class="bigarrow reveal" style="--d:420ms">
+          <svg viewBox="0 0 160 40"><defs>
+            <linearGradient id="ga5" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="160" y2="0">
+              <stop offset="0" stop-color="#d4604f"/><stop offset="1" stop-color="#c074e8"/></linearGradient></defs>
+            <line x1="6" y1="20" x2="132" y2="20" stroke="url(#ga5)" stroke-width="6" stroke-linecap="round"/>
+            <path d="M126 7 L152 20 L126 33" fill="none" stroke="url(#ga5)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="hword to reveal" style="--d:620ms">Orchestrating</div>
+      </div>
+      <div class="sub reveal" style="--d:820ms;font-size:42px;margin-top:56px;text-align:center;max-width:1400px;align-self:center">
+        Same energy. More control. The level-up when you hit the ceiling.
+      </div>
+    </div>
+    <footer class="footer"><div>05 / 17</div><div>Not anti-vibe — post-vibe</div></footer>
+  </section>
+
+  <!-- ============ SLIDE 06 — CURVE ============ -->
+  <section class="slide" data-i="6">
+    <div class="wash"></div><div class="grain"></div>
+    <header class="topbar"><div>Learn to ship native, with AI</div>
+      <div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+    <div class="body">
+      <div class="kicker reveal" style="--d:60ms">Effort in, quality out</div>
+      <h1 class="headline h-sm reveal" style="--d:160ms;margin-top:22px">
+        More effort. <span class="ci">Far higher ceiling.</span>
+      </h1>
+      <div class="chartwrap reveal" style="--d:260ms">
+        <svg class="chart" viewBox="0 0 1700 560" preserveAspectRatio="xMidYMid meet">
+          <!-- axes -->
+          <line class="axis" x1="120" y1="40" x2="120" y2="500"/>
+          <line class="axis" x1="120" y1="500" x2="1640" y2="500"/>
+          <text class="axislabel" x="120" y="28" text-anchor="middle">Quality</text>
+          <text class="axislabel" x="1640" y="535" text-anchor="end">Effort</text>
+          <!-- pure vibes: fast rise, low plateau -->
+          <path class="curve" pathLength="1" stroke="#d4604f" style="--d:340ms"
+            d="M120 500 C 260 250, 360 180, 560 175 C 900 168, 1300 168, 1640 165"/>
+          <!-- structured: slow start, steep, no ceiling -->
+          <path class="curve" pathLength="1" stroke="#1c1a24" style="--d:520ms"
+            d="M120 500 C 380 480, 560 430, 760 330 C 1000 210, 1250 110, 1640 60"/>
+          <!-- crossover dot (sits on the intersection of the two curves) -->
+          <circle cx="1175" cy="168" r="11" fill="#c074e8" class="reveal" style="--d:1500ms"/>
+          <text class="curvelabel reveal" style="--d:1560ms" x="1175" y="132" text-anchor="middle" fill="#c074e8">crossover</text>
+          <!-- curve labels -->
+          <text class="curvelabel" x="1632" y="150" text-anchor="end" fill="#d4604f">Pure vibes</text>
+          <text class="curvelabel" x="1632" y="48" text-anchor="end" fill="#1c1a24">Structured</text>
+        </svg>
+      </div>
+    </div>
+    <footer class="footer"><div>06 / 17</div><div>Higher than vibes — but a working model comes soon</div></footer>
+  </section>
+
+  <!-- ============ SLIDE 07 — TIMELINE ============ -->
+  <section class="slide" data-i="7">
+    <div class="wash"></div><div class="grain"></div>
+    <header class="topbar"><div>Learn to ship native, with AI</div>
+      <div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+    <div class="body">
+      <div class="kicker reveal" style="--d:60ms">The effort, in proportion</div>
+      <h1 class="headline h-sm reveal" style="--d:160ms;margin-top:22px">
+        More than a day. <span class="ci">Still almost nothing.</span>
+      </h1>
+      <div class="fill" style="display:flex;flex-direction:column;justify-content:center">
+        <div class="bars">
+          <div>
+            <div class="bar-cap reveal" style="--d:240ms">The old way · <b>with a dev team</b></div>
+            <div class="bar-line"><div class="track t-grey" style="--d:240ms"></div>
+              <div class="bar-val reveal" style="--d:700ms">Months</div></div>
+          </div>
+          <div>
+            <div class="bar-cap reveal" style="--d:360ms">Pure vibes · <b>one big prompt</b></div>
+            <div class="bar-line"><div class="track t-coral" style="--d:360ms"></div>
+              <div class="bar-val reveal" style="--d:760ms">A day</div></div>
+          </div>
+          <div>
+            <div class="bar-cap reveal" style="--d:480ms">My way · <b>vibe-designed</b></div>
+            <div class="bar-line"><div class="track t-navy" style="--d:480ms"></div>
+              <div class="bar-val reveal" style="--d:820ms">~2 weeks</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="strip reveal" style="--d:900ms">We've convinced ourselves it should take a day. It shouldn't.</div>
+    </div>
+    <footer class="footer"><div>07 / 17</div><div>10× the effort of vibes · a fraction of the old way</div></footer>
+  </section>
+
+  <!-- ============ SLIDE 08 — WHY APPS (STATS) ============ -->
+  <section class="slide" data-i="8">
+    <div class="wash"></div><div class="grain"></div>
+    <header class="topbar"><div>Learn to ship native, with AI</div>
+      <div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+    <div class="body">
+      <div class="kicker reveal" style="--d:60ms">Why apps</div>
+      <h1 class="headline h-sm reveal" style="--d:160ms;margin-top:22px">
+        Apps are still <span class="ci">a moat.</span>
+      </h1>
+      <div class="fill" style="display:flex;align-items:center">
+        <div class="stats">
+          <div class="stat reveal" style="--d:300ms">
+            <div class="fig"><span class="u">+</span>24<span class="u">%</span></div>
+            <div class="lbl">Fitness-app revenue growth in a single year.</div>
+          </div>
+          <div class="stat reveal" style="--d:440ms">
+            <div class="fig">500<span class="u">M+</span></div>
+            <div class="lbl">People store health data in Apple Health.</div>
+          </div>
+          <div class="stat reveal" style="--d:580ms">
+            <div class="fig">2<span class="u">wks</span></div>
+            <div class="lbl">Nothing to live. No developer.</div>
+          </div>
+        </div>
+      </div>
+      <div class="strip reveal" style="--d:700ms">Web is easy to copy. Native — and on-device — is not.</div>
+    </div>
+    <footer class="footer"><div>08 / 17</div><div>Health &amp; tracking · hardware access · people pay for quality</div></footer>
+  </section>
+
+  <!-- ============ SLIDE 09 — THE MAP ============ -->
+  <section class="slide" data-i="9">
+    <div class="wash"></div><div class="grain"></div>
+    <header class="topbar"><div>Learn to ship native, with AI</div>
+      <div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+    <div class="body">
+      <div class="kicker reveal" style="--d:60ms">The map</div>
+      <div class="fill" style="display:flex;flex-direction:column;justify-content:center">
+        <div class="map">
+          <div class="phase reveal" style="--d:200ms">
+            <div class="pnum">01</div>
+            <div class="pword"><span class="top">Vibe</span>Design</div>
+          </div>
+          <div class="mapline reveal" style="--d:360ms">
+            <svg viewBox="0 0 120 40"><defs>
+              <linearGradient id="ml1" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="120" y2="0">
+                <stop offset="0" stop-color="#d4604f"/><stop offset="1" stop-color="#c074e8"/></linearGradient></defs>
+              <line x1="4" y1="20" x2="96" y2="20" stroke="url(#ml1)" stroke-width="4" stroke-linecap="round"/>
+              <path d="M90 9 L114 20 L90 31" fill="none" stroke="url(#ml1)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="phase reveal" style="--d:520ms">
+            <div class="pnum">02</div>
+            <div class="pword"><span class="top">Agentic</span>Build</div>
+          </div>
+          <div class="mapline reveal" style="--d:680ms">
+            <svg viewBox="0 0 120 40"><defs>
+              <linearGradient id="ml2" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="120" y2="0">
+                <stop offset="0" stop-color="#d4604f"/><stop offset="1" stop-color="#c074e8"/></linearGradient></defs>
+              <line x1="4" y1="20" x2="96" y2="20" stroke="url(#ml2)" stroke-width="4" stroke-linecap="round"/>
+              <path d="M90 9 L114 20 L90 31" fill="none" stroke="url(#ml2)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="phase reveal" style="--d:840ms">
+            <div class="pnum">03</div>
+            <div class="pword"><span class="top">AI-Assisted</span>Ship</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer"><div>09 / 17</div><div>Full detail → four-hour video</div></footer>
+  </section>
+
+  <!-- ============ SLIDE 10 — BLACK BOX VS OPEN ============ -->
+  <section class="slide" data-i="10">
+    <div class="wash"></div><div class="grain"></div>
+    <header class="topbar"><div>Learn to ship native, with AI</div>
+      <div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+    <div class="body">
+      <div class="kicker reveal" style="--d:60ms">The same job, two ways</div>
+      <h1 class="headline h-sm reveal" style="--d:140ms;margin-top:18px;margin-bottom:36px">
+        A black box — or <span class="ci">every step in the open.</span>
+      </h1>
+      <div class="fill">
+        <div class="cols">
+          <div class="col col-dark reveal" style="--d:260ms">
+            <div class="ctitle">Vibe coding</div>
+            <div class="csub">Prompt in → app out</div>
+            <ul>
+              <li><span class="mark">?</span> One big prompt</li>
+              <li><span class="mark">?</span> AI guesses the design</li>
+              <li><span class="mark">?</span> You can't see inside</li>
+              <li><span class="mark">?</span> "Looks done" → ship</li>
+            </ul>
+            <div class="boxnote">▓ a black box ▓</div>
+          </div>
+          <div class="col col-light reveal" style="--d:400ms">
+            <div class="ctitle">My way</div>
+            <div class="csub">Vibes in → structure out</div>
+            <ul>
+              <li><span class="mark">→</span> Inspiration, then a doc</li>
+              <li><span class="mark">→</span> Designed, exported as HTML</li>
+              <li><span class="mark">→</span> Built step by step</li>
+              <li><span class="mark">→</span> Reviewed by a panel of experts</li>
+            </ul>
+            <div class="boxnote">every step in the open</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer"><div>10 / 17</div><div>Vibe-designed, not vibe-coded</div></footer>
+  </section>
+
+  <!-- ============ SLIDE 11 — MARKDOWN / RECIPE ============ -->
+  <section class="slide" data-i="11">
+    <div class="wash"></div><div class="grain"></div>
+    <header class="topbar"><div>Learn to ship native, with AI</div>
+      <div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+    <div class="body">
+      <div class="kicker reveal" style="--d:60ms">The document in the middle</div>
+      <h1 class="headline h-sm reveal" style="--d:140ms;margin-top:18px;margin-bottom:34px">
+        A chat is shouting. <span class="ci">A doc is the recipe.</span>
+      </h1>
+      <div class="fill">
+        <div class="cols">
+          <div class="col col-dark reveal" style="--d:260ms">
+            <div class="ctitle">Just chatting</div>
+            <div style="font-family:var(--serif);font-size:36px;line-height:1.32;margin-top:34px">
+              Like shouting instructions across a noisy kitchen. Gone the moment it's said.
+            </div>
+            <div class="boxnote">here → gone</div>
+          </div>
+          <div class="col col-light reveal" style="--d:400ms">
+            <div class="ctitle">A markdown doc</div>
+            <div style="font-family:var(--serif);font-size:36px;line-height:1.32;margin-top:34px">
+              The written recipe. Anyone — including the AI, next time — can pick it up and make the same dish.
+            </div>
+            <div class="boxnote">written → repeatable</div>
+          </div>
+        </div>
+      </div>
+      <div class="strip reveal" style="--d:560ms">Markdown = plain text, lightly structured. Readable by you and the AI at the same time.</div>
+    </div>
+    <footer class="footer"><div>11 / 17</div><div>instructions.md — the shared language</div></footer>
+  </section>
+
+  <!-- ============ SLIDE 12 — PHASE 01 DESIGN (CONTRAST) ============ -->
+  <section class="slide" data-i="12">
+    <div class="wash"></div><div class="grain"></div>
+    <header class="topbar"><div>Learn to ship native, with AI</div>
+      <div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+    <div class="body">
+      <div class="phasenum reveal" style="--d:60ms"><b>Phase 01</b> — Design</div>
+      <h1 class="headline h-sm reveal" style="--d:140ms;margin-top:16px;margin-bottom:32px">
+        Rich context in. <span class="ci">Original out.</span>
+      </h1>
+      <div class="fill">
+        <div class="cols">
+          <div class="col col-dark reveal" style="--d:260ms">
+            <div class="ctitle">Vibe coding</div>
+            <ul>
+              <li><span class="mark">?</span> "Make it look like Calm"</li>
+              <li><span class="mark">?</span> Hand off a couple of images</li>
+              <li><span class="mark">?</span> Aim for speed</li>
+              <li><span class="mark">?</span> Get back the average</li>
+            </ul>
+          </div>
+          <div class="col col-light reveal" style="--d:400ms">
+            <div class="ctitle">My way</div>
+            <ul>
+              <li><span class="mark">→</span> Dictate everything — go mad</li>
+              <li><span class="mark">→</span> Ask AI to pull out a structured brief</li>
+              <li><span class="mark">→</span> Design in UX Pilot, export HTML</li>
+              <li><span class="mark">→</span> Refine here, before you build</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer"><div>12 / 17</div><div>Dictation is the unlock · richer in = more original out</div></footer>
+  </section>
+
+  <!-- ============ SLIDE 13 — PHASE 01 FLOW ============ -->
+  <section class="slide" data-i="13">
+    <div class="wash"></div><div class="grain"></div>
+    <header class="topbar"><div>Learn to ship native, with AI</div>
+      <div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+    <div class="body">
+      <div class="phasenum reveal" style="--d:60ms"><b>Phase 01</b> — Design · the flow</div>
+      <h1 class="headline h-sm reveal" style="--d:140ms;margin-top:16px;margin-bottom:36px">
+        From a ramble to <span class="ci">real screens.</span>
+      </h1>
+      <div class="fill">
+        <div class="pipe">
+          <div class="node reveal" style="--d:260ms">
+            <div class="ntag">In</div><div class="ntitle">Your voice</div>
+            <div class="ndesc">Messy, rich, dictated.</div></div>
+          <div class="harrow reveal" style="--d:360ms"><svg viewBox="0 0 78 24"><line x1="2" y1="12" x2="60" y2="12" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M56 4 L74 12 L56 20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="node reveal" style="--d:440ms">
+            <div class="ntag">AI structures it</div><div class="ntitle">The brief</div>
+            <div class="ndesc">Your ramble, made legible.</div></div>
+          <div class="harrow reveal" style="--d:540ms"><svg viewBox="0 0 78 24"><line x1="2" y1="12" x2="60" y2="12" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M56 4 L74 12 L56 20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="node accent reveal" style="--d:620ms">
+            <div class="ntag">Design tool</div><div class="ntitle">UX Pilot</div>
+            <div class="ndesc">Design, then export HTML.</div></div>
+          <div class="harrow reveal" style="--d:720ms"><svg viewBox="0 0 78 24"><line x1="2" y1="12" x2="60" y2="12" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M56 4 L74 12 L56 20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="node reveal" style="--d:800ms">
+            <div class="ntag">Out</div><div class="ntitle">Real screens</div>
+            <div class="ndesc">Yours, not the average.</div></div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer"><div>13 / 17</div><div>Refine here — changes are cheap before you build</div></footer>
+  </section>
+
+  <!-- ============ SLIDE 14 — PHASE 02 BUILD (CONTRAST) ============ -->
+  <section class="slide" data-i="14">
+    <div class="wash"></div><div class="grain"></div>
+    <header class="topbar"><div>Learn to ship native, with AI</div>
+      <div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+    <div class="body">
+      <div class="phasenum reveal" style="--d:60ms"><b>Phase 02</b> — Build</div>
+      <h1 class="headline h-sm reveal" style="--d:140ms;margin-top:16px;margin-bottom:32px">
+        Like sitting next to <span class="ci">a developer.</span>
+      </h1>
+      <div class="fill">
+        <div class="cols">
+          <div class="col col-dark reveal" style="--d:260ms">
+            <div class="ctitle">Vibe coding</div>
+            <ul>
+              <li><span class="mark">?</span> One big prompt</li>
+              <li><span class="mark">?</span> Lovable — can't see the guts</li>
+              <li><span class="mark">?</span> Hope it lands</li>
+              <li><span class="mark">?</span> No questions asked</li>
+            </ul>
+          </div>
+          <div class="col col-light reveal" style="--d:400ms">
+            <div class="ctitle">My way</div>
+            <ul>
+              <li><span class="mark">→</span> Cursor — an IDE, you see everything</li>
+              <li><span class="mark">→</span> Swap models when you need to</li>
+              <li><span class="mark">→</span> Build step by step</li>
+              <li><span class="mark">→</span> It asks you clarifying questions</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer"><div>14 / 17</div><div>This might age like milk — but it's been my experience</div></footer>
+  </section>
+
+  <!-- ============ SLIDE 15 — PHASE 02 FLOW ============ -->
+  <section class="slide" data-i="15">
+    <div class="wash"></div><div class="grain"></div>
+    <header class="topbar"><div>Learn to ship native, with AI</div>
+      <div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+    <div class="body">
+      <div class="phasenum reveal" style="--d:60ms"><b>Phase 02</b> — Build · the flow</div>
+      <h1 class="headline h-sm reveal" style="--d:140ms;margin-top:16px;margin-bottom:36px">
+        From the doc to <span class="ci">a working app.</span>
+      </h1>
+      <div class="fill">
+        <div class="pipe">
+          <div class="node reveal" style="--d:260ms">
+            <div class="ntag">In</div><div class="ntitle">The doc</div>
+            <div class="ndesc">instructions.md + the design HTML.</div></div>
+          <div class="harrow reveal" style="--d:380ms"><svg viewBox="0 0 78 24"><line x1="2" y1="12" x2="60" y2="12" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M56 4 L74 12 L56 20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="node accent reveal" style="--d:500ms">
+            <div class="ntag">Agentic build</div><div class="ntitle">Cursor</div>
+            <div class="ndesc">Step by step. You watch. It asks questions.</div></div>
+          <div class="harrow reveal" style="--d:620ms"><svg viewBox="0 0 78 24"><line x1="2" y1="12" x2="60" y2="12" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M56 4 L74 12 L56 20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="node reveal" style="--d:740ms">
+            <div class="ntag">Out</div><div class="ntitle">A working app</div>
+            <div class="ndesc">Native code, running in the simulator.</div></div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer"><div>15 / 17</div><div>The doc is the queue · Cursor is the worker · you're the reviewer</div></footer>
+  </section>
+
+  <!-- ============ SLIDE 16 — WHY IT MATTERS (HEALTH DATA) ============ -->
+  <section class="slide" data-i="16">
+    <div class="wash"></div><div class="grain"></div>
+    <header class="topbar"><div>Learn to ship native, with AI</div>
+      <div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+    <div class="body">
+      <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:64px;height:100%;align-items:center">
+        <div>
+          <div class="kicker reveal" style="--d:60ms">Why care about quality</div>
+          <h1 class="headline h-sm reveal" style="--d:160ms;margin-top:22px;margin-bottom:46px">
+            With health data, <span class="ci">trust is the product.</span>
+          </h1>
+          <div class="reasons">
+            <div class="reason reveal" style="--d:320ms">
+              <div class="rn">1</div>
+              <div><div class="rt">You can't hotfix.</div>
+                <div class="rd">Every fix goes through App Store review. No instant rollback.</div></div>
+            </div>
+            <div class="reason reveal" style="--d:460ms">
+              <div class="rn">2</div>
+              <div><div class="rt">Databases bite hardest.</div>
+                <div class="rd">Vibe your schema, ship an update, break people's data — gone for good.</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal" style="--d:380ms;height:100%">
+          <div class="ph" style="height:100%">Competitor review screenshot<br>— "my data is gone"</div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer"><div>16 / 17</div><div>People aren't forgiving when an update breaks everything</div></footer>
+  </section>
+
+  <!-- ============ SLIDE 17 — TAKEAWAY + QR ============ -->
+  <section class="slide" data-i="17">
+    <div class="wash"></div><div class="grain"></div>
+    <header class="topbar"><div>Learn to ship native, with AI</div>
+      <div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+    <div class="body">
+      <div style="display:grid;grid-template-columns:1.35fr .65fr;gap:56px;height:100%;align-items:center">
+        <div>
+          <div class="kicker reveal" style="--d:60ms">The takeaway</div>
+          <h1 class="headline h-xl reveal" style="--d:200ms;margin-top:26px">
+            It doesn't look<br>vibe-coded —<br>because <span class="ci">it isn't.</span>
+          </h1>
+          <div class="sub reveal" style="--d:520ms;font-size:40px;margin-top:42px">
+            It's vibe-designed. Built deliberately, step by step.
+          </div>
+        </div>
+        <div class="reveal" style="--d:600ms;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;height:100%">
+          <div class="qrbox" id="qrbox"></div>
+          <div class="qrlabel">The full how-to →</div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer"><div>17 / 17</div><div>See you at the conference in September</div></footer>
+  </section>
+
+</div><!-- /deck -->
+
+<div class="progress" id="progress"></div>
+<div class="hint" id="hint">→ or space to advance</div>
+
+<script>
+(function(){
+  var deck = document.getElementById('deck');
+  var slides = Array.prototype.slice.call(deck.querySelectorAll('.slide'));
+  var progress = document.getElementById('progress');
+  var hint = document.getElementById('hint');
+  var cur = -1;
+
+  // scale stage to fit viewport
+  function fit(){
+    var s = Math.min(window.innerWidth/1920, window.innerHeight/1080);
+    deck.style.transform = 'translate(-50%,-50%) scale(' + s + ')';
+  }
+  window.addEventListener('resize', fit); fit();
+
+  // build the faux-QR pattern (deterministic, decorative placeholder)
+  var qr = document.getElementById('qrbox');
+  if(qr){
+    var pat = [1,1,1,0,1,1,1, 1,0,1,0,0,0,1, 1,1,0,1,1,0,1,
+              0,0,1,0,1,1,0, 1,0,1,1,0,1,0, 1,0,0,0,1,0,1, 1,1,1,0,1,1,1];
+    for(var k=0;k<49;k++){ var c=document.createElement('i'); if(pat[k])c.className='on'; qr.appendChild(c); }
+  }
+
+  function show(n){
+    n = Math.max(0, Math.min(slides.length-1, n));
+    if(n === cur) return;
+    if(cur >= 0){
+      var prev = slides[cur];
+      prev.classList.add('leaving');
+      prev.classList.remove('active');
+      (function(p){
+        clearTimeout(p._t);
+        p._t = setTimeout(function(){ p.classList.remove('leaving'); }, 650);
+      })(prev);
+    }
+    slides[n].classList.add('active');
+    cur = n;
+    progress.style.width = ((cur+1)/slides.length*100) + '%';
+    if(location.hash !== '#'+(cur+1)) history.replaceState(null,'','#'+(cur+1));
+    if(cur > 0) hint.classList.add('gone');
+  }
+  function next(){ show(cur+1); }
+  function prev(){ show(cur-1); }
+
+  document.addEventListener('keydown', function(e){
+    switch(e.key){
+      case 'ArrowRight': case 'PageDown': case ' ': case 'Spacebar':
+        e.preventDefault(); next(); break;
+      case 'ArrowDown': e.preventDefault(); next(); break;
+      case 'ArrowLeft': case 'PageUp': case 'ArrowUp':
+        e.preventDefault(); prev(); break;
+      case 'Home': e.preventDefault(); show(0); break;
+      case 'End': e.preventDefault(); show(slides.length-1); break;
+      case 'f': case 'F':
+        if(document.fullscreenElement) document.exitFullscreen();
+        else document.documentElement.requestFullscreen(); break;
+    }
+  });
+  // click advances; click on far-left 22% goes back
+  document.addEventListener('click', function(e){
+    if(e.clientX < window.innerWidth*0.22) prev(); else next();
+  });
+
+  // start at hash or slide 1
+  var start = parseInt((location.hash||'').replace('#',''),10);
+  if(!(start>=1 && start<=slides.length)) start = 1;
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ show(start-1); }); });
+})();
+</script>
+</body>
+</html>
