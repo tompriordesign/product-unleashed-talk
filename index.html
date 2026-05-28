@@ -108,10 +108,10 @@ body{font-family:var(--sans);-webkit-font-smoothing:antialiased;text-rendering:o
 /* slides stack; cross-dissolve via opacity + a "leaving" hold layer */
 .slide{position:absolute;inset:0;width:1920px;height:1080px;
   background:var(--cream);overflow:hidden;color:var(--ink);
-  opacity:0;z-index:0;pointer-events:none;
-  transition:opacity .6s ease;will-change:opacity;}
-.slide.leaving{opacity:1;z-index:1;transition:none;}
-.slide.active{opacity:1;z-index:2;pointer-events:auto;}
+  opacity:0;z-index:0;pointer-events:none;visibility:hidden;
+  transition:opacity .6s ease;}
+.slide.leaving{opacity:1;z-index:1;visibility:visible;transition:none;will-change:opacity;}
+.slide.active{opacity:1;z-index:2;pointer-events:auto;visibility:visible;will-change:opacity;}
 
 /* gradient wash + grain (every slide) */
 .wash{position:absolute;inset:0;pointer-events:none;
