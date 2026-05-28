@@ -19,26 +19,30 @@ deployed on Vercel and viewed on a phone.
   `build_fonts.py` (it fetches Google Fonts and needs internet, which the cloud
   sandbox blocks). The fonts are already embedded in `fonts_embedded.css`.
 
-## Ship to production + live link (USER PREFERENCE — do this every change)
+## Workflow: explore via HTML file, ship on approval (USER PREFERENCE)
 
-Tom wants every change pushed straight to production and a direct link to the
-exact slide on the live site. This is pre-authorized — do NOT ask first.
+Tom's chosen loop (set 2026-05-28) for iterating on slides:
 
-After each change: `python3 build_deck.py`, commit BOTH files, push the working
-branch, then merge to `main` (Vercel auto-deploys production from `main`).
+1. Edit `deck.template.html`, then `python3 build_deck.py`.
+2. **Send the rebuilt self-contained `index.html` to Tom as a file**
+   (`SendUserFile`) so he opens the live interactive deck in a browser; tell him
+   the slide number. He wants the real HTML to interact with — do NOT send PNG
+   screenshots, and do NOT deploy just to preview. `index.html` is fully
+   self-contained (fonts/JS embedded), so it renders offline in any browser
+   (tap right = next, left 22% = back; append `#<n>` to deep-link).
+3. **Only when Tom approves**, ship to production: commit BOTH
+   `deck.template.html` and `index.html`, push the working branch, then merge to
+   `main` (Vercel auto-deploys production). Pre-authorized once he approves — he
+   can also say "push it live" anytime.
+4. After pushing, reply with a **cache-busted deep link** to that slide:
+   ```
+   https://product-unleashed-talk.vercel.app/?v=<short-sha>#<slide-number>
+   ```
+   `?v=<short-sha>` busts mobile Safari's cache; `#<n>` deep-links the slide (1–17).
 
-Then reply with a **cache-busted deep link to the slide we're working on**:
-```
-https://product-unleashed-talk.vercel.app/?v=<short-sha>#<slide-number>
-```
-- `?v=<short-sha>` (the new commit's short SHA) busts mobile Safari's cache so
-  the latest deploy loads.
-- `#<slide-number>` deep-links to that slide (the deck reads `location.hash`,
-  valid 1–17).
-
-Production URL: `product-unleashed-talk.vercel.app`. Vercel **preview** URLs sit
-behind Deployment Protection (403 on phone), so previews are useless on mobile —
-that's why we ship to production directly.
+Production URL: `product-unleashed-talk.vercel.app`. Vercel preview URLs are 403
+behind Deployment Protection (useless on phone) — that's why we send the HTML
+file for review and ship straight to production on approval.
 
 ## Verifying
 
