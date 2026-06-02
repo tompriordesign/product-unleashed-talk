@@ -578,6 +578,9 @@
     border-radius: 4px;
     flex: none;
   }
+  .bse-ref-tag.t-screen { color: #b86f3a; background: rgba(184,111,58,0.14); }
+  .bse-ref-tag.t-user   { color: #3a6b8b; background: rgba(58,107,139,0.14); }
+  .bse-ref-tag.t-data   { color: #6a4a8b; background: rgba(106,74,139,0.14); }
   .bse-arrow {
     align-self: center;
     font-family: var(--serif);
@@ -613,7 +616,7 @@
      SLIDE 10 · RULE V · UNDERSTAND YOUR SCHEMA (1-star review)
      ========================================================= */
   .review-stage {
-    margin-top: 56px;
+    margin-top: 100px;
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
     gap: 80px;
@@ -675,17 +678,18 @@
   }
   .payoff-h .accent { color: var(--coral); font-style: italic; }
   .payoff-stage {
-    margin-top: 40px;
+    margin-top: 96px;
     display: grid;
     grid-template-columns: 1fr;
     gap: 36px;
     align-items: center;
-    max-width: 1500px;
-    margin-left: auto; margin-right: auto;
+    width: 100%;
+    max-width: none;
   }
   .payoff-bars {
     display: flex; flex-direction: column;
-    gap: 36px;
+    gap: 52px;
+    width: 100%;
   }
   .payoff-curve-stage {
     margin-top: 32px;
@@ -704,7 +708,7 @@
     display: flex; align-items: center; gap: 22px;
   }
   .proportion-track {
-    height: 96px; border-radius: 12px;
+    height: 112px; border-radius: 14px;
     flex: none;
     min-width: 6px;
   }
@@ -1212,7 +1216,6 @@ And — quick aside — if you're a migraine sufferer, or just curious about Mig
           <div class="stack-name"><em>Runway</em></div>
         </div>
       </div>
-      <div class="strip">Anyone selling <em>"App Store in 30 minutes"</em> is wrong. It's worth the effort. Give it the time.</div>
     </div>
     <aside class="speaker-notes" hidden>**Rule two. Set yourself up for success — and realistic expectations.** Not just the stack. **The time and the money you give it.** If you see a video promising "App Store in 30 minutes" — **they're wrong.** Here's what actually needs to be in place.
 
@@ -1260,7 +1263,6 @@ And — quick aside — if you're a migraine sufferer, or just curious about Mig
           <div class="design-screenshot-slot-fallback" style="display:none;">Save your screenshot as<br>ux-pilot.png<br>in the talk-deck folder</div>
         </div>
       </div>
-      <div class="strip">You describe. You collect. <em>You taste.</em> They structure and export HTML — what AI reads best.</div>
     </div>
     <aside class="speaker-notes" hidden>**Rule three. Design before you build.** Vibe-coding land says "skip design — just describe it and build." **Don't.** Design first. The breakthrough — **AI-specific design tools.** Not Figma. Not Sketch. **Tools built for AI to design with.** **UX Pilot** — my pick. Models tuned for design. **An entire end-to-end flow in an hour.** **Claude Design** — polish the screens. Refine by describing what you want. **Google Stitch** — generate from a brief. Iterate fast.
 
@@ -1277,9 +1279,9 @@ This is where designers shine. Because we **describe well.** We **collect refere
   <section class="slide" data-slide="rule-4a">
     <div class="content top">
       <div class="rule-kicker anim-fade-up">IV.</div>
-      <div class="h-rule">Vibes in. <span class="accent">Order out.</span></div>
-      <div class="md-tagline anim-fade-up" style="transition-delay: 120ms;">Talk it through. References, sketches, the lot — feed everything in. AI plays it back as <span class="filename">instructions.md</span>. <span class="em">The black box made visible.</span></div>
-      <div class="md-stage">
+      <div class="h-rule">Embrace <span class="filename" style="font-size: 0.82em;">instructions.md</span>.</div>
+      <div class="sub anim-fade-up" style="transition-delay: 120ms; margin-top: 22px;">Vibes in. <span class="em">Order out.</span></div>
+      <div class="md-stage" style="margin-top: 56px;">
         <div class="md-doc anim-fade-up" style="transition-delay: 200ms;">
           <div class="md-doc-header">
             <span class="md-doc-dot" style="background: #ff5f57;"></span>
@@ -1316,7 +1318,6 @@ This is where designers shine. Because we **describe well.** We **collect refere
           </div>
         </div>
       </div>
-      <div class="strip">Plan mode landing in every IDE is <em>the industry catching up to this.</em></div>
     </div>
     <aside class="speaker-notes" hidden>**Rule four. Vibes in. Order out.** **I'm very pro vibes. Vibes are the input.** Talk it through. References, sketches, mood, the lot — offload everything. **What you don't do is leave it as vibes.** AI plays your vibes back as a structured document. **`instructions.md`.** Plain text. Lightly structured. **You review the black box.** Instead of AI doing god-knows-what behind a chat window, the plan is on the table. **You can read it. You can edit it. You can spot the wrong-headed bit before it's wired into a thousand lines of Swift.** For Migrapulse — **186 numbered build steps.** Each cross-references the user stories, screens, and data it touches. **Nothing gets invented. Nothing drifts.** And — **plan mode landing in every IDE is the industry catching up to exactly this.**</aside>
   </section>
@@ -1327,16 +1328,16 @@ This is where designers shine. Because we **describe well.** We **collect refere
   <section class="slide" data-slide="rule-4b">
     <div class="content top">
       <div class="rule-kicker cont anim-fade-up">IV.<span>continued</span></div>
-      <div class="h-rule">One step. <span class="accent">All the references.</span></div>
+      <div class="h-rule">Build step <span class="accent">by step.</span></div>
       <div class="bse-stage">
         <div class="bse-step anim-fade-up" style="transition-delay: 80ms;">
           <div class="bse-step-label">Build step</div>
           <div class="bse-step-id">B-012</div>
           <div class="bse-step-title">Build the onboarding goals screen</div>
           <div class="bse-step-refs">
-            <div class="bse-ref"><span class="bse-ref-tag">S-005</span> Goals screen (HTML from UX Pilot)</div>
-            <div class="bse-ref"><span class="bse-ref-tag">U-002</span> Personalise the experience</div>
-            <div class="bse-ref"><span class="bse-ref-tag">D-004</span> User goals model</div>
+            <div class="bse-ref"><span class="bse-ref-tag t-screen">S-005</span> Goals screen (HTML from UX Pilot)</div>
+            <div class="bse-ref"><span class="bse-ref-tag t-user">U-002</span> Personalise the experience</div>
+            <div class="bse-ref"><span class="bse-ref-tag t-data">D-004</span> User goals model</div>
           </div>
         </div>
         <div class="bse-arrow anim-fade-in" style="transition-delay: 240ms;">→</div>
@@ -1377,7 +1378,6 @@ This is where designers shine. Because we **describe well.** We **collect refere
           AI is the friend who'll happily help you move house. <span class="em">It won't ask if your insurance is up to date.</span>
         </div>
       </div>
-      <div class="strip">Schema mistakes are permanent. Apple <em>won't roll you back.</em> Audit your save format every release.</div>
     </div>
     <aside class="speaker-notes" hidden>**Rule five. Understand your schema.** This is the rule that bites everyone. **AI will never ask "is this safe?"** AI is the friend who'll happily help you move house. **It won't check whether your insurance is up to date.** This is a real one-star review for a competitor's app. **"Latest update wiped 8 months of data."** A schema mistake shipped. The migration didn't account for an old field. On launch, the app saw it didn't match and **wiped the local store.** Eight months of someone's headache logs. **Gone.** Apple won't roll you back. There's no "undo" on a shipped iOS app. **Audit your save format before every release. Every release.** And — quick aside — **use a panel of AI reviewers.** Don't ask the chef to review their own cooking. Different agent for review than for build. Fresh context catches schema mistakes the builder talked itself past.</aside>
   </section>
@@ -1448,9 +1448,9 @@ This is where designers shine. Because we **describe well.** We **collect refere
     <div class="content">
       <div class="closing-h anim-fade-up">Your design skills<br>are <span class="accent">load-bearing.</span></div>
       <div class="closing-list">
-        <div class="closing-line anim-fade-up" style="transition-delay: 140ms;"><span class="label">App Store</span>review rewards polish AI doesn't volunteer.</div>
+        <div class="closing-line anim-fade-up" style="transition-delay: 140ms;"><span class="label">App Store</span>Review rewards polish AI doesn't volunteer.</div>
         <div class="closing-line anim-fade-up" style="transition-delay: 220ms;"><span class="label">Native</span>iOS conventions come from taste, not templates.</div>
-        <div class="closing-line anim-fade-up" style="transition-delay: 300ms;"><span class="label">Trust</span>users pay more for apps that feel <em>made.</em></div>
+        <div class="closing-line anim-fade-up" style="transition-delay: 300ms;"><span class="label">Trust</span>Users pay more for apps that feel <em>made.</em></div>
       </div>
       <div class="closing-coda anim-fade-up" style="transition-delay: 400ms;">AI handles the conventional. You handle the unsolved.</div>
     </div>
