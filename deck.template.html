@@ -37,16 +37,12 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;color:var(--fg)
 .slide.leaving{opacity:1;z-index:1;visibility:visible;transition:none;will-change:opacity}
 .slide.active{opacity:1;z-index:2;pointer-events:auto;visibility:visible;will-change:opacity}
 
-/* ────────────────────────────────────────────────
-   REVEAL — subtle staggered fade on .reveal children
-   ──────────────────────────────────────────────── */
+/* REVEAL — subtle staggered fade on .reveal children */
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease, transform .7s cubic-bezier(.2,.75,.25,1);transition-delay:var(--d,0ms)}
 .slide.active .reveal,.slide.leaving .reveal{opacity:1;transform:none}
 .slide:not(.active):not(.leaving) .reveal{transition:none}
 
-/* ────────────────────────────────────────────────
-   ANIMATIONS — for the boss slide
-   ──────────────────────────────────────────────── */
+/* ANIMATIONS — for the boss slide */
 @keyframes shake{0%,100%{transform:translate(0,0)}10%{transform:translate(-2px,1px)}25%{transform:translate(2px,-1px)}40%{transform:translate(-1px,0)}55%{transform:translate(1px,1px)}70%{transform:translate(-1px,-1px)}85%{transform:translate(2px,0)}}
 @keyframes drain{0%,15%{width:100%}25%{width:88%}45%{width:62%}68%{width:34%}85%,100%{width:6%}}
 @keyframes diedIn{0%,62%{opacity:0;transform:scale(.92)}72%{opacity:1;transform:scale(1.08)}76%{opacity:0;transform:scale(1.08)}82%,100%{opacity:1;transform:scale(1)}}
@@ -54,17 +50,13 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;color:var(--fg)
 .slide.active .hp-fill{animation:drain 4.5s ease-out forwards}
 .slide.active .footline{opacity:0;animation:diedIn 4.5s ease-out forwards}
 
-/* ────────────────────────────────────────────────
-   CHROME — topbar, footer, progress
-   ──────────────────────────────────────────────── */
+/* CHROME — topbar, footer, progress */
 .topbar{position:absolute;top:60px;left:var(--inset);right:var(--inset);display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--mono);font-size:16px;text-transform:uppercase;letter-spacing:3px;color:var(--fg-soft);font-weight:500;z-index:5}
 .topbar .meta{text-align:right;line-height:1.5}
 .footer{position:absolute;bottom:60px;left:var(--inset);right:var(--inset);display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:14px;text-transform:uppercase;letter-spacing:3px;color:var(--fg-faint);font-weight:500;z-index:5}
 .progress{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--accent);z-index:10;transition:width .5s ease}
 
-/* ────────────────────────────────────────────────
-   TYPOGRAPHY UTILITIES
-   ──────────────────────────────────────────────── */
+/* TYPOGRAPHY UTILITIES */
 .mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:3px;font-weight:500}
 .accent{color:var(--accent);font-weight:800;font-variation-settings:'opsz' 144,'SOFT' 60}
 .kicker{font-family:var(--mono);font-size:22px;text-transform:uppercase;letter-spacing:5px;color:var(--fg-soft);font-weight:500}
@@ -79,7 +71,7 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 .s-title .body{justify-content:space-between}
 .s-title h1{font-size:200px;max-width:1700px}
 
-/* SCREENSHOT (Lovable v0, rejection timeline) */
+/* SCREENSHOT (Lovable v0) */
 .s-screenshot .body{justify-content:space-between}
 .s-screenshot .frame{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 0}
 .s-screenshot .phone{width:520px;height:980px;background:linear-gradient(165deg,#1a1424 0%,#0e0a16 100%);border-radius:48px;border:2px solid var(--fg-faint);position:relative;overflow:hidden;display:flex;flex-direction:column;padding:80px 36px 60px;gap:18px}
@@ -91,6 +83,18 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 .s-screenshot .caption{font-family:var(--mono);font-size:18px;letter-spacing:3px;color:var(--fg-soft);text-transform:uppercase;font-weight:500;text-align:center}
 .s-screenshot .swap-label{position:absolute;top:120px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;background:var(--bg);padding:6px 12px;border:1px solid var(--accent);z-index:3}
 
+/* MOAT (ledger) */
+.s-moat .body{justify-content:space-between}
+.s-moat h1{font-size:200px;max-width:1500px}
+.s-moat .ledger{display:grid;grid-template-columns:1fr 1fr;gap:120px;position:relative;align-items:start;flex:1;padding-top:48px}
+.s-moat .ledger::before{content:'';position:absolute;left:50%;top:24px;bottom:24px;width:1px;background:rgba(244,236,217,.15)}
+.s-moat .col{display:flex;flex-direction:column;gap:6px}
+.s-moat .col-head{font-family:var(--mono);font-size:24px;letter-spacing:5px;text-transform:uppercase;font-weight:700;color:var(--fg-soft)}
+.s-moat .col-right .col-head{color:var(--accent)}
+.s-moat .col-sub{font-family:var(--serif);font-style:italic;font-size:28px;color:var(--fg-soft);margin-bottom:16px}
+.s-moat .col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.s-moat .col li{font-family:var(--serif);font-weight:700;font-size:54px;line-height:1.0;font-variation-settings:'opsz' 144,'SOFT' 60}
+
 /* BOSS */
 .s-boss .body{justify-content:space-between}
 .s-boss h1{font-size:200px;max-width:1700px}
@@ -101,6 +105,19 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 .s-boss .hp-bar{height:32px;border:2px solid currentColor;position:relative;overflow:hidden}
 .s-boss .hp-fill{position:absolute;inset:0;width:100%;background:var(--accent)}
 .s-boss .footline{font-family:var(--mono);font-weight:700;font-size:48px;letter-spacing:14px;text-align:right;color:var(--accent);margin-top:48px}
+
+/* NOTIFICATION (£4.99 first payer) */
+.s-notif .body{justify-content:space-between}
+.s-notif h1{font-size:200px;max-width:1700px;line-height:1.0}
+.s-notif .notif{align-self:center;background:rgba(244,236,217,.07);border:1px solid rgba(244,236,217,.18);border-radius:32px;padding:32px 40px;display:flex;flex-direction:column;gap:18px;max-width:1100px;width:88%}
+.s-notif .notif-app{display:flex;align-items:center;gap:20px}
+.s-notif .notif-icon{width:56px;height:56px;background:linear-gradient(135deg,var(--accent),#ff7758);border-radius:14px;flex-shrink:0}
+.s-notif .notif-meta{flex:1;display:flex;justify-content:space-between;align-items:baseline}
+.s-notif .notif-app-name{font-family:var(--mono);font-size:18px;letter-spacing:3px;text-transform:uppercase;color:var(--fg-soft);font-weight:500}
+.s-notif .notif-time{font-family:var(--mono);font-size:16px;color:var(--fg-faint);font-weight:500;text-transform:uppercase;letter-spacing:2px}
+.s-notif .notif-title{font-family:var(--serif);font-weight:700;font-size:48px;line-height:1.1;font-variation-settings:'opsz' 144,'SOFT' 60;letter-spacing:-.015em}
+.s-notif .notif-msg{font-family:var(--mono);font-size:22px;color:var(--fg-soft);line-height:1.4;letter-spacing:.5px}
+.s-notif .notif-msg .amount{color:var(--accent);font-weight:700}
 
 /* HOTFIX (split comparison) */
 .s-hotfix .body{justify-content:center;gap:80px}
@@ -125,9 +142,31 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 .s-flow .row-main{font-size:96px;line-height:1.02;font-weight:800;font-variation-settings:'opsz' 144,'SOFT' 60}
 .s-flow .row-sub{display:block;font-family:var(--mono);font-size:22px;letter-spacing:1px;margin-top:14px;color:var(--fg-soft);font-weight:400}
 
+/* SPEC (instructions.md preview) */
+.s-spec .body{justify-content:space-between}
+.s-spec h1{font-size:160px;margin-bottom:8px}
+.s-spec .doc{flex:1;background:rgba(0,0,0,.28);border:1px solid rgba(244,236,217,.12);border-radius:18px;padding:36px 48px;display:flex;flex-direction:column;gap:4px;overflow:hidden;font-family:var(--mono);font-size:20px;line-height:1.55}
+.s-spec .doc-section{font-family:var(--serif);font-weight:700;font-size:28px;font-variation-settings:'opsz' 144,'SOFT' 60;color:var(--accent);margin-top:14px;margin-bottom:4px;letter-spacing:-.01em}
+.s-spec .doc-section:first-child{margin-top:0}
+.s-spec .doc-line{color:var(--fg);font-weight:400;padding:2px 0;letter-spacing:.4px}
+.s-spec .doc-line.dim{color:var(--fg-faint);font-style:italic;letter-spacing:1px;padding-left:32px}
+.s-spec .doc-line mark{background:rgba(255,69,51,.18);color:var(--accent);padding:1px 8px;border-radius:4px;font-weight:700}
+.s-spec .doc-line.highlight{background:rgba(255,69,51,.12);color:var(--fg);border-left:3px solid var(--accent);padding-left:14px;margin-left:-17px;font-weight:600}
+.s-spec .doc-line.indent{color:var(--accent);padding-left:38px;font-weight:500;font-size:18px}
+
 /* SPINE LINE — single line slide */
 .s-spine .body{justify-content:center;align-items:flex-start}
 .s-spine h1{font-size:220px;max-width:1700px;line-height:1.0}
+
+/* REVIEW (one-star card) */
+.s-review .body{justify-content:space-between}
+.s-review h1{font-size:140px;max-width:1500px}
+.s-review .review{align-self:center;background:rgba(244,236,217,.06);border:1px solid rgba(244,236,217,.18);border-radius:24px;padding:56px 64px;display:flex;flex-direction:column;gap:24px;max-width:1300px;width:92%}
+.s-review .review-stars{font-size:56px;letter-spacing:14px;color:var(--accent);line-height:1}
+.s-review .review-stars .empty{color:var(--fg-faint)}
+.s-review .review-title{font-family:var(--serif);font-weight:700;font-size:64px;line-height:1.1;font-variation-settings:'opsz' 144,'SOFT' 60;letter-spacing:-.015em}
+.s-review .review-body{font-family:var(--serif);font-style:italic;font-size:32px;line-height:1.4;color:var(--fg-soft);font-variation-settings:'SOFT' 80}
+.s-review .review-sig{font-family:var(--mono);font-size:18px;letter-spacing:3px;text-transform:uppercase;color:var(--fg-faint);font-weight:500;margin-top:6px}
 
 /* REJECTION TIMELINE */
 .s-timeline .body{justify-content:space-between}
@@ -140,7 +179,6 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 .s-timeline .row .wait{font-family:var(--mono);font-size:18px;letter-spacing:3px;color:var(--fg-faint);text-align:right;font-weight:500}
 .s-timeline .rejected{color:var(--accent)}
 .s-timeline .approved{color:#a8e08c}
-.s-timeline .footline{font-family:var(--mono);font-size:22px;letter-spacing:4px;color:var(--fg-soft);text-transform:uppercase;font-weight:500;margin-top:32px;text-align:center}
 
 /* PORTFOLIO MAKERS */
 .s-makers .body{justify-content:space-between}
@@ -167,7 +205,6 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 
 <!-- ============================================
      1 · TITLE
-     Holds before stage entry → through migraine open
 ============================================ -->
 <section class="slide s-title" data-i="1">
   <header class="topbar"><div>Learn to ship native, with AI</div><div class="meta">Tom · Product Unleashed<br>June 2026</div></header>
@@ -176,16 +213,15 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
     <h1 class="reveal" style="--d:240ms">Learn to ship<br>native, <span class="accent">with&nbsp;AI</span>.</h1>
     <div class="mono reveal" style="--d:600ms;font-size:18px;color:var(--fg-soft)">Vibe-designed, not vibe-coded.</div>
   </div>
-  <footer class="footer"><div>01 / 10</div><div>Product Unleashed</div></footer>
+  <footer class="footer"><div>01 / 14</div><div>Product Unleashed</div></footer>
 </section>
 
 <!-- ============================================
-     2 · LOVABLE V0 (PROOF OF MID)
+     2 · LOVABLE V0
      Triggers on: "I went to Lovable."
-     ⤷ Replace .phone block with real screenshot when available
 ============================================ -->
 <section class="slide s-screenshot" data-i="2">
-  <header class="topbar"><div>Beat 1 · why iOS</div><div class="meta">Detour</div></header>
+  <header class="topbar"><div>Beat 1 · why iOS</div><div class="meta">The detour</div></header>
   <div class="body">
     <div class="frame reveal" style="--d:120ms">
       <div class="phone">
@@ -201,15 +237,53 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
     </div>
     <div class="caption reveal" style="--d:380ms">MigraPulse · Lovable · Dec 2025</div>
   </div>
-  <footer class="footer"><div>02 / 10</div><div>The detour</div></footer>
+  <footer class="footer"><div>02 / 14</div><div>The detour</div></footer>
 </section>
 
 <!-- ============================================
-     3 · DISTRIBUTION IS THE FINAL BOSS
-     Triggers on: "Distribution is the final boss of product."
-     ⤷ HP bar drains over 4.5s, sprite shakes, YOU DIED flashes in
+     3 · THE MOAT (NEW)
+     Triggers on: "On the web I'd be building auth, a database..."
 ============================================ -->
-<section class="slide s-boss" data-i="3">
+<section class="slide s-moat" data-i="3">
+  <header class="topbar"><div>Beat 1 · the deal</div><div class="meta">What Apple hands you</div></header>
+  <div class="body">
+    <div class="kicker reveal" style="--d:80ms">▶ The moat</div>
+    <h1 class="reveal" style="--d:240ms">Not laziness.<br><span class="accent">Leverage</span>.</h1>
+    <div class="ledger reveal" style="--d:520ms">
+      <div class="col col-left">
+        <div class="col-head">On the web</div>
+        <div class="col-sub">— I'd be building</div>
+        <ul>
+          <li>Auth</li>
+          <li>Database</li>
+          <li>Payments</li>
+          <li>Compliance</li>
+          <li>Distribution</li>
+          <li>Trust</li>
+        </ul>
+      </div>
+      <div class="col col-right">
+        <div class="col-head">On iOS</div>
+        <div class="col-sub">— Apple gives me</div>
+        <ul>
+          <li>The phone</li>
+          <li>On-device storage</li>
+          <li>App Store Connect</li>
+          <li>The platform</li>
+          <li>The store + search</li>
+          <li>The badge</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <footer class="footer"><div>03 / 14</div><div>Zero time spent on any of it</div></footer>
+</section>
+
+<!-- ============================================
+     4 · DISTRIBUTION IS THE FINAL BOSS
+     Triggers on: "Distribution is the final boss of product."
+============================================ -->
+<section class="slide s-boss" data-i="4">
   <header class="topbar"><div>Beat 1 · the boss</div><div class="meta">▶ press → to fight</div></header>
   <div class="body">
     <div class="kicker reveal" style="--d:80ms">▶ You encounter</div>
@@ -235,14 +309,38 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
     </div>
     <div class="footline">YOU DIED</div>
   </div>
-  <footer class="footer"><div>03 / 10</div><div>The final boss</div></footer>
+  <footer class="footer"><div>04 / 14</div><div>The final boss</div></footer>
 </section>
 
 <!-- ============================================
-     4 · NO HOTFIX (split comparison)
+     5 · £4.99 FIRST PAYER (NEW)
+     Triggers on: "The first time a stranger pays you £4.99 a month..."
+============================================ -->
+<section class="slide s-notif" data-i="5">
+  <header class="topbar"><div>Beat 1 · the first hit</div><div class="meta">19:48</div></header>
+  <div class="body">
+    <div class="kicker reveal" style="--d:80ms">▶ The first one</div>
+    <h1 class="reveal" style="--d:240ms">Hits like<br><span class="accent">nothing else</span>.</h1>
+    <div class="notif reveal" style="--d:520ms">
+      <div class="notif-app">
+        <div class="notif-icon"></div>
+        <div class="notif-meta">
+          <div class="notif-app-name">App Store Connect</div>
+          <div class="notif-time">just now</div>
+        </div>
+      </div>
+      <div class="notif-title">First subscription purchased.</div>
+      <div class="notif-msg">A new user just subscribed to MigraPulse Pro · <span class="amount">£4.99/mo</span></div>
+    </div>
+  </div>
+  <footer class="footer"><div>05 / 14</div><div>Zero marketing · paying users</div></footer>
+</section>
+
+<!-- ============================================
+     6 · NO HOTFIX (split comparison)
      Triggers on: "the platform doesn't let you hotfix."
 ============================================ -->
-<section class="slide s-hotfix" data-i="4">
+<section class="slide s-hotfix" data-i="6">
   <header class="topbar"><div>Beat 2 · reason one</div><div class="meta">Operational</div></header>
   <div class="body">
     <div class="kicker reveal" style="--d:80ms">▶ Reason one</div>
@@ -260,15 +358,14 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
       </div>
     </div>
   </div>
-  <footer class="footer"><div>04 / 10</div><div>The price of entry</div></footer>
+  <footer class="footer"><div>06 / 14</div><div>The price of entry</div></footer>
 </section>
 
 <!-- ============================================
-     5 · INFLATABLE FURNITURE
+     7 · INFLATABLE FURNITURE
      Triggers on: "feel like inflatable furniture."
-     ⤷ Replace SVG with a real photograph if/when available
 ============================================ -->
-<section class="slide s-furn" data-i="5">
+<section class="slide s-furn" data-i="7">
   <header class="topbar"><div>Beat 2 · reason two</div><div class="meta">Aesthetic</div></header>
   <div class="body">
     <div class="kicker reveal" style="--d:80ms">▶ Reason two</div>
@@ -289,14 +386,14 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
     </div>
     <div class="caption reveal" style="--d:600ms">Inflatable furniture.</div>
   </div>
-  <footer class="footer"><div>05 / 10</div><div>The storefront is filling with mid</div></footer>
+  <footer class="footer"><div>07 / 14</div><div>The storefront is filling with mid</div></footer>
 </section>
 
 <!-- ============================================
-     6 · THE WORKFLOW ON ONE SLIDE
+     8 · THE WORKFLOW ON ONE SLIDE
      Triggers on: "Three lines on what the workflow actually is."
 ============================================ -->
-<section class="slide s-flow" data-i="6">
+<section class="slide s-flow" data-i="8">
   <header class="topbar"><div>Beat 2 · the workflow</div><div class="meta">On one slide</div></header>
   <div class="body">
     <div class="kicker-row reveal" style="--d:80ms">▶ The workflow</div>
@@ -322,27 +419,80 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
       </div>
     </div>
   </div>
-  <footer class="footer"><div>06 / 10</div><div>QR at the end for the full thing</div></footer>
+  <footer class="footer"><div>08 / 14</div><div>QR at the end for the full thing</div></footer>
 </section>
 
 <!-- ============================================
-     7 · VIBE-DESIGNED, NOT VIBE-CODED
+     9 · INSTRUCTIONS.MD PREVIEW (NEW)
+     Triggers on: "When I tell my agent to build the home screen, I say 'build B002'."
+============================================ -->
+<section class="slide s-spec" data-i="9">
+  <header class="topbar"><div>Beat 2 · the spine</div><div class="meta">instructions.md</div></header>
+  <div class="body">
+    <div class="kicker reveal" style="--d:80ms">▶ The spine, opened</div>
+    <h1 class="reveal" style="--d:240ms">Every part has<br>an <span class="accent">ID</span>.</h1>
+    <div class="doc reveal" style="--d:520ms">
+      <div class="doc-section">## User stories</div>
+      <div class="doc-line">US-001 &nbsp;Log symptoms by voice, mid-episode</div>
+      <div class="doc-line">US-002 &nbsp;Review past entries in a timeline</div>
+      <div class="doc-line dim">⋯ 55 more</div>
+      <div class="doc-section">## Screens</div>
+      <div class="doc-line"><mark>S-001</mark> &nbsp;Home — orb + entries list</div>
+      <div class="doc-line">S-002 &nbsp;Logging — voice prompts</div>
+      <div class="doc-line dim">⋯ 15 more</div>
+      <div class="doc-section">## Features</div>
+      <div class="doc-line"><mark>F-007</mark> &nbsp;Entries list on home</div>
+      <div class="doc-line dim">⋯ 69 more</div>
+      <div class="doc-section">## Data</div>
+      <div class="doc-line"><mark>D-002</mark> &nbsp;Entry { date · severity · triggers }</div>
+      <div class="doc-line dim">⋯</div>
+      <div class="doc-section">## Build steps</div>
+      <div class="doc-line">B-001 &nbsp;Set up SwiftUI project</div>
+      <div class="doc-line highlight">B-002 &nbsp;Build the home screen</div>
+      <div class="doc-line indent">→ uses S-001 · F-007 · D-002</div>
+      <div class="doc-line">B-003 &nbsp;Add voice logging flow</div>
+      <div class="doc-line dim">⋯</div>
+    </div>
+  </div>
+  <footer class="footer"><div>09 / 14</div><div>"Build B002" — and the agent looks up the rest</div></footer>
+</section>
+
+<!-- ============================================
+     10 · VIBE-DESIGNED, NOT VIBE-CODED
      Triggers on: spine line at end of Beat 2
 ============================================ -->
-<section class="slide s-spine" data-i="7">
+<section class="slide s-spine" data-i="10">
   <header class="topbar"><div>Beat 2 · spine</div><div class="meta">—</div></header>
   <div class="body">
     <h1 class="reveal" style="--d:200ms">Vibe&#8209;designed,<br>not <span class="accent">vibe&#8209;coded</span>.</h1>
   </div>
-  <footer class="footer"><div>07 / 10</div><div>—</div></footer>
+  <footer class="footer"><div>10 / 14</div><div>—</div></footer>
 </section>
 
 <!-- ============================================
-     8 · REJECTION TIMELINE
-     Triggers on: "Three weeks. Three rejections."
-     ⤷ Replace with real App Store Connect screenshot OR keep this stylized version
+     11 · ONE-STAR REVIEW (NEW)
+     Triggers on: "I read a one-star review on a competitor app..."
 ============================================ -->
-<section class="slide s-timeline" data-i="8">
+<section class="slide s-review" data-i="11">
+  <header class="topbar"><div>Beat 3 · structure matters</div><div class="meta">App Store · review</div></header>
+  <div class="body">
+    <div class="kicker reveal" style="--d:80ms">▶ A review that scared me straight</div>
+    <h1 class="reveal" style="--d:240ms">On iOS, you wait<br><span class="accent">3 days</span> to fix it.</h1>
+    <div class="review reveal" style="--d:520ms">
+      <div class="review-stars">★<span class="empty"> ☆ ☆ ☆ ☆</span></div>
+      <div class="review-title">"Three months of data, gone."</div>
+      <div class="review-body">My son and I had been tracking his migraine symptoms since November. After last week's update, every entry has vanished. I've cancelled my subscription. Furious.</div>
+      <div class="review-sig">Parent · UK · App Store</div>
+    </div>
+  </div>
+  <footer class="footer"><div>11 / 14</div><div>Structure isn't a nice-to-have here</div></footer>
+</section>
+
+<!-- ============================================
+     12 · REJECTION TIMELINE
+     Triggers on: "Three weeks. Three rejections."
+============================================ -->
+<section class="slide s-timeline" data-i="12">
   <header class="topbar"><div>Beat 3 · going live</div><div class="meta">App Store review</div></header>
   <div class="body">
     <div class="kicker reveal" style="--d:80ms">▶ Three weeks. Three rejections.</div>
@@ -374,15 +524,14 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
       </div>
     </div>
   </div>
-  <footer class="footer"><div>08 / 10</div><div>The bar is the moat</div></footer>
+  <footer class="footer"><div>12 / 14</div><div>The bar is the moat</div></footer>
 </section>
 
 <!-- ============================================
-     9 · THE PORTFOLIO MAKER
+     13 · THE PORTFOLIO MAKER
      Triggers on: "Look at someone like Jordi Bruin."
-     ⤷ Replace .portrait blocks with real photos when available
 ============================================ -->
-<section class="slide s-makers" data-i="9">
+<section class="slide s-makers" data-i="13">
   <header class="topbar"><div>Beat 3 · the close</div><div class="meta">The portfolio maker</div></header>
   <div class="body">
     <div class="kicker reveal" style="--d:80ms">▶ The rise of the portfolio maker</div>
@@ -404,15 +553,14 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
     </div>
     <div class="strapline reveal" style="--d:600ms">They're not chasing unicorns.<br>They're <span class="accent">stacking</span>.</div>
   </div>
-  <footer class="footer"><div>09 / 10</div><div>Designers and builders</div></footer>
+  <footer class="footer"><div>13 / 14</div><div>Designers and builders</div></footer>
 </section>
 
 <!-- ============================================
-     10 · CLOSE — See you in the App Store
-     Triggers on: "I'm going to keep going. See you in the App Store."
-     ⤷ Replace .qr grid with real QR pointing to the 3hr video
+     14 · CLOSE
+     Triggers on: "See you in the App Store."
 ============================================ -->
-<section class="slide s-close" data-i="10">
+<section class="slide s-close" data-i="14">
   <header class="topbar"><div>—</div><div class="meta">Close</div></header>
   <div class="body">
     <h1 class="reveal" style="--d:200ms">See you in<br>the <span class="accent">App Store</span>.</h1>
@@ -434,7 +582,7 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
     </div>
     <div class="qr-caption">Three hours, every step</div>
   </div>
-  <footer class="footer"><div>10 / 10</div><div>Vibe-designed, not vibe-coded</div></footer>
+  <footer class="footer"><div>14 / 14</div><div>Vibe-designed, not vibe-coded</div></footer>
 </section>
 
 </div>
@@ -459,7 +607,6 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
     var qr = document.querySelector('.s-close .qr');
     if (!qr) return;
     var cells = qr.querySelectorAll('i');
-    // Pseudo-random but deterministic pattern (not a real QR)
     var pattern = 'X..X.X.XX.XXX.X..X.X.XXXX.X.X.X..X..XX.XX..X.XXX.X..X.X.X.X.XXXX.XX.X.XX..X.XX..X.X.X.X.X..XXXX.XXXX..X.X.X.X.X..X.X.X.';
     for (var i = 0; i < cells.length; i++) {
       cells[i].style.background = pattern[i % pattern.length] === 'X' ? 'var(--bg)' : 'var(--fg)';
