@@ -42,13 +42,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;color:var(--fg)
 .slide.active .reveal,.slide.leaving .reveal{opacity:1;transform:none}
 .slide:not(.active):not(.leaving) .reveal{transition:none}
 
-/* ANIMATIONS — for the boss slide */
-@keyframes shake{0%,100%{transform:translate(0,0)}10%{transform:translate(-2px,1px)}25%{transform:translate(2px,-1px)}40%{transform:translate(-1px,0)}55%{transform:translate(1px,1px)}70%{transform:translate(-1px,-1px)}85%{transform:translate(2px,0)}}
-@keyframes drain{0%,15%{width:100%}25%{width:88%}45%{width:62%}68%{width:34%}85%,100%{width:6%}}
-@keyframes diedIn{0%,62%{opacity:0;transform:scale(.92)}72%{opacity:1;transform:scale(1.08)}76%{opacity:0;transform:scale(1.08)}82%,100%{opacity:1;transform:scale(1)}}
-.slide.active .sprite{animation:shake .5s linear infinite}
-.slide.active .hp-fill{animation:drain 4.5s ease-out forwards}
-.slide.active .footline{opacity:0;animation:diedIn 4.5s ease-out forwards}
+/* (animations removed — were tied to the old HP-bar boss slide) */
 
 /* CHROME — topbar, footer, progress */
 .topbar{position:absolute;top:60px;left:var(--inset);right:var(--inset);display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--mono);font-size:16px;text-transform:uppercase;letter-spacing:3px;color:var(--fg-soft);font-weight:500;z-index:5}
@@ -95,16 +89,13 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 .s-moat .col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
 .s-moat .col li{font-family:var(--serif);font-weight:700;font-size:54px;line-height:1.0;font-variation-settings:'opsz' 144,'SOFT' 60}
 
-/* BOSS */
-.s-boss .body{justify-content:space-between}
-.s-boss h1{font-size:200px;max-width:1700px}
-.s-boss .hp{display:flex;flex-direction:column;gap:18px;max-width:1500px;margin-top:64px}
-.s-boss .hp-row{display:flex;align-items:center;gap:32px}
-.s-boss .sprite{width:80px;height:80px;flex-shrink:0}
-.s-boss .hp-label{flex:1;display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);letter-spacing:4px;font-weight:700;font-size:26px}
-.s-boss .hp-bar{height:32px;border:2px solid currentColor;position:relative;overflow:hidden}
-.s-boss .hp-fill{position:absolute;inset:0;width:100%;background:var(--accent)}
-.s-boss .footline{font-family:var(--mono);font-weight:700;font-size:48px;letter-spacing:14px;text-align:right;color:var(--accent);margin-top:48px}
+/* HIERARCHY (Distribution > Product — Yhorm meme) */
+.s-hierarchy .body{flex-direction:row;justify-content:space-between;align-items:center;gap:80px}
+.s-hierarchy .text-col{flex:1;display:flex;flex-direction:column;gap:32px;max-width:1000px}
+.s-hierarchy h1{font-size:180px;line-height:.96;max-width:none}
+.s-hierarchy .image-col{flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.s-hierarchy .meme{max-height:780px;width:auto;display:block;filter:drop-shadow(0 16px 40px rgba(0,0,0,.55))}
+.s-hierarchy .meme-placeholder{width:440px;height:780px;border:2px dashed var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);text-align:center;padding:24px}
 
 /* NOTIFICATION (£4.99 first payer) */
 .s-notif .body{justify-content:space-between}
@@ -280,36 +271,23 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 </section>
 
 <!-- ============================================
-     4 · DISTRIBUTION IS THE FINAL BOSS
+     4 · DISTRIBUTION > PRODUCT (Yhorm meme)
      Triggers on: "Distribution is the final boss of product."
+     ⤷ Image lives at assets/distribution-meme.png — Tom to commit
 ============================================ -->
-<section class="slide s-boss" data-i="4">
-  <header class="topbar"><div>Beat 1 · the boss</div><div class="meta">▶ press → to fight</div></header>
+<section class="slide s-hierarchy" data-i="4">
+  <header class="topbar"><div>Beat 1 · the hierarchy</div><div class="meta">▶ the boss</div></header>
   <div class="body">
-    <div class="kicker reveal" style="--d:80ms">▶ You encounter</div>
-    <h1 class="reveal" style="--d:240ms">Distribution is<br>the <span class="accent">final boss</span>.</h1>
-    <div class="hp reveal" style="--d:600ms">
-      <div class="hp-row">
-        <svg class="sprite" viewBox="0 0 8 8" shape-rendering="crispEdges">
-          <g fill="#ff4533">
-            <rect x="1" y="1" width="6" height="1"/>
-            <rect x="0" y="2" width="8" height="3"/>
-            <rect x="0" y="5" width="2" height="2"/>
-            <rect x="3" y="5" width="2" height="2"/>
-            <rect x="6" y="5" width="2" height="2"/>
-          </g>
-          <g fill="#110b1a">
-            <rect x="2" y="3" width="1" height="1"/>
-            <rect x="5" y="3" width="1" height="1"/>
-          </g>
-        </svg>
-        <div class="hp-label"><span>DISTRIBUTION</span><span style="color:var(--fg-soft)">HP 100%</span></div>
-      </div>
-      <div class="hp-bar"><div class="hp-fill"></div></div>
+    <div class="text-col">
+      <div class="kicker reveal" style="--d:80ms">▶ The hierarchy</div>
+      <h1 class="reveal" style="--d:240ms">Distribution is<br>the <span class="accent">final boss</span>.</h1>
     </div>
-    <div class="footline">YOU DIED</div>
+    <div class="image-col reveal" style="--d:480ms">
+      <img class="meme" src="assets/distribution-meme.png" alt="Yhorm meme — a giant labelled DISTRIBUTION towers over a tiny knight labelled PRODUCT" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="meme-placeholder" style="display:none">▶ Save your meme to<br>assets/distribution-meme.png<br>and commit · push</div>
+    </div>
   </div>
-  <footer class="footer"><div>04 / 14</div><div>The final boss</div></footer>
+  <footer class="footer"><div>04 / 14</div><div>Distribution &gt; everything else</div></footer>
 </section>
 
 <!-- ============================================
