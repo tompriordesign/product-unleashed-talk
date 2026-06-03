@@ -97,18 +97,12 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 .s-hierarchy .meme{max-height:780px;width:auto;display:block;filter:drop-shadow(0 16px 40px rgba(0,0,0,.55))}
 .s-hierarchy .meme-placeholder{width:440px;height:780px;border:2px dashed var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);text-align:center;padding:24px}
 
-/* NOTIFICATION (£4.99 first payer) */
+/* FIRST PAYER (celebrating-3rd-place meme) */
 .s-notif .body{justify-content:space-between}
-.s-notif h1{font-size:200px;max-width:1700px;line-height:1.0}
-.s-notif .notif{align-self:center;background:rgba(244,236,217,.07);border:1px solid rgba(244,236,217,.18);border-radius:32px;padding:32px 40px;display:flex;flex-direction:column;gap:18px;max-width:1100px;width:88%}
-.s-notif .notif-app{display:flex;align-items:center;gap:20px}
-.s-notif .notif-icon{width:56px;height:56px;background:linear-gradient(135deg,var(--accent),#ff7758);border-radius:14px;flex-shrink:0}
-.s-notif .notif-meta{flex:1;display:flex;justify-content:space-between;align-items:baseline}
-.s-notif .notif-app-name{font-family:var(--mono);font-size:18px;letter-spacing:3px;text-transform:uppercase;color:var(--fg-soft);font-weight:500}
-.s-notif .notif-time{font-family:var(--mono);font-size:16px;color:var(--fg-faint);font-weight:500;text-transform:uppercase;letter-spacing:2px}
-.s-notif .notif-title{font-family:var(--serif);font-weight:700;font-size:48px;line-height:1.1;font-variation-settings:'opsz' 144,'SOFT' 60;letter-spacing:-.015em}
-.s-notif .notif-msg{font-family:var(--mono);font-size:22px;color:var(--fg-soft);line-height:1.4;letter-spacing:.5px}
-.s-notif .notif-msg .amount{color:var(--accent);font-weight:700}
+.s-notif h1{font-size:160px;max-width:1500px;line-height:1.0}
+.s-notif .meme-row{flex:1;display:flex;align-items:center;justify-content:center;padding:8px 0}
+.s-notif .meme{max-width:1200px;max-height:600px;width:auto;height:auto;display:block;border-radius:16px;filter:drop-shadow(0 16px 40px rgba(0,0,0,.55))}
+.s-notif .meme-placeholder{width:1100px;height:560px;border:2px dashed var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);text-align:center;padding:24px;border-radius:16px;line-height:1.6}
 
 /* HOTFIX (split comparison) */
 .s-hotfix .body{justify-content:center;gap:80px}
@@ -291,24 +285,18 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 </section>
 
 <!-- ============================================
-     5 · £4.99 FIRST PAYER (NEW)
+     5 · £4.99 FIRST PAYER — celebrating-3rd-place meme
      Triggers on: "The first time a stranger pays you £4.99 a month..."
+     ⤷ Image lives at assets/first-payer-meme.png — Tom to commit
 ============================================ -->
 <section class="slide s-notif" data-i="5">
-  <header class="topbar"><div>Beat 1 · the first hit</div><div class="meta">19:48</div></header>
+  <header class="topbar"><div>Beat 1 · the first hit</div><div class="meta">▶ first £4.99</div></header>
   <div class="body">
     <div class="kicker reveal" style="--d:80ms">▶ The first one</div>
     <h1 class="reveal" style="--d:240ms">Hits like<br><span class="accent">nothing else</span>.</h1>
-    <div class="notif reveal" style="--d:520ms">
-      <div class="notif-app">
-        <div class="notif-icon"></div>
-        <div class="notif-meta">
-          <div class="notif-app-name">App Store Connect</div>
-          <div class="notif-time">just now</div>
-        </div>
-      </div>
-      <div class="notif-title">First subscription purchased.</div>
-      <div class="notif-msg">A new user just subscribed to MigraPulse Pro · <span class="amount">£4.99/mo</span></div>
+    <div class="meme-row reveal" style="--d:520ms">
+      <img class="meme" src="assets/first-payer-meme.png" alt="Podium meme — over-celebrating the first £4.99 on the App Store next to a corporate designer salary" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="meme-placeholder" style="display:none">▶ Save your meme to<br>assets/first-payer-meme.png<br>and commit · push</div>
     </div>
   </div>
   <footer class="footer"><div>05 / 14</div><div>Zero marketing · paying users</div></footer>
