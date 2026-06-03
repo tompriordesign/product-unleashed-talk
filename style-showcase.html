@@ -2,124 +2,141 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Style direction · showcase</title>
+<title>Style direction · v2</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..900,0..100&family=Bricolage+Grotesque:opsz,wght@12..96,400..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..900,0..100&family=DM+Serif+Display:ital@0;1&family=Crimson+Pro:ital,wght@0,400..900;1,400..900&family=Inter+Tight:wght@400..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;height:100%;overflow:hidden;background:#000}
 
-/* deck scaffold (identical pattern to the talk deck) */
 .deck{position:fixed;left:50%;top:50%;width:1920px;height:1080px;transform-origin:0 0}
 .slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .5s ease}
 .slide.leaving{opacity:1;visibility:visible;z-index:1;transition:none;will-change:opacity}
 .slide.active{opacity:1;visibility:visible;z-index:2;pointer-events:auto;will-change:opacity}
 
-/* chrome */
-.chrome{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:100;font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:3px;pointer-events:none}
+.chrome{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:100;font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:3px;pointer-events:none;transition:color .3s ease}
+.chrome.dark{color:rgba(0,0,0,.55)}
+.chrome span{margin-right:24px}
 
-/* ================================================
-   DIRECTION ONE — EDITORIAL HEAT
-   black canvas · Fraunces display · hot coral
-   ================================================ */
-.editorial{background:#0e0a16;color:#f5efe6;font-family:'Fraunces',serif;font-optical-sizing:auto}
-.editorial .mono{font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:3px;font-size:18px;color:rgba(245,239,230,.55);font-weight:500}
-.editorial .accent{color:#ff4533;font-style:italic;font-variation-settings:'opsz' 144,'SOFT' 0}
-.editorial h1,.editorial h2{font-weight:900;font-variation-settings:'opsz' 144,'SOFT' 0;line-height:.92;letter-spacing:-.025em}
+/* === animations on the boss slide === */
+@keyframes shake{0%,100%{transform:translate(0,0)}10%{transform:translate(-2px,1px)}25%{transform:translate(2px,-1px)}40%{transform:translate(-1px,0)}55%{transform:translate(1px,1px)}70%{transform:translate(-1px,-1px)}85%{transform:translate(2px,0)}}
+@keyframes drain{0%,15%{width:100%}25%{width:88%}45%{width:62%}68%{width:34%}85%,100%{width:6%}}
+@keyframes diedIn{0%,62%{opacity:0;transform:scale(.92)}72%{opacity:1;transform:scale(1.08)}76%{opacity:0;transform:scale(1.08)}82%,100%{opacity:1;transform:scale(1)}}
+.slide.active .sprite{animation:shake .5s linear infinite}
+.slide.active .hp-fill{animation:drain 4.5s ease-out forwards}
+.slide.active .footline{opacity:0;animation:diedIn 4.5s ease-out forwards}
 
-/* ================================================
-   DIRECTION TWO — RISOGRAPH + GRIT
-   warm paper · Bricolage display · fluoro orange · grain
-   ================================================ */
-.riso{background:#f4ede3;color:#1c1a24;font-family:'Bricolage Grotesque',sans-serif;position:relative}
-.riso::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");pointer-events:none;mix-blend-mode:multiply;opacity:.16;z-index:1}
-.riso > *{position:relative;z-index:2}
-.riso .mono{font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:3px;font-size:18px;color:rgba(28,26,36,.6);font-weight:500}
-.riso .accent{color:#ff5a36;background:linear-gradient(transparent 62%,rgba(255,90,54,.25) 62%,rgba(255,90,54,.25) 92%,transparent 92%);padding:0 4px}
-.riso h1,.riso h2{font-weight:800;line-height:.92;letter-spacing:-.03em;font-variation-settings:'opsz' 96}
-
-/* ================================================
-   SHARED LAYOUTS
-   ================================================ */
-
-/* DIVIDER */
+/* === shared layouts === */
 .divider{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 140px}
-.divider .kicker{margin-bottom:32px;font-family:'JetBrains Mono',monospace;font-size:22px;text-transform:uppercase;letter-spacing:6px;opacity:.55}
-.divider .name{font-size:280px;line-height:.92}
-.divider.editorial .name{font-weight:900;font-variation-settings:'opsz' 144,'SOFT' 0}
-.divider.riso .name{font-weight:800}
+.divider .kicker{margin-bottom:32px;font-family:'JetBrains Mono',monospace;font-size:22px;text-transform:uppercase;letter-spacing:6px;opacity:.55;font-weight:500}
+.divider .name{font-size:280px;line-height:.92;letter-spacing:-.03em}
 .divider .desc{margin-top:48px;font-family:'JetBrains Mono',monospace;font-size:24px;letter-spacing:1px;opacity:.65;max-width:1400px;line-height:1.5}
 .divider .accent-block{display:inline-block;width:72px;height:14px;margin-top:48px}
-.divider.editorial .accent-block{background:#ff4533}
-.divider.riso .accent-block{background:#ff5a36}
 
-/* TITLE */
 .s-title{padding:120px;display:flex;flex-direction:column;justify-content:space-between}
 .s-title .topbar{display:flex;justify-content:space-between}
-.s-title .center{display:flex;flex-direction:column;align-items:flex-start}
-.s-title h1{font-size:200px;max-width:1700px}
+.s-title .center h1{font-size:200px;max-width:1700px;letter-spacing:-.025em;line-height:1.0}
 
-/* BOSS (Distribution is the final boss) */
 .s-boss{padding:120px;display:flex;flex-direction:column;justify-content:space-between}
 .s-boss .topbar{display:flex;justify-content:space-between}
 .s-boss .stage{display:flex;flex-direction:column;justify-content:center;gap:80px;flex:1;padding-top:60px}
-.s-boss h1{font-size:200px;max-width:1700px}
+.s-boss h1{font-size:200px;max-width:1700px;line-height:1.0;letter-spacing:-.025em}
 .s-boss .hp{display:flex;flex-direction:column;gap:18px;max-width:1500px}
 .s-boss .hp-row{display:flex;align-items:center;gap:32px}
 .s-boss .sprite{width:80px;height:80px;flex-shrink:0}
 .s-boss .hp-label{flex:1;display:flex;justify-content:space-between;align-items:baseline;font-family:'JetBrains Mono',monospace;letter-spacing:4px;font-weight:700;font-size:26px}
 .s-boss .hp-bar{height:32px;border:2px solid currentColor;position:relative;overflow:hidden}
 .s-boss .hp-fill{position:absolute;inset:0;width:100%}
-.editorial .s-boss .hp-fill{background:#ff4533}
-.riso .s-boss .hp-fill{background:#ff5a36}
 .s-boss .footline{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:48px;letter-spacing:14px;text-align:right}
-.editorial .s-boss .footline{color:#ff4533}
-.riso .s-boss .footline{color:#ff5a36}
 
-/* NO HOTFIX (split comparison) */
-.s-hotfix{padding:120px;display:flex;flex-direction:column;justify-content:center;gap:80px}
-.s-hotfix h1{font-size:170px;max-width:1500px}
-.s-hotfix .split{display:grid;grid-template-columns:1fr 1fr;gap:80px}
-.s-hotfix .col{padding-top:36px;border-top:2px solid currentColor}
-.s-hotfix .col-label{font-family:'JetBrains Mono',monospace;font-size:30px;letter-spacing:6px;font-weight:700;margin-bottom:40px;opacity:.65}
-.s-hotfix .col-step{font-family:'JetBrains Mono',monospace;font-size:38px;font-weight:500;margin-bottom:18px}
-.editorial .s-hotfix .bad{color:#ff4533;font-weight:700}
-.riso .s-hotfix .bad{color:#ff5a36;font-weight:700}
-
-/* INFLATABLE FURNITURE */
-.s-furn{padding:120px;display:flex;flex-direction:column;justify-content:space-between}
-.s-furn .placeholder{flex:1;display:flex;align-items:center;justify-content:center}
-.s-furn .chair{width:720px;height:auto}
-.s-furn .caption{font-family:'JetBrains Mono',monospace;font-size:22px;letter-spacing:4px;opacity:.55;text-transform:uppercase}
-
-/* WORKFLOW */
 .s-flow{padding:120px;display:flex;flex-direction:column;justify-content:center;gap:64px}
 .s-flow .kicker{font-family:'JetBrains Mono',monospace;font-size:24px;letter-spacing:6px;text-transform:uppercase;opacity:.55;margin-bottom:8px}
 .s-flow .row{display:grid;grid-template-columns:140px 1fr;gap:60px;align-items:baseline}
 .s-flow .num{font-family:'JetBrains Mono',monospace;font-size:56px;font-weight:500;opacity:.45}
-.s-flow .row-main{font-size:104px;line-height:1.02;font-weight:800}
-.editorial .s-flow .row-main{font-variation-settings:'opsz' 144,'SOFT' 0;font-weight:900}
-.s-flow .row-sub{display:block;font-family:'JetBrains Mono',monospace;font-size:22px;letter-spacing:1px;margin-top:14px;opacity:.55;font-weight:400;text-transform:none}
+.s-flow .row-main{font-size:100px;line-height:1.02;font-weight:800}
+.s-flow .row-sub{display:block;font-family:'JetBrains Mono',monospace;font-size:22px;letter-spacing:1px;margin-top:14px;opacity:.6;font-weight:400}
+
+/* ==========================================
+   1 — EDITORIAL HEAT (revised for readability)
+   ========================================== */
+.heat{background:#110b1a;color:#f4ecd9;font-family:'Fraunces',serif;font-optical-sizing:auto}
+.heat .mono{font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:3px;font-size:18px;color:rgba(244,236,217,.6);font-weight:500}
+.heat .accent{color:#ff4533;font-weight:800;font-variation-settings:'opsz' 144,'SOFT' 60}
+.heat h1{font-weight:700;font-variation-settings:'opsz' 144,'SOFT' 60}
+.heat .divider .name{font-weight:800}
+.heat .accent-block{background:#ff4533}
+.heat .s-boss .hp-fill{background:#ff4533}
+.heat .s-boss .footline{color:#ff4533}
+.heat .s-flow .row-main{font-variation-settings:'opsz' 144,'SOFT' 60;font-weight:800}
+
+/* ==========================================
+   2 — CHERRY BONES (indie literary zine)
+   ========================================== */
+.cherry{background:#f0e7d3;color:#181410;font-family:'DM Serif Display',serif;position:relative}
+.cherry::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");pointer-events:none;mix-blend-mode:multiply;opacity:.18;z-index:1}
+.cherry > *{position:relative;z-index:2}
+.cherry .mono{font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:3px;font-size:18px;color:rgba(24,20,16,.6);font-weight:500}
+.cherry .accent{color:#c8112c;font-style:italic;font-family:'DM Serif Display',serif}
+.cherry h1{font-weight:400;line-height:.94;letter-spacing:-.015em}
+.cherry .divider .name{font-weight:400;line-height:.92}
+.cherry .accent-block{background:#c8112c}
+.cherry .s-boss .hp-fill{background:#c8112c}
+.cherry .s-boss .footline{color:#c8112c}
+.cherry .s-flow .row-main{font-weight:400}
+.cherry .s-flow .row-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:26px;letter-spacing:0;opacity:.7;font-weight:500}
+.cherry .accent.under{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M2 8 Q50 2 100 6 T198 8' stroke='%23c8112c' stroke-width='3' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:0 100%;background-size:100% 18px;padding-bottom:14px}
+
+/* ==========================================
+   3 — SWISS / REFINED
+   ========================================== */
+.swiss{background:#ffffff;color:#000000;font-family:'Inter Tight',sans-serif}
+.swiss .mono{font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:3px;font-size:18px;color:rgba(0,0,0,.55);font-weight:500}
+.swiss .accent{color:#ff2d00}
+.swiss h1{font-weight:900;letter-spacing:-.035em;line-height:.96}
+.swiss .divider .name{font-weight:900;letter-spacing:-.04em}
+.swiss .accent-block{background:#ff2d00}
+.swiss .s-boss .hp-fill{background:#ff2d00}
+.swiss .s-boss .footline{color:#ff2d00;font-family:'Inter Tight',sans-serif;font-weight:900;letter-spacing:.05em}
+.swiss .s-flow .row-main{font-weight:900;letter-spacing:-.03em}
+.swiss .s-flow .row{border-bottom:1px solid rgba(0,0,0,.15);padding-bottom:32px}
+.swiss .s-flow .row:last-child{border-bottom:none}
+
+/* ==========================================
+   4 — BRUTALIST / TECH
+   ========================================== */
+.brutal{background:#0a0a0a;color:#d4d4d4;font-family:'JetBrains Mono',monospace;position:relative}
+.brutal::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(to bottom,transparent 0,transparent 3px,rgba(255,255,255,.014) 3px,rgba(255,255,255,.014) 4px);pointer-events:none;z-index:1}
+.brutal > *{position:relative;z-index:2}
+.brutal .mono{color:rgba(212,212,212,.55);font-size:16px;letter-spacing:2px;text-transform:uppercase}
+.brutal .accent{color:#ff5722}
+.brutal h1{font-weight:700;line-height:1.05;letter-spacing:-.02em;font-size:140px}
+.brutal .s-boss h1{font-size:140px}
+.brutal .s-title .center h1{font-size:140px}
+.brutal .divider .name{font-weight:700;font-size:200px;line-height:.95}
+.brutal .accent-block{background:#ff5722}
+.brutal .s-boss .hp-fill{background:#ff5722}
+.brutal .s-boss .footline{color:#ff5722;font-weight:700}
+.brutal .s-flow .row-main{font-weight:700;font-size:74px}
+.brutal .s-flow .row-sub{color:rgba(212,212,212,.55);font-size:20px}
 </style>
 </head>
 <body>
 <div class="deck" id="deck">
 
 <!-- ============================================
-     DIRECTION ONE — EDITORIAL HEAT
+     1 · EDITORIAL HEAT (revised)
 ============================================ -->
 
-<section class="slide editorial divider">
+<section class="slide heat divider">
   <div class="kicker">Direction one</div>
-  <h1 class="name">Editorial<br><span class="accent">heat</span>.</h1>
-  <div class="desc">Black canvas · chunky modern serif (Fraunces) · one hot coral accent · oversized type that runs to the edge of the page.</div>
+  <h1 class="name">Editorial<br><span class="accent">heat.</span></h1>
+  <div class="desc">Warmer black canvas · Fraunces at weight 700 with the SOFT axis pushed to 60 for readability · single hot coral accent (now used as colour, not italic — italic Fraunces at display weight was the readability killer in v1).</div>
   <div class="accent-block"></div>
 </section>
 
-<!-- E1: Title -->
-<section class="slide editorial s-title">
+<section class="slide heat s-title">
   <div class="topbar">
     <div class="mono">Product Unleashed · June 2026</div>
     <div class="mono">Tom</div>
@@ -130,8 +147,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000}
   <div class="mono">Vibe-designed, not vibe-coded.</div>
 </section>
 
-<!-- E2: Distribution / final boss -->
-<section class="slide editorial s-boss">
+<section class="slide heat s-boss">
   <div class="topbar"><div class="mono">Beat 1 · the boss</div></div>
   <div class="stage">
     <h1>Distribution is<br>the <span class="accent">final boss</span>.</h1>
@@ -145,7 +161,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000}
             <rect x="3" y="5" width="2" height="2"/>
             <rect x="6" y="5" width="2" height="2"/>
           </g>
-          <g fill="#0e0a16">
+          <g fill="#110b1a">
             <rect x="2" y="3" width="1" height="1"/>
             <rect x="5" y="3" width="1" height="1"/>
           </g>
@@ -158,47 +174,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000}
   </div>
 </section>
 
-<!-- E3: No hotfix -->
-<section class="slide editorial s-hotfix">
-  <div class="mono">Beat 2 · reason one</div>
-  <h1>On iOS, there is<br><span class="accent">no hotfix</span>.</h1>
-  <div class="split">
-    <div class="col">
-      <div class="col-label">Web</div>
-      <div class="col-step">9:00pm — broken</div>
-      <div class="col-step">9:02pm — fixed</div>
-    </div>
-    <div class="col">
-      <div class="col-label">iOS</div>
-      <div class="col-step">9:00pm — broken</div>
-      <div class="col-step bad">4 days later — fixed</div>
-    </div>
-  </div>
-</section>
-
-<!-- E4: Inflatable furniture -->
-<section class="slide editorial s-furn">
-  <div class="mono">Beat 2 · reason two</div>
-  <div class="placeholder">
-    <svg class="chair" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
-      <g fill="#ff4533">
-        <path d="M40 290 Q52 230 95 222 L95 158 Q100 108 150 102 L260 102 Q310 108 315 158 L315 222 Q358 230 370 290 Z"/>
-      </g>
-      <ellipse cx="205" cy="298" rx="200" ry="14" fill="rgba(255,69,51,.25)"/>
-      <g stroke="rgba(245,239,230,.5)" stroke-width="2" fill="none" stroke-dasharray="6 7">
-        <path d="M110 70 L88 48"/>
-        <path d="M200 50 L200 20"/>
-        <path d="M295 70 L317 48"/>
-        <path d="M50 200 L20 215"/>
-        <path d="M360 200 L390 215"/>
-      </g>
-    </svg>
-  </div>
-  <div class="caption">Inflatable furniture.</div>
-</section>
-
-<!-- E5: Workflow on one slide -->
-<section class="slide editorial s-flow">
+<section class="slide heat s-flow">
   <div class="kicker">▶ The workflow</div>
   <div class="row">
     <div class="num">01</div>
@@ -215,44 +191,42 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000}
 </section>
 
 <!-- ============================================
-     DIRECTION TWO — RISOGRAPH + GRIT
+     2 · CHERRY BONES (best guess)
 ============================================ -->
 
-<section class="slide riso divider">
+<section class="slide cherry divider">
   <div class="kicker">Direction two</div>
-  <h1 class="name">Risograph<br><span class="accent">+ grit</span>.</h1>
-  <div class="desc">Warm paper · chunky display sans (Bricolage Grotesque) · one fluoro orange · grain texture · misregistered highlights. Defiantly handmade.</div>
+  <h1 class="name">Cherry<br><span class="accent">bones.</span></h1>
+  <div class="desc">Warm paper · DM Serif Display (high-contrast Didone) at low weight · italic Crimson Pro for captions · cherry red the only colour · soft newsprint grain. Indie literary zine energy. (Best guess — couldn't load the magazine itself.)</div>
   <div class="accent-block"></div>
 </section>
 
-<!-- R1: Title -->
-<section class="slide riso s-title">
+<section class="slide cherry s-title">
   <div class="topbar">
     <div class="mono">Product Unleashed · June 2026</div>
     <div class="mono">Tom</div>
   </div>
   <div class="center">
-    <h1>Learn to ship<br><span class="accent">native</span>, with AI.</h1>
+    <h1>Learn to ship<br><span class="accent under">native,</span> with AI.</h1>
   </div>
   <div class="mono">Vibe-designed, not vibe-coded.</div>
 </section>
 
-<!-- R2: Distribution / final boss -->
-<section class="slide riso s-boss">
+<section class="slide cherry s-boss">
   <div class="topbar"><div class="mono">Beat 1 · the boss</div></div>
   <div class="stage">
     <h1>Distribution is<br>the <span class="accent">final boss</span>.</h1>
     <div class="hp">
       <div class="hp-row">
         <svg class="sprite" viewBox="0 0 8 8" shape-rendering="crispEdges">
-          <g fill="#ff5a36">
+          <g fill="#c8112c">
             <rect x="1" y="1" width="6" height="1"/>
             <rect x="0" y="2" width="8" height="3"/>
             <rect x="0" y="5" width="2" height="2"/>
             <rect x="3" y="5" width="2" height="2"/>
             <rect x="6" y="5" width="2" height="2"/>
           </g>
-          <g fill="#1c1a24">
+          <g fill="#181410">
             <rect x="2" y="3" width="1" height="1"/>
             <rect x="5" y="3" width="1" height="1"/>
           </g>
@@ -265,51 +239,73 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000}
   </div>
 </section>
 
-<!-- R3: No hotfix -->
-<section class="slide riso s-hotfix">
-  <div class="mono">Beat 2 · reason one</div>
-  <h1>On iOS, there is<br><span class="accent">no hotfix</span>.</h1>
-  <div class="split">
-    <div class="col">
-      <div class="col-label">Web</div>
-      <div class="col-step">9:00pm — broken</div>
-      <div class="col-step">9:02pm — fixed</div>
-    </div>
-    <div class="col">
-      <div class="col-label">iOS</div>
-      <div class="col-step">9:00pm — broken</div>
-      <div class="col-step bad">4 days later — fixed</div>
-    </div>
+<section class="slide cherry s-flow">
+  <div class="kicker">— The workflow</div>
+  <div class="row">
+    <div class="num">01.</div>
+    <div><div class="row-main">Write the <span class="accent">brief</span>.</div><span class="row-sub">Like briefing a senior creative director.</span></div>
+  </div>
+  <div class="row">
+    <div class="num">02.</div>
+    <div><div class="row-main">One file is the <span class="accent">spine</span>.</div><span class="row-sub">instructions.md · build steps with IDs.</span></div>
+  </div>
+  <div class="row">
+    <div class="num">03.</div>
+    <div><div class="row-main">One <span class="accent">step</span> at a time.</div><span class="row-sub">And a panel — including an App Store reviewer — before you ship.</span></div>
   </div>
 </section>
 
-<!-- R4: Inflatable furniture -->
-<section class="slide riso s-furn">
-  <div class="mono">Beat 2 · reason two</div>
-  <div class="placeholder">
-    <svg class="chair" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
-      <!-- offset shadow layer to fake riso misregistration -->
-      <g fill="#1c1a24" opacity=".85" transform="translate(6,5)">
-        <path d="M40 290 Q52 230 95 222 L95 158 Q100 108 150 102 L260 102 Q310 108 315 158 L315 222 Q358 230 370 290 Z"/>
-      </g>
-      <g fill="#ff5a36">
-        <path d="M40 290 Q52 230 95 222 L95 158 Q100 108 150 102 L260 102 Q310 108 315 158 L315 222 Q358 230 370 290 Z"/>
-      </g>
-      <g stroke="#1c1a24" stroke-width="2" fill="none" stroke-dasharray="6 7">
-        <path d="M110 70 L88 48"/>
-        <path d="M200 50 L200 20"/>
-        <path d="M295 70 L317 48"/>
-        <path d="M50 200 L20 215"/>
-        <path d="M360 200 L390 215"/>
-      </g>
-    </svg>
-  </div>
-  <div class="caption">Inflatable furniture.</div>
+<!-- ============================================
+     3 · SWISS / REFINED
+============================================ -->
+
+<section class="slide swiss divider">
+  <div class="kicker">Direction three</div>
+  <h1 class="name">Swiss /<br>refined.</h1>
+  <div class="desc">White canvas · Inter Tight at maximum weight · one bright accent · hairline rules · single-thought slides · big white space. Confident through restraint.</div>
+  <div class="accent-block"></div>
 </section>
 
-<!-- R5: Workflow on one slide -->
-<section class="slide riso s-flow">
-  <div class="kicker">▶ The workflow</div>
+<section class="slide swiss s-title">
+  <div class="topbar">
+    <div class="mono">Product Unleashed · June 2026</div>
+    <div class="mono">Tom · 01</div>
+  </div>
+  <div class="center">
+    <h1>Learn to ship<br>native, <span class="accent">with AI.</span></h1>
+  </div>
+  <div class="mono">Vibe-designed, not vibe-coded.</div>
+</section>
+
+<section class="slide swiss s-boss">
+  <div class="topbar"><div class="mono">Beat 1 · 02</div></div>
+  <div class="stage">
+    <h1>Distribution is<br>the <span class="accent">final boss</span>.</h1>
+    <div class="hp">
+      <div class="hp-row">
+        <svg class="sprite" viewBox="0 0 8 8" shape-rendering="crispEdges">
+          <g fill="#ff2d00">
+            <rect x="1" y="1" width="6" height="1"/>
+            <rect x="0" y="2" width="8" height="3"/>
+            <rect x="0" y="5" width="2" height="2"/>
+            <rect x="3" y="5" width="2" height="2"/>
+            <rect x="6" y="5" width="2" height="2"/>
+          </g>
+          <g fill="#ffffff">
+            <rect x="2" y="3" width="1" height="1"/>
+            <rect x="5" y="3" width="1" height="1"/>
+          </g>
+        </svg>
+        <div class="hp-label"><span>DISTRIBUTION</span><span style="opacity:.55">HP 100%</span></div>
+      </div>
+      <div class="hp-bar"><div class="hp-fill"></div></div>
+    </div>
+    <div class="footline">YOU DIED</div>
+  </div>
+</section>
+
+<section class="slide swiss s-flow">
+  <div class="kicker">/ The workflow</div>
   <div class="row">
     <div class="num">01</div>
     <div><div class="row-main">Write the <span class="accent">brief</span>.</div><span class="row-sub">Like briefing a senior creative director.</span></div>
@@ -324,14 +320,81 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000}
   </div>
 </section>
 
+<!-- ============================================
+     4 · BRUTALIST / TECH
+============================================ -->
+
+<section class="slide brutal divider">
+  <div class="kicker">// Direction four</div>
+  <h1 class="name">Brutalist /<br><span class="accent">tech.</span></h1>
+  <div class="desc">Black terminal canvas · JetBrains Mono everywhere · faint scan lines · burnt orange accent · default-system console aesthetic. Cheeky, raw, anti-design.</div>
+  <div class="accent-block"></div>
+</section>
+
+<section class="slide brutal s-title">
+  <div class="topbar">
+    <div class="mono">// Product Unleashed · June 2026</div>
+    <div class="mono">tom@unleashed:~$</div>
+  </div>
+  <div class="center">
+    <h1>Learn to ship<br>native, <span class="accent">with AI.</span></h1>
+  </div>
+  <div class="mono">$ vibe-designed --not vibe-coded</div>
+</section>
+
+<section class="slide brutal s-boss">
+  <div class="topbar"><div class="mono">// Beat 1 · the boss</div></div>
+  <div class="stage">
+    <h1>Distribution is<br>the <span class="accent">final boss</span>.</h1>
+    <div class="hp">
+      <div class="hp-row">
+        <svg class="sprite" viewBox="0 0 8 8" shape-rendering="crispEdges">
+          <g fill="#ff5722">
+            <rect x="1" y="1" width="6" height="1"/>
+            <rect x="0" y="2" width="8" height="3"/>
+            <rect x="0" y="5" width="2" height="2"/>
+            <rect x="3" y="5" width="2" height="2"/>
+            <rect x="6" y="5" width="2" height="2"/>
+          </g>
+          <g fill="#0a0a0a">
+            <rect x="2" y="3" width="1" height="1"/>
+            <rect x="5" y="3" width="1" height="1"/>
+          </g>
+        </svg>
+        <div class="hp-label"><span>[DISTRIBUTION]</span><span style="opacity:.55">HP 100%</span></div>
+      </div>
+      <div class="hp-bar"><div class="hp-fill"></div></div>
+    </div>
+    <div class="footline">[YOU DIED]</div>
+  </div>
+</section>
+
+<section class="slide brutal s-flow">
+  <div class="kicker">// The workflow</div>
+  <div class="row">
+    <div class="num">01.</div>
+    <div><div class="row-main">Write the <span class="accent">brief</span>.</div><span class="row-sub">// Like briefing a senior creative director.</span></div>
+  </div>
+  <div class="row">
+    <div class="num">02.</div>
+    <div><div class="row-main">One file is the <span class="accent">spine</span>.</div><span class="row-sub">// instructions.md · build steps with IDs.</span></div>
+  </div>
+  <div class="row">
+    <div class="num">03.</div>
+    <div><div class="row-main">One <span class="accent">step</span> at a time.</div><span class="row-sub">// And a panel — including an App Store reviewer.</span></div>
+  </div>
+</section>
+
 </div>
 
-<div class="chrome">← → · space · click — navigate</div>
+<div class="chrome"><span>← → · space · click · F for fullscreen</span><span id="counter">1 / 16</span></div>
 
 <script>
 (function(){
   var deck=document.getElementById('deck');
   var slides=Array.prototype.slice.call(deck.querySelectorAll('.slide'));
+  var counter=document.getElementById('counter');
+  var chrome=document.querySelector('.chrome');
   var cur=-1;
   function fit(){var s=Math.min(window.innerWidth/1920,window.innerHeight/1080);deck.style.transform='translate(-50%,-50%) scale('+s+')'}
   window.addEventListener('resize',fit);fit();
@@ -340,6 +403,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000}
     if(n===cur)return;
     if(cur>=0){var prev=slides[cur];prev.classList.add('leaving');prev.classList.remove('active');(function(p){clearTimeout(p._t);p._t=setTimeout(function(){p.classList.remove('leaving')},600)})(prev)}
     slides[n].classList.add('active');cur=n;
+    counter.textContent=(cur+1)+' / '+slides.length;
+    var isLight=slides[n].classList.contains('cherry')||slides[n].classList.contains('swiss');
+    if(isLight)chrome.classList.add('dark');else chrome.classList.remove('dark');
     if(location.hash!=='#'+(cur+1))history.replaceState(null,'','#'+(cur+1));
   }
   document.addEventListener('keydown',function(e){
