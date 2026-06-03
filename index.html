@@ -8,17 +8,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..900,0..100&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-/* ────────────────────────────────────────────────
-   EMBEDDED FONTS (injected by build_deck.py)
-   ──────────────────────────────────────────────── */
 /* Fonts loaded via Google Fonts CDN <link> tags in deck.template.html.
    Once the Editorial Heat direction is fully locked we'll embed Fraunces
    + JetBrains Mono offline via @fontsource (npm) for live-talk robustness. */
 
 
-/* ────────────────────────────────────────────────
-   DESIGN SYSTEM — Editorial Heat
-   ──────────────────────────────────────────────── */
 :root{
   --bg:#110b1a;
   --fg:#f4ecd9;
@@ -27,220 +21,163 @@
   --accent:#ff4533;
   --serif:'Fraunces','Tiempos Headline',Georgia,serif;
   --mono:'JetBrains Mono','SF Mono',ui-monospace,Menlo,monospace;
-  --inset:120px;
+  --inset:140px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;height:100%;overflow:hidden;background:#000;color:var(--fg);font-family:var(--serif);font-optical-sizing:auto;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 
-/* ────────────────────────────────────────────────
-   STAGE + SLIDE SCAFFOLD
-   ──────────────────────────────────────────────── */
 .deck{position:fixed;left:50%;top:50%;width:1920px;height:1080px;transform-origin:0 0}
 .slide{position:absolute;inset:0;width:1920px;height:1080px;background:var(--bg);overflow:hidden;color:var(--fg);opacity:0;z-index:0;pointer-events:none;visibility:hidden;transition:opacity .6s ease}
 .slide.leaving{opacity:1;z-index:1;visibility:visible;transition:none;will-change:opacity}
 .slide.active{opacity:1;z-index:2;pointer-events:auto;visibility:visible;will-change:opacity}
 
-/* REVEAL — subtle staggered fade on .reveal children */
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease, transform .7s cubic-bezier(.2,.75,.25,1);transition-delay:var(--d,0ms)}
 .slide.active .reveal,.slide.leaving .reveal{opacity:1;transform:none}
 .slide:not(.active):not(.leaving) .reveal{transition:none}
 
-/* (animations removed — were tied to the old HP-bar boss slide) */
-
-/* CHROME — topbar, footer, progress */
-.topbar{position:absolute;top:60px;left:var(--inset);right:var(--inset);display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--mono);font-size:16px;text-transform:uppercase;letter-spacing:3px;color:var(--fg-soft);font-weight:500;z-index:5}
-.topbar .meta{text-align:right;line-height:1.5}
-.footer{position:absolute;bottom:60px;left:var(--inset);right:var(--inset);display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:14px;text-transform:uppercase;letter-spacing:3px;color:var(--fg-faint);font-weight:500;z-index:5}
-.progress{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--accent);z-index:10;transition:width .5s ease}
-
-/* TYPOGRAPHY UTILITIES */
-.mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:3px;font-weight:500}
 .accent{color:var(--accent);font-weight:800;font-variation-settings:'opsz' 144,'SOFT' 60}
-.kicker{font-family:var(--mono);font-size:22px;text-transform:uppercase;letter-spacing:5px;color:var(--fg-soft);font-weight:500}
 h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings:'opsz' 144,'SOFT' 60;line-height:1.0;letter-spacing:-.022em}
 
-/* ────────────────────────────────────────────────
-   SLIDE LAYOUTS
-   ──────────────────────────────────────────────── */
-.body{position:absolute;left:var(--inset);right:var(--inset);top:188px;bottom:128px;display:flex;flex-direction:column}
+.body{position:absolute;inset:120px;display:flex;flex-direction:column}
 
 /* TITLE */
-.s-title .body{justify-content:space-between}
-.s-title h1{font-size:200px;max-width:1700px}
+.s-title .body{justify-content:center}
+.s-title h1{font-size:220px;max-width:1700px;line-height:1.0}
 
-/* SCREENSHOT (Lovable v0) */
-.s-screenshot .body{justify-content:space-between}
-.s-screenshot .frame{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 0}
-.s-screenshot .phone{width:520px;height:980px;background:linear-gradient(165deg,#1a1424 0%,#0e0a16 100%);border-radius:48px;border:2px solid var(--fg-faint);position:relative;overflow:hidden;display:flex;flex-direction:column;padding:80px 36px 60px;gap:18px}
-.s-screenshot .phone::before{content:'';position:absolute;top:24px;left:50%;transform:translateX(-50%);width:120px;height:12px;border-radius:8px;background:#000}
-.s-screenshot .phone .gen-block{background:rgba(244,236,217,.06);border-radius:16px;height:48px}
-.s-screenshot .phone .gen-block.big{height:120px}
-.s-screenshot .phone .gen-block.button{background:var(--accent);opacity:.7;margin-top:auto}
-.s-screenshot .stamp{position:absolute;top:60px;right:0;background:var(--accent);color:var(--bg);font-family:var(--mono);font-size:18px;font-weight:700;letter-spacing:3px;padding:10px 18px;transform:rotate(8deg)}
-.s-screenshot .caption{font-family:var(--mono);font-size:18px;letter-spacing:3px;color:var(--fg-soft);text-transform:uppercase;font-weight:500;text-align:center}
-.s-screenshot .swap-label{position:absolute;top:120px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;background:var(--bg);padding:6px 12px;border:1px solid var(--accent);z-index:3}
+/* ME + LOVABLE (casino GIF) */
+.s-screenshot .body{justify-content:center;align-items:center}
+.s-screenshot .meme{max-width:1300px;max-height:780px;width:auto;height:auto;display:block;border-radius:16px;filter:drop-shadow(0 16px 40px rgba(0,0,0,.55))}
+.s-screenshot .meme-placeholder{width:1100px;height:600px;border:2px dashed var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);text-align:center;padding:24px;border-radius:16px;line-height:1.6}
 
 /* MOAT (ledger) */
-.s-moat .body{justify-content:space-between}
+.s-moat .body{justify-content:center;gap:80px}
 .s-moat h1{font-size:200px;max-width:1500px}
-.s-moat .ledger{display:grid;grid-template-columns:1fr 1fr;gap:120px;position:relative;align-items:start;flex:1;padding-top:48px}
+.s-moat .ledger{display:grid;grid-template-columns:1fr 1fr;gap:120px;position:relative;align-items:start}
 .s-moat .ledger::before{content:'';position:absolute;left:50%;top:24px;bottom:24px;width:1px;background:rgba(244,236,217,.15)}
 .s-moat .col{display:flex;flex-direction:column;gap:6px}
-.s-moat .col-head{font-family:var(--mono);font-size:24px;letter-spacing:5px;text-transform:uppercase;font-weight:700;color:var(--fg-soft)}
+.s-moat .col-head{font-family:var(--mono);font-size:32px;letter-spacing:5px;text-transform:uppercase;font-weight:700;color:var(--fg-soft);margin-bottom:24px}
 .s-moat .col-right .col-head{color:var(--accent)}
-.s-moat .col-sub{font-family:var(--serif);font-style:italic;font-size:28px;color:var(--fg-soft);margin-bottom:16px}
-.s-moat .col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
-.s-moat .col li{font-family:var(--serif);font-weight:700;font-size:54px;line-height:1.0;font-variation-settings:'opsz' 144,'SOFT' 60}
+.s-moat .col ul{list-style:none;display:flex;flex-direction:column;gap:14px}
+.s-moat .col li{font-family:var(--serif);font-weight:700;font-size:58px;line-height:1.0;font-variation-settings:'opsz' 144,'SOFT' 60}
 
 /* HIERARCHY (Distribution > Product — Yhorm meme) */
 .s-hierarchy .body{flex-direction:row;justify-content:space-between;align-items:center;gap:80px}
 .s-hierarchy .text-col{flex:1;display:flex;flex-direction:column;gap:32px;max-width:1000px}
 .s-hierarchy h1{font-size:180px;line-height:.96;max-width:none}
 .s-hierarchy .image-col{flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.s-hierarchy .meme{max-height:780px;width:auto;display:block;filter:drop-shadow(0 16px 40px rgba(0,0,0,.55))}
-.s-hierarchy .meme-placeholder{width:440px;height:780px;border:2px dashed var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);text-align:center;padding:24px}
+.s-hierarchy .meme{max-height:820px;width:auto;display:block;filter:drop-shadow(0 16px 40px rgba(0,0,0,.55))}
+.s-hierarchy .meme-placeholder{width:440px;height:780px;border:2px dashed var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);text-align:center;padding:24px;line-height:1.6}
 
-/* FIRST PAYER (celebrating-3rd-place meme) */
-.s-notif .body{justify-content:space-between}
-.s-notif h1{font-size:160px;max-width:1500px;line-height:1.0}
-.s-notif .meme-row{flex:1;display:flex;align-items:center;justify-content:center;padding:8px 0}
-.s-notif .meme{max-width:1200px;max-height:600px;width:auto;height:auto;display:block;border-radius:16px;filter:drop-shadow(0 16px 40px rgba(0,0,0,.55))}
+/* FIRST PAYER (podium meme) */
+.s-notif .body{justify-content:center;gap:60px}
+.s-notif h1{font-size:180px;max-width:1500px;line-height:1.0}
+.s-notif .meme-row{display:flex;align-items:center;justify-content:center}
+.s-notif .meme{max-width:1300px;max-height:600px;width:auto;height:auto;display:block;border-radius:16px;filter:drop-shadow(0 16px 40px rgba(0,0,0,.55))}
 .s-notif .meme-placeholder{width:1100px;height:560px;border:2px dashed var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);text-align:center;padding:24px;border-radius:16px;line-height:1.6}
 
 /* HOTFIX (split comparison) */
 .s-hotfix .body{justify-content:center;gap:80px}
-.s-hotfix h1{font-size:170px;max-width:1500px}
+.s-hotfix h1{font-size:180px;max-width:1500px}
 .s-hotfix .split{display:grid;grid-template-columns:1fr 1fr;gap:80px}
 .s-hotfix .col{padding-top:36px;border-top:2px solid currentColor}
-.s-hotfix .col-label{font-family:var(--mono);font-size:30px;letter-spacing:6px;font-weight:700;margin-bottom:40px;color:var(--fg-soft)}
-.s-hotfix .col-step{font-family:var(--mono);font-size:38px;font-weight:500;margin-bottom:18px}
+.s-hotfix .col-label{font-family:var(--mono);font-size:36px;letter-spacing:6px;font-weight:700;margin-bottom:40px;color:var(--fg-soft)}
+.s-hotfix .col-step{font-family:var(--mono);font-size:44px;font-weight:500;margin-bottom:22px}
 .s-hotfix .bad{color:var(--accent);font-weight:700}
 
 /* INFLATABLE FURNITURE */
-.s-furn .body{justify-content:space-between}
-.s-furn .stage-chair{flex:1;display:flex;align-items:center;justify-content:center}
-.s-furn .chair{width:780px;height:auto}
-.s-furn .caption{font-family:var(--mono);font-size:22px;letter-spacing:4px;color:var(--fg-soft);text-transform:uppercase;font-weight:500;text-align:center}
+.s-furn .body{justify-content:center;align-items:center}
+.s-furn .chair{width:900px;height:auto}
 
 /* WORKFLOW */
-.s-flow .body{justify-content:center;gap:56px}
-.s-flow .kicker-row{font-family:var(--mono);font-size:24px;letter-spacing:6px;text-transform:uppercase;color:var(--fg-soft);margin-bottom:8px;font-weight:500}
+.s-flow .body{justify-content:center;gap:60px}
 .s-flow .row{display:grid;grid-template-columns:140px 1fr;gap:60px;align-items:baseline}
-.s-flow .num{font-family:var(--mono);font-size:56px;font-weight:500;color:var(--fg-faint)}
-.s-flow .row-main{font-size:96px;line-height:1.02;font-weight:800;font-variation-settings:'opsz' 144,'SOFT' 60}
-.s-flow .row-sub{display:block;font-family:var(--mono);font-size:22px;letter-spacing:1px;margin-top:14px;color:var(--fg-soft);font-weight:400}
+.s-flow .num{font-family:var(--mono);font-size:64px;font-weight:500;color:var(--fg-faint)}
+.s-flow .row-main{font-size:104px;line-height:1.02;font-weight:800;font-variation-settings:'opsz' 144,'SOFT' 60}
+.s-flow .row-sub{display:block;font-family:var(--mono);font-size:26px;letter-spacing:1px;margin-top:16px;color:var(--fg-soft);font-weight:400}
 
 /* SPEC (instructions.md preview) */
-.s-spec .body{justify-content:space-between}
-.s-spec h1{font-size:160px;margin-bottom:8px}
-.s-spec .doc{flex:1;background:rgba(0,0,0,.28);border:1px solid rgba(244,236,217,.12);border-radius:18px;padding:36px 48px;display:flex;flex-direction:column;gap:4px;overflow:hidden;font-family:var(--mono);font-size:20px;line-height:1.55}
-.s-spec .doc-section{font-family:var(--serif);font-weight:700;font-size:28px;font-variation-settings:'opsz' 144,'SOFT' 60;color:var(--accent);margin-top:14px;margin-bottom:4px;letter-spacing:-.01em}
+.s-spec .body{justify-content:center;gap:48px}
+.s-spec h1{font-size:160px}
+.s-spec .doc{background:rgba(0,0,0,.28);border:1px solid rgba(244,236,217,.12);border-radius:18px;padding:40px 56px;display:flex;flex-direction:column;gap:4px;overflow:hidden;font-family:var(--mono);font-size:26px;line-height:1.55}
+.s-spec .doc-section{font-family:var(--serif);font-weight:700;font-size:36px;font-variation-settings:'opsz' 144,'SOFT' 60;color:var(--accent);margin-top:14px;margin-bottom:6px;letter-spacing:-.01em}
 .s-spec .doc-section:first-child{margin-top:0}
 .s-spec .doc-line{color:var(--fg);font-weight:400;padding:2px 0;letter-spacing:.4px}
 .s-spec .doc-line.dim{color:var(--fg-faint);font-style:italic;letter-spacing:1px;padding-left:32px}
 .s-spec .doc-line mark{background:rgba(255,69,51,.18);color:var(--accent);padding:1px 8px;border-radius:4px;font-weight:700}
 .s-spec .doc-line.highlight{background:rgba(255,69,51,.12);color:var(--fg);border-left:3px solid var(--accent);padding-left:14px;margin-left:-17px;font-weight:600}
-.s-spec .doc-line.indent{color:var(--accent);padding-left:38px;font-weight:500;font-size:18px}
+.s-spec .doc-line.indent{color:var(--accent);padding-left:38px;font-weight:500;font-size:22px}
 
 /* SPINE LINE — single line slide */
 .s-spine .body{justify-content:center;align-items:flex-start}
-.s-spine h1{font-size:220px;max-width:1700px;line-height:1.0}
+.s-spine h1{font-size:240px;max-width:1700px;line-height:1.0}
 
 /* REVIEW (one-star card) */
-.s-review .body{justify-content:space-between}
-.s-review h1{font-size:140px;max-width:1500px}
-.s-review .review{align-self:center;background:rgba(244,236,217,.06);border:1px solid rgba(244,236,217,.18);border-radius:24px;padding:56px 64px;display:flex;flex-direction:column;gap:24px;max-width:1300px;width:92%}
-.s-review .review-stars{font-size:56px;letter-spacing:14px;color:var(--accent);line-height:1}
+.s-review .body{justify-content:center;gap:64px}
+.s-review h1{font-size:150px;max-width:1500px}
+.s-review .review{align-self:center;background:rgba(244,236,217,.06);border:1px solid rgba(244,236,217,.18);border-radius:24px;padding:60px 72px;display:flex;flex-direction:column;gap:28px;max-width:1400px;width:92%}
+.s-review .review-stars{font-size:64px;letter-spacing:14px;color:var(--accent);line-height:1}
 .s-review .review-stars .empty{color:var(--fg-faint)}
-.s-review .review-title{font-family:var(--serif);font-weight:700;font-size:64px;line-height:1.1;font-variation-settings:'opsz' 144,'SOFT' 60;letter-spacing:-.015em}
-.s-review .review-body{font-family:var(--serif);font-style:italic;font-size:32px;line-height:1.4;color:var(--fg-soft);font-variation-settings:'SOFT' 80}
-.s-review .review-sig{font-family:var(--mono);font-size:18px;letter-spacing:3px;text-transform:uppercase;color:var(--fg-faint);font-weight:500;margin-top:6px}
+.s-review .review-title{font-family:var(--serif);font-weight:700;font-size:72px;line-height:1.1;font-variation-settings:'opsz' 144,'SOFT' 60;letter-spacing:-.015em}
+.s-review .review-body{font-family:var(--serif);font-style:italic;font-size:38px;line-height:1.4;color:var(--fg-soft);font-variation-settings:'SOFT' 80}
 
 /* REJECTION TIMELINE */
-.s-timeline .body{justify-content:space-between}
-.s-timeline h1{font-size:120px}
-.s-timeline .timeline{display:flex;flex-direction:column;gap:24px;max-width:1500px}
-.s-timeline .row{display:grid;grid-template-columns:200px 120px 1fr 240px;gap:32px;align-items:baseline;padding-bottom:18px;border-bottom:1px solid rgba(244,236,217,.12)}
-.s-timeline .row .date{font-family:var(--mono);font-size:22px;letter-spacing:3px;color:var(--fg-soft);font-weight:500}
-.s-timeline .row .status{font-family:var(--mono);font-size:22px;letter-spacing:3px;font-weight:700}
-.s-timeline .row .reason{font-family:var(--serif);font-size:30px;font-weight:500;color:var(--fg)}
-.s-timeline .row .wait{font-family:var(--mono);font-size:18px;letter-spacing:3px;color:var(--fg-faint);text-align:right;font-weight:500}
+.s-timeline .body{justify-content:center;gap:64px}
+.s-timeline h1{font-size:140px}
+.s-timeline .timeline{display:flex;flex-direction:column;gap:28px;max-width:1640px}
+.s-timeline .row{display:grid;grid-template-columns:240px 180px 1fr 280px;gap:40px;align-items:baseline;padding-bottom:22px;border-bottom:1px solid rgba(244,236,217,.12)}
+.s-timeline .row .date{font-family:var(--mono);font-size:28px;letter-spacing:3px;color:var(--fg-soft);font-weight:500}
+.s-timeline .row .status{font-family:var(--mono);font-size:28px;letter-spacing:3px;font-weight:700}
+.s-timeline .row .reason{font-family:var(--serif);font-size:42px;font-weight:500;color:var(--fg)}
+.s-timeline .row .wait{font-family:var(--mono);font-size:24px;letter-spacing:3px;color:var(--fg-faint);text-align:right;font-weight:500}
 .s-timeline .rejected{color:var(--accent)}
 .s-timeline .approved{color:#a8e08c}
 
 /* PORTFOLIO MAKERS */
-.s-makers .body{justify-content:space-between}
-.s-makers .pair{flex:1;display:flex;align-items:center;justify-content:center;gap:200px;padding-top:40px}
+.s-makers .body{justify-content:center;gap:80px}
+.s-makers .pair{display:flex;align-items:center;justify-content:center;gap:200px}
 .s-makers .maker{display:flex;flex-direction:column;align-items:center;gap:32px;max-width:520px;text-align:center}
 .s-makers .portrait{width:340px;height:340px;border-radius:50%;background:linear-gradient(135deg,rgba(255,69,51,.2),rgba(244,236,217,.08));border:2px solid var(--fg-faint);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:140px;font-weight:700;color:var(--accent);position:relative;overflow:hidden}
 .s-makers .portrait::after{content:attr(data-swap);position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--accent);background:var(--bg);padding:4px 8px;border:1px solid var(--accent);text-transform:uppercase}
-.s-makers .name{font-family:var(--serif);font-size:54px;font-weight:700;font-variation-settings:'opsz' 144,'SOFT' 60;line-height:1.05}
-.s-makers .role{font-family:var(--mono);font-size:18px;letter-spacing:3px;color:var(--fg-soft);text-transform:uppercase;font-weight:500;margin-top:4px}
-.s-makers .strapline{font-family:var(--serif);font-size:52px;font-weight:700;text-align:center;font-variation-settings:'opsz' 144,'SOFT' 60;letter-spacing:-.015em;color:var(--fg)}
+.s-makers .name{font-family:var(--serif);font-size:60px;font-weight:700;font-variation-settings:'opsz' 144,'SOFT' 60;line-height:1.05}
+.s-makers .role{font-family:var(--mono);font-size:22px;letter-spacing:3px;color:var(--fg-soft);text-transform:uppercase;font-weight:500;margin-top:6px}
+.s-makers .strapline{font-family:var(--serif);font-size:64px;font-weight:700;text-align:center;font-variation-settings:'opsz' 144,'SOFT' 60;letter-spacing:-.015em;color:var(--fg)}
 .s-makers .strapline .accent{font-weight:800}
 
 /* CLOSE */
 .s-close .body{justify-content:center;align-items:flex-start}
-.s-close h1{font-size:200px;max-width:1700px;line-height:1.0}
-.s-close .qr-block{position:absolute;right:var(--inset);bottom:128px;display:flex;flex-direction:column;align-items:flex-end;gap:14px}
-.s-close .qr{width:200px;height:200px;background:var(--fg);padding:18px;display:grid;grid-template-columns:repeat(11,1fr);grid-template-rows:repeat(11,1fr);gap:2px}
+.s-close h1{font-size:220px;max-width:1700px;line-height:1.0}
+.s-close .qr-block{position:absolute;right:120px;bottom:120px;display:flex;align-items:flex-end}
+.s-close .qr{width:240px;height:240px;background:var(--fg);padding:20px;display:grid;grid-template-columns:repeat(11,1fr);grid-template-rows:repeat(11,1fr);gap:2px}
 .s-close .qr i{background:var(--bg)}
-.s-close .qr-caption{font-family:var(--mono);font-size:16px;letter-spacing:3px;color:var(--fg-soft);text-transform:uppercase;font-weight:500}
 </style>
 </head>
 <body>
 <div class="deck" id="deck">
 
-<!-- ============================================
-     1 · TITLE
-============================================ -->
+<!-- 1 · TITLE -->
 <section class="slide s-title" data-i="1">
-  <header class="topbar"><div>Learn to ship native, with AI</div><div class="meta">Tom · Product Unleashed<br>June 2026</div></header>
   <div class="body">
-    <div class="kicker reveal" style="--d:80ms">Talk · 01</div>
-    <h1 class="reveal" style="--d:240ms">Learn to ship<br>native, <span class="accent">with&nbsp;AI</span>.</h1>
-    <div class="mono reveal" style="--d:600ms;font-size:18px;color:var(--fg-soft)">Vibe-designed, not vibe-coded.</div>
+    <h1 class="reveal" style="--d:200ms">Learn to ship<br>native, <span class="accent">with&nbsp;AI</span>.</h1>
   </div>
-  <footer class="footer"><div>01 / 14</div><div>Product Unleashed</div></footer>
 </section>
 
-<!-- ============================================
-     2 · LOVABLE V0
-     Triggers on: "I went to Lovable."
-============================================ -->
+<!-- 2 · ME + LOVABLE (casino GIF) -->
 <section class="slide s-screenshot" data-i="2">
-  <header class="topbar"><div>Beat 1 · why iOS</div><div class="meta">The detour</div></header>
   <div class="body">
-    <div class="frame reveal" style="--d:120ms">
-      <div class="phone">
-        <div class="swap-label">▶ Insert real Lovable screenshot</div>
-        <div class="gen-block" style="width:60%"></div>
-        <div class="gen-block big"></div>
-        <div class="gen-block" style="width:80%"></div>
-        <div class="gen-block" style="width:70%"></div>
-        <div class="gen-block" style="width:90%"></div>
-        <div class="gen-block button"></div>
-        <div class="stamp">v0 · MID</div>
-      </div>
+    <div class="reveal" style="--d:120ms">
+      <img class="meme" src="https://media1.tenor.com/m/M6WgkbXFHjwAAAAd/casino-oldpeople.gif" alt="Old people at a casino slot machine — vibe coding as gambling" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="meme-placeholder" style="display:none">▶ Tenor GIF unreachable — paste a new URL</div>
     </div>
-    <div class="caption reveal" style="--d:380ms">MigraPulse · Lovable · Dec 2025</div>
   </div>
-  <footer class="footer"><div>02 / 14</div><div>The detour</div></footer>
 </section>
 
-<!-- ============================================
-     3 · THE MOAT (NEW)
-     Triggers on: "On the web I'd be building auth, a database..."
-============================================ -->
+<!-- 3 · THE MOAT -->
 <section class="slide s-moat" data-i="3">
-  <header class="topbar"><div>Beat 1 · the deal</div><div class="meta">What Apple hands you</div></header>
   <div class="body">
-    <div class="kicker reveal" style="--d:80ms">▶ The moat</div>
-    <h1 class="reveal" style="--d:240ms">Not laziness.<br><span class="accent">Leverage</span>.</h1>
-    <div class="ledger reveal" style="--d:520ms">
+    <h1 class="reveal" style="--d:120ms">Not laziness.<br><span class="accent">Leverage</span>.</h1>
+    <div class="ledger reveal" style="--d:380ms">
       <div class="col col-left">
         <div class="col-head">On the web</div>
-        <div class="col-sub">— I'd be building</div>
         <ul>
           <li>Auth</li>
           <li>Database</li>
@@ -252,7 +189,6 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
       </div>
       <div class="col col-right">
         <div class="col-head">On iOS</div>
-        <div class="col-sub">— Apple gives me</div>
         <ul>
           <li>The phone</li>
           <li>On-device storage</li>
@@ -264,57 +200,37 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
       </div>
     </div>
   </div>
-  <footer class="footer"><div>03 / 14</div><div>Zero time spent on any of it</div></footer>
 </section>
 
-<!-- ============================================
-     4 · DISTRIBUTION > PRODUCT (Yhorm meme)
-     Triggers on: "Distribution is the final boss of product."
-     ⤷ Image lives at assets/distribution-meme.png — Tom to commit
-============================================ -->
+<!-- 4 · DISTRIBUTION > PRODUCT (Yhorm meme) -->
 <section class="slide s-hierarchy" data-i="4">
-  <header class="topbar"><div>Beat 1 · the hierarchy</div><div class="meta">▶ the boss</div></header>
   <div class="body">
     <div class="text-col">
-      <div class="kicker reveal" style="--d:80ms">▶ The hierarchy</div>
-      <h1 class="reveal" style="--d:240ms">Distribution is<br>the <span class="accent">final boss</span>.</h1>
+      <h1 class="reveal" style="--d:120ms">Distribution is<br>the <span class="accent">final boss</span>.</h1>
     </div>
-    <div class="image-col reveal" style="--d:480ms">
+    <div class="image-col reveal" style="--d:380ms">
       <img class="meme" src="https://i.imgflip.com/atg7zr.jpg" alt="Yhorm meme — a giant labelled DISTRIBUTION towers over a tiny knight labelled PRODUCT" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
       <div class="meme-placeholder" style="display:none">▶ Save your meme to<br>assets/distribution-meme.png<br>and commit · push</div>
     </div>
   </div>
-  <footer class="footer"><div>04 / 14</div><div>Distribution &gt; everything else</div></footer>
 </section>
 
-<!-- ============================================
-     5 · £4.99 FIRST PAYER — celebrating-3rd-place meme
-     Triggers on: "The first time a stranger pays you £4.99 a month..."
-     ⤷ Image lives at assets/first-payer-meme.png — Tom to commit
-============================================ -->
+<!-- 5 · £4.99 FIRST PAYER -->
 <section class="slide s-notif" data-i="5">
-  <header class="topbar"><div>Beat 1 · the first hit</div><div class="meta">▶ first £4.99</div></header>
   <div class="body">
-    <div class="kicker reveal" style="--d:80ms">▶ The first one</div>
-    <h1 class="reveal" style="--d:240ms">Hits like<br><span class="accent">nothing else</span>.</h1>
-    <div class="meme-row reveal" style="--d:520ms">
+    <h1 class="reveal" style="--d:120ms">Hits like<br><span class="accent">nothing else</span>.</h1>
+    <div class="meme-row reveal" style="--d:380ms">
       <img class="meme" src="https://i.imgflip.com/atgama.jpg" alt="Podium meme — over-celebrating the first £4.99 on the App Store next to a corporate designer salary" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
       <div class="meme-placeholder" style="display:none">▶ Save your meme to<br>assets/first-payer-meme.png<br>and commit · push</div>
     </div>
   </div>
-  <footer class="footer"><div>05 / 14</div><div>Zero marketing · paying users</div></footer>
 </section>
 
-<!-- ============================================
-     6 · NO HOTFIX (split comparison)
-     Triggers on: "the platform doesn't let you hotfix."
-============================================ -->
+<!-- 6 · NO HOTFIX -->
 <section class="slide s-hotfix" data-i="6">
-  <header class="topbar"><div>Beat 2 · reason one</div><div class="meta">Operational</div></header>
   <div class="body">
-    <div class="kicker reveal" style="--d:80ms">▶ Reason one</div>
-    <h1 class="reveal" style="--d:240ms">On iOS, there is<br><span class="accent">no hotfix</span>.</h1>
-    <div class="split reveal" style="--d:600ms">
+    <h1 class="reveal" style="--d:120ms">On iOS, there is<br><span class="accent">no hotfix</span>.</h1>
+    <div class="split reveal" style="--d:380ms">
       <div class="col">
         <div class="col-label">Web</div>
         <div class="col-step">9:00pm — broken</div>
@@ -327,18 +243,12 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
       </div>
     </div>
   </div>
-  <footer class="footer"><div>06 / 14</div><div>The price of entry</div></footer>
 </section>
 
-<!-- ============================================
-     7 · INFLATABLE FURNITURE
-     Triggers on: "feel like inflatable furniture."
-============================================ -->
+<!-- 7 · INFLATABLE FURNITURE -->
 <section class="slide s-furn" data-i="7">
-  <header class="topbar"><div>Beat 2 · reason two</div><div class="meta">Aesthetic</div></header>
   <div class="body">
-    <div class="kicker reveal" style="--d:80ms">▶ Reason two</div>
-    <div class="stage-chair reveal" style="--d:300ms">
+    <div class="reveal" style="--d:200ms">
       <svg class="chair" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
         <g fill="#ff4533">
           <path d="M40 290 Q52 230 95 222 L95 158 Q100 108 150 102 L260 102 Q310 108 315 158 L315 222 Q358 230 370 290 Z"/>
@@ -353,34 +263,27 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
         </g>
       </svg>
     </div>
-    <div class="caption reveal" style="--d:600ms">Inflatable furniture.</div>
   </div>
-  <footer class="footer"><div>07 / 14</div><div>The storefront is filling with mid</div></footer>
 </section>
 
-<!-- ============================================
-     8 · THE WORKFLOW ON ONE SLIDE
-     Triggers on: "Three lines on what the workflow actually is."
-============================================ -->
+<!-- 8 · WORKFLOW -->
 <section class="slide s-flow" data-i="8">
-  <header class="topbar"><div>Beat 2 · the workflow</div><div class="meta">On one slide</div></header>
   <div class="body">
-    <div class="kicker-row reveal" style="--d:80ms">▶ The workflow</div>
-    <div class="row reveal" style="--d:240ms">
+    <div class="row reveal" style="--d:120ms">
       <div class="num">01</div>
       <div>
         <div class="row-main">Write the <span class="accent">brief</span>.</div>
         <span class="row-sub">Like briefing a senior creative director. Three or four evocative paragraphs.</span>
       </div>
     </div>
-    <div class="row reveal" style="--d:440ms">
+    <div class="row reveal" style="--d:320ms">
       <div class="num">02</div>
       <div>
         <div class="row-main">One file is the <span class="accent">spine</span>.</div>
         <span class="row-sub">instructions.md · user stories · screens · data · build steps with IDs.</span>
       </div>
     </div>
-    <div class="row reveal" style="--d:640ms">
+    <div class="row reveal" style="--d:520ms">
       <div class="num">03</div>
       <div>
         <div class="row-main">One <span class="accent">step</span> at a time.</div>
@@ -388,85 +291,57 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
       </div>
     </div>
   </div>
-  <footer class="footer"><div>08 / 14</div><div>QR at the end for the full thing</div></footer>
 </section>
 
-<!-- ============================================
-     9 · INSTRUCTIONS.MD PREVIEW (NEW)
-     Triggers on: "When I tell my agent to build the home screen, I say 'build B002'."
-============================================ -->
+<!-- 9 · INSTRUCTIONS.MD PREVIEW -->
 <section class="slide s-spec" data-i="9">
-  <header class="topbar"><div>Beat 2 · the spine</div><div class="meta">instructions.md</div></header>
   <div class="body">
-    <div class="kicker reveal" style="--d:80ms">▶ The spine, opened</div>
-    <h1 class="reveal" style="--d:240ms">Every part has<br>an <span class="accent">ID</span>.</h1>
-    <div class="doc reveal" style="--d:520ms">
+    <h1 class="reveal" style="--d:120ms">Every part has<br>an <span class="accent">ID</span>.</h1>
+    <div class="doc reveal" style="--d:380ms">
       <div class="doc-section">## User stories</div>
       <div class="doc-line">US-001 &nbsp;Log symptoms by voice, mid-episode</div>
-      <div class="doc-line">US-002 &nbsp;Review past entries in a timeline</div>
       <div class="doc-line dim">⋯ 55 more</div>
       <div class="doc-section">## Screens</div>
       <div class="doc-line"><mark>S-001</mark> &nbsp;Home — orb + entries list</div>
-      <div class="doc-line">S-002 &nbsp;Logging — voice prompts</div>
       <div class="doc-line dim">⋯ 15 more</div>
       <div class="doc-section">## Features</div>
       <div class="doc-line"><mark>F-007</mark> &nbsp;Entries list on home</div>
       <div class="doc-line dim">⋯ 69 more</div>
       <div class="doc-section">## Data</div>
       <div class="doc-line"><mark>D-002</mark> &nbsp;Entry { date · severity · triggers }</div>
-      <div class="doc-line dim">⋯</div>
       <div class="doc-section">## Build steps</div>
       <div class="doc-line">B-001 &nbsp;Set up SwiftUI project</div>
       <div class="doc-line highlight">B-002 &nbsp;Build the home screen</div>
       <div class="doc-line indent">→ uses S-001 · F-007 · D-002</div>
       <div class="doc-line">B-003 &nbsp;Add voice logging flow</div>
-      <div class="doc-line dim">⋯</div>
     </div>
   </div>
-  <footer class="footer"><div>09 / 14</div><div>"Build B002" — and the agent looks up the rest</div></footer>
 </section>
 
-<!-- ============================================
-     10 · VIBE-DESIGNED, NOT VIBE-CODED
-     Triggers on: spine line at end of Beat 2
-============================================ -->
+<!-- 10 · VIBE-DESIGNED, NOT VIBE-CODED -->
 <section class="slide s-spine" data-i="10">
-  <header class="topbar"><div>Beat 2 · spine</div><div class="meta">—</div></header>
   <div class="body">
     <h1 class="reveal" style="--d:200ms">Vibe&#8209;designed,<br>not <span class="accent">vibe&#8209;coded</span>.</h1>
   </div>
-  <footer class="footer"><div>10 / 14</div><div>—</div></footer>
 </section>
 
-<!-- ============================================
-     11 · ONE-STAR REVIEW (NEW)
-     Triggers on: "I read a one-star review on a competitor app..."
-============================================ -->
+<!-- 11 · ONE-STAR REVIEW -->
 <section class="slide s-review" data-i="11">
-  <header class="topbar"><div>Beat 3 · structure matters</div><div class="meta">App Store · review</div></header>
   <div class="body">
-    <div class="kicker reveal" style="--d:80ms">▶ A review that scared me straight</div>
-    <h1 class="reveal" style="--d:240ms">On iOS, you wait<br><span class="accent">3 days</span> to fix it.</h1>
-    <div class="review reveal" style="--d:520ms">
+    <h1 class="reveal" style="--d:120ms">On iOS, you wait<br><span class="accent">3 days</span> to fix it.</h1>
+    <div class="review reveal" style="--d:380ms">
       <div class="review-stars">★<span class="empty"> ☆ ☆ ☆ ☆</span></div>
       <div class="review-title">"Three months of data, gone."</div>
       <div class="review-body">My son and I had been tracking his migraine symptoms since November. After last week's update, every entry has vanished. I've cancelled my subscription. Furious.</div>
-      <div class="review-sig">Parent · UK · App Store</div>
     </div>
   </div>
-  <footer class="footer"><div>11 / 14</div><div>Structure isn't a nice-to-have here</div></footer>
 </section>
 
-<!-- ============================================
-     12 · REJECTION TIMELINE
-     Triggers on: "Three weeks. Three rejections."
-============================================ -->
+<!-- 12 · REJECTION TIMELINE -->
 <section class="slide s-timeline" data-i="12">
-  <header class="topbar"><div>Beat 3 · going live</div><div class="meta">App Store review</div></header>
   <div class="body">
-    <div class="kicker reveal" style="--d:80ms">▶ Three weeks. Three rejections.</div>
-    <h1 class="reveal" style="--d:240ms">None of it was<br>about the <span class="accent">code</span>.</h1>
-    <div class="timeline reveal" style="--d:520ms">
+    <h1 class="reveal" style="--d:120ms">None of it was<br>about the <span class="accent">code</span>.</h1>
+    <div class="timeline reveal" style="--d:380ms">
       <div class="row">
         <div class="date">06 Feb 2026</div>
         <div class="status rejected">REJECTED</div>
@@ -493,26 +368,20 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
       </div>
     </div>
   </div>
-  <footer class="footer"><div>12 / 14</div><div>The bar is the moat</div></footer>
 </section>
 
-<!-- ============================================
-     13 · THE PORTFOLIO MAKER
-     Triggers on: "Look at someone like Jordi Bruin."
-============================================ -->
+<!-- 13 · PORTFOLIO MAKERS -->
 <section class="slide s-makers" data-i="13">
-  <header class="topbar"><div>Beat 3 · the close</div><div class="meta">The portfolio maker</div></header>
   <div class="body">
-    <div class="kicker reveal" style="--d:80ms">▶ The rise of the portfolio maker</div>
-    <div class="pair">
-      <div class="maker reveal" style="--d:240ms">
+    <div class="pair reveal" style="--d:120ms">
+      <div class="maker">
         <div class="portrait" data-swap="Swap photo">JB</div>
         <div>
           <div class="name">Jordi Bruin</div>
           <div class="role">Good Snooze · Amsterdam</div>
         </div>
       </div>
-      <div class="maker reveal" style="--d:380ms">
+      <div class="maker">
         <div class="portrait" data-swap="Swap photo">PL</div>
         <div>
           <div class="name">Pieter Levels</div>
@@ -520,22 +389,16 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
         </div>
       </div>
     </div>
-    <div class="strapline reveal" style="--d:600ms">They're not chasing unicorns.<br>They're <span class="accent">stacking</span>.</div>
+    <div class="strapline reveal" style="--d:520ms">They're not chasing unicorns.<br>They're <span class="accent">stacking</span>.</div>
   </div>
-  <footer class="footer"><div>13 / 14</div><div>Designers and builders</div></footer>
 </section>
 
-<!-- ============================================
-     14 · CLOSE
-     Triggers on: "See you in the App Store."
-============================================ -->
+<!-- 14 · CLOSE -->
 <section class="slide s-close" data-i="14">
-  <header class="topbar"><div>—</div><div class="meta">Close</div></header>
   <div class="body">
     <h1 class="reveal" style="--d:200ms">See you in<br>the <span class="accent">App Store</span>.</h1>
   </div>
   <div class="qr-block reveal" style="--d:600ms">
-    <!-- TOM: replace this stylized placeholder with the real QR for the 3-hour video -->
     <div class="qr">
       <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
       <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
@@ -549,20 +412,15 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
       <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
       <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
     </div>
-    <div class="qr-caption">Three hours, every step</div>
   </div>
-  <footer class="footer"><div>14 / 14</div><div>Vibe-designed, not vibe-coded</div></footer>
 </section>
 
 </div>
-
-<div class="progress" id="progress"></div>
 
 <script>
 (function(){
   var deck = document.getElementById('deck');
   var slides = Array.prototype.slice.call(deck.querySelectorAll('.slide'));
-  var progress = document.getElementById('progress');
   var cur = -1;
 
   function fit(){
@@ -571,7 +429,6 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
   }
   window.addEventListener('resize', fit); fit();
 
-  // QR placeholder pattern — generate a deterministic-looking grid
   (function(){
     var qr = document.querySelector('.s-close .qr');
     if (!qr) return;
@@ -596,7 +453,6 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
     }
     slides[n].classList.add('active');
     cur = n;
-    progress.style.width = ((cur+1) / slides.length * 100) + '%';
     if (location.hash !== '#' + (cur+1)) history.replaceState(null, '', '#' + (cur+1));
   }
 
