@@ -63,13 +63,12 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 .s-moat .col ul{list-style:none;display:flex;flex-direction:column;gap:14px}
 .s-moat .col li{font-family:var(--serif);font-weight:700;font-size:58px;line-height:1.0;font-variation-settings:'opsz' 144,'SOFT' 60}
 
-/* HIERARCHY (Distribution > Product — Yhorm meme) */
-.s-hierarchy .body{flex-direction:row;justify-content:space-between;align-items:center;gap:80px}
-.s-hierarchy .text-col{flex:1;display:flex;flex-direction:column;gap:32px;max-width:1200px}
+/* HIERARCHY (Distribution > Product — Yhorm meme, full-bleed right) */
+.s-hierarchy .body{justify-content:center;align-items:flex-start}
+.s-hierarchy .text-col{display:flex;flex-direction:column;gap:32px;max-width:1180px;position:relative;z-index:2}
 .s-hierarchy h1{font-size:140px;line-height:.98;max-width:none;white-space:nowrap}
-.s-hierarchy .image-col{flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.s-hierarchy .meme{max-height:780px;width:auto;display:block;filter:drop-shadow(0 24px 50px rgba(0,0,0,.6));transform:rotate(8deg) translate(18%,4%);transform-origin:center}
-.s-hierarchy .meme-placeholder{width:440px;height:780px;border:2px dashed var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);text-align:center;padding:24px;line-height:1.6}
+.s-hierarchy .meme{position:absolute;right:0;top:0;height:100%;width:auto;display:block;z-index:1}
+.s-hierarchy .meme-placeholder{position:absolute;right:60px;top:60px;width:480px;height:780px;border:2px dashed var(--accent);display:none;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);text-align:center;padding:24px;line-height:1.6;z-index:1}
 
 /* FIRST PAYER (podium meme) */
 .s-notif .body{justify-content:center;align-items:center}
@@ -96,6 +95,7 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 .s-flow .num{font-family:var(--mono);font-size:64px;font-weight:500;color:var(--fg-faint)}
 .s-flow .row-main{font-size:104px;line-height:1.02;font-weight:800;font-variation-settings:'opsz' 144,'SOFT' 60}
 .s-flow .row-main code{font-family:var(--mono);font-weight:700;font-size:.82em;letter-spacing:-.01em;color:var(--fg)}
+.s-flow .post-it{position:absolute;top:80px;right:80px;max-width:380px;background:#ffd54a;color:#1c1410;font-family:var(--mono);font-size:20px;letter-spacing:0;font-weight:600;padding:28px 32px;border-radius:4px;transform:rotate(4deg);box-shadow:0 18px 40px rgba(0,0,0,.55),0 4px 10px rgba(0,0,0,.35);line-height:1.45;z-index:6}
 .s-flow .row-sub{display:block;font-family:var(--mono);font-size:26px;letter-spacing:1px;margin-top:16px;color:var(--fg-soft);font-weight:400}
 
 /* SPEC (instructions.md preview) */
@@ -215,17 +215,15 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
   </div>
 </section>
 
-<!-- 4 · DISTRIBUTION > PRODUCT (Yhorm meme) -->
+<!-- 5 · DISTRIBUTION > PRODUCT (Yhorm meme — full-bleed right) -->
 <section class="slide s-hierarchy" data-i="5">
   <div class="body">
     <div class="text-col">
       <h1 class="reveal" style="--d:120ms">Distribution is<br>the <span class="accent">final boss</span>.</h1>
     </div>
-    <div class="image-col reveal" style="--d:380ms">
-      <img class="meme" src="https://i.imgflip.com/atg7zr.jpg" alt="Yhorm meme — a giant labelled DISTRIBUTION towers over a tiny knight labelled PRODUCT" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="meme-placeholder" style="display:none">▶ Save your meme to<br>assets/distribution-meme.png<br>and commit · push</div>
-    </div>
   </div>
+  <img class="meme" src="https://i.imgflip.com/atg7zr.jpg" alt="Yhorm meme — a giant labelled DISTRIBUTION towers over a tiny knight labelled PRODUCT" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+  <div class="meme-placeholder">▶ Meme unreachable</div>
 </section>
 
 <!-- 5 · £4.99 FIRST PAYER -->
@@ -303,6 +301,7 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
       </div>
     </div>
   </div>
+  <div class="post-it reveal" style="--d:1300ms">Check the video at the end for the full process ↓</div>
 </section>
 
 <!-- 9 · INSTRUCTIONS.MD PREVIEW -->
