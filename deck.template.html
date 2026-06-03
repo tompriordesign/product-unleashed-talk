@@ -101,6 +101,12 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 /* SPEC (instructions.md preview) */
 .s-spec .body{justify-content:center;gap:48px}
 .s-spec h1{font-size:160px}
+.s-spec h1 code{font-family:var(--mono);font-weight:700;font-size:.78em;letter-spacing:-.01em;color:var(--fg)}
+
+/* TOO MUCH (video callout — buildup punchline) */
+.s-toomuch .body{justify-content:center;align-items:flex-start;gap:40px}
+.s-toomuch h1{font-size:220px;max-width:1700px;line-height:1.0}
+.s-toomuch .sub{font-family:var(--mono);font-size:30px;letter-spacing:2px;color:var(--fg-soft);font-weight:500}
 .s-spec .doc{background:rgba(0,0,0,.28);border:1px solid rgba(244,236,217,.12);border-radius:18px;padding:40px 56px;display:flex;flex-direction:column;gap:4px;overflow:hidden;font-family:var(--mono);font-size:26px;line-height:1.55}
 .s-spec .doc-section{font-family:var(--serif);font-weight:700;font-size:36px;font-variation-settings:'opsz' 144,'SOFT' 60;color:var(--accent);margin-top:14px;margin-bottom:6px;letter-spacing:-.01em}
 .s-spec .doc-section:first-child{margin-top:0}
@@ -301,13 +307,36 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
       </div>
     </div>
   </div>
-  <div class="post-it reveal" style="--d:1300ms">Check the video at the end for the full process ↓</div>
 </section>
 
-<!-- 9 · INSTRUCTIONS.MD PREVIEW -->
+<!-- 10 · SPEC PREVIEW · Stage 1 (neutral) -->
 <section class="slide s-spec" data-i="10">
   <div class="body">
     <h1 class="reveal" style="--d:120ms">Every part has<br>an <span class="accent">ID</span>.</h1>
+    <div class="doc reveal" style="--d:380ms">
+      <div class="doc-section">## User stories</div>
+      <div class="doc-line">US-001 &nbsp;Log symptoms by voice, mid-episode</div>
+      <div class="doc-line dim">⋯ 55 more</div>
+      <div class="doc-section">## Screens</div>
+      <div class="doc-line">S-001 &nbsp;Home — orb + entries list</div>
+      <div class="doc-line dim">⋯ 15 more</div>
+      <div class="doc-section">## Features</div>
+      <div class="doc-line">F-007 &nbsp;Entries list on home</div>
+      <div class="doc-line dim">⋯ 69 more</div>
+      <div class="doc-section">## Data</div>
+      <div class="doc-line">D-002 &nbsp;Entry { date · severity · triggers }</div>
+      <div class="doc-section">## Build steps</div>
+      <div class="doc-line">B-001 &nbsp;Set up SwiftUI project</div>
+      <div class="doc-line">B-002 &nbsp;Build the home screen</div>
+      <div class="doc-line">B-003 &nbsp;Add voice logging flow</div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 · SPEC PREVIEW · Stage 2 (B-002 looks up references) -->
+<section class="slide s-spec" data-i="11">
+  <div class="body">
+    <h1 class="reveal" style="--d:120ms">Build <code>B&#8209;002</code> →<br>looks up the <span class="accent">rest</span>.</h1>
     <div class="doc reveal" style="--d:380ms">
       <div class="doc-section">## User stories</div>
       <div class="doc-line">US-001 &nbsp;Log symptoms by voice, mid-episode</div>
@@ -329,15 +358,23 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
   </div>
 </section>
 
-<!-- 10 · VIBE-DESIGNED, NOT VIBE-CODED -->
-<section class="slide s-spine" data-i="11">
+<!-- 12 · TOO MUCH FOR NOW (video callout) -->
+<section class="slide s-toomuch" data-i="12">
+  <div class="body">
+    <h1 class="reveal" style="--d:200ms">It's too much<br>for <span class="accent">now</span>.</h1>
+    <div class="sub reveal" style="--d:600ms">↓ Three hours of this in the video at the end</div>
+  </div>
+</section>
+
+<!-- 13 · VIBE-DESIGNED, NOT VIBE-CODED -->
+<section class="slide s-spine" data-i="13">
   <div class="body">
     <h1 class="reveal" style="--d:200ms">Vibe&#8209;designed,<br>not <span class="accent">vibe&#8209;coded</span>.</h1>
   </div>
 </section>
 
 <!-- 11 · ONE-STAR REVIEW -->
-<section class="slide s-review" data-i="12">
+<section class="slide s-review" data-i="14">
   <div class="body">
     <h1 class="reveal" style="--d:120ms">On iOS, you wait<br><span class="accent">3 days</span> to fix it.</h1>
     <div class="review reveal" style="--d:380ms">
@@ -349,7 +386,7 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 </section>
 
 <!-- 12 · REJECTION TIMELINE -->
-<section class="slide s-timeline" data-i="13">
+<section class="slide s-timeline" data-i="15">
   <div class="body">
     <h1 class="reveal" style="--d:120ms">None of it was<br>about the <span class="accent">code</span>.</h1>
     <div class="timeline reveal" style="--d:380ms">
@@ -382,7 +419,7 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 </section>
 
 <!-- 13 · PORTFOLIO MAKERS -->
-<section class="slide s-makers" data-i="14">
+<section class="slide s-makers" data-i="16">
   <div class="body">
     <div class="pair reveal" style="--d:120ms">
       <div class="maker">
@@ -405,7 +442,7 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 </section>
 
 <!-- 14 · CLOSE -->
-<section class="slide s-close" data-i="15">
+<section class="slide s-close" data-i="17">
   <div class="body">
     <h1 class="reveal" style="--d:200ms">See you in<br>the <span class="accent">App Store</span>.</h1>
   </div>
