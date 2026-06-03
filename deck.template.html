@@ -47,10 +47,31 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 .s-site iframe{width:100%;height:100%;border:0;display:block}
 .s-site .fallback{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:var(--bg);color:var(--accent);font-family:var(--mono);font-size:16px;letter-spacing:3px;text-transform:uppercase;text-align:center;padding:48px;line-height:1.6}
 
-/* ME + LOVABLE (casino GIF) */
-.s-screenshot .body{justify-content:center;align-items:center}
-.s-screenshot .meme{max-width:1300px;max-height:780px;width:auto;height:auto;display:block;border-radius:16px;filter:drop-shadow(0 16px 40px rgba(0,0,0,.55))}
-.s-screenshot .meme-placeholder{width:1100px;height:600px;border:2px dashed var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);text-align:center;padding:24px;border-radius:16px;line-height:1.6}
+/* ME + LOVABLE (casino GIF with side labels) */
+.s-screenshot .body{justify-content:center;align-items:center;flex-direction:row;gap:60px}
+.s-screenshot .label{font-family:var(--serif);font-weight:800;font-size:120px;line-height:1;font-variation-settings:'opsz' 144,'SOFT' 60;letter-spacing:-.02em;flex-shrink:0}
+.s-screenshot .label-left{color:var(--accent)}
+.s-screenshot .label-right{color:var(--fg)}
+.s-screenshot .meme{max-width:900px;max-height:640px;width:auto;height:auto;display:block;border-radius:16px;filter:drop-shadow(0 16px 40px rgba(0,0,0,.55));flex-shrink:0}
+.s-screenshot .meme-placeholder{width:600px;height:400px;border:2px dashed var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);text-align:center;padding:24px;border-radius:16px;line-height:1.6}
+
+/* EQUATION (build step composition — colour-coded cards) */
+.s-equation .body{justify-content:center;gap:64px}
+.s-equation h1{font-size:140px;line-height:1.0}
+.s-equation h1 code{font-family:var(--mono);font-weight:700;font-size:.78em;letter-spacing:-.01em;color:var(--fg)}
+.s-equation .equation{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:nowrap}
+.s-equation .card{background:var(--card-color);color:var(--card-text,#1c1410);padding:18px 22px;border-radius:12px;width:200px;height:180px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 12px 30px rgba(0,0,0,.45)}
+.s-equation .card-type{font-family:var(--mono);font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:700;opacity:.75}
+.s-equation .card-id{font-family:var(--mono);font-size:44px;font-weight:700;letter-spacing:-.02em}
+.s-equation .card-desc{font-family:var(--serif);font-size:18px;font-weight:500;line-height:1.2}
+.s-equation .op{font-family:var(--mono);font-size:48px;font-weight:300;color:var(--fg-soft);padding:0 2px}
+.s-equation .card-us{--card-color:#ffd54a}
+.s-equation .card-s{--card-color:#a68fc9;--card-text:#fff}
+.s-equation .card-f{--card-color:#a8e08c}
+.s-equation .card-d{--card-color:#7cc4dd}
+.s-equation .card-b{--card-color:#ff4533;--card-text:#fff}
+.s-equation .card-t{--card-color:#f4ecd9;border:2px solid var(--fg-faint)}
+.s-equation .card-t .card-id{font-size:64px}
 
 /* MOAT (ledger) */
 .s-moat .body{justify-content:center;gap:80px}
@@ -180,13 +201,12 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
   </div>
 </section>
 
-<!-- 3 · ME + LOVABLE (casino GIF) -->
+<!-- 3 · ME + LOVABLE (casino GIF with side labels) -->
 <section class="slide s-screenshot" data-i="3">
   <div class="body">
-    <div class="reveal" style="--d:120ms">
-      <img class="meme" src="https://media1.tenor.com/m/M6WgkbXFHjwAAAAd/casino-oldpeople.gif" alt="Old people at a casino slot machine — vibe coding as gambling" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="meme-placeholder" style="display:none">▶ Tenor GIF unreachable — paste a new URL</div>
-    </div>
+    <div class="label label-left reveal" style="--d:120ms">Lovable</div>
+    <img class="meme reveal" style="--d:300ms" src="https://media1.tenor.com/m/M6WgkbXFHjwAAAAd/casino-oldpeople.gif" alt="Old people at a casino slot machine — vibe coding as gambling" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="label label-right reveal" style="--d:480ms">Me</div>
   </div>
 </section>
 
@@ -309,57 +329,122 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
   </div>
 </section>
 
-<!-- 10 · SPEC PREVIEW · Stage 1 (neutral) -->
-<section class="slide s-spec" data-i="10">
+<!-- 10 · EQUATION · Stage 1 (4 input cards) -->
+<section class="slide s-equation" data-i="10">
   <div class="body">
     <h1 class="reveal" style="--d:120ms">Every part has<br>an <span class="accent">ID</span>.</h1>
-    <div class="doc reveal" style="--d:380ms">
-      <div class="doc-section">## User stories</div>
-      <div class="doc-line">US-001 &nbsp;Log symptoms by voice, mid-episode</div>
-      <div class="doc-line dim">⋯ 55 more</div>
-      <div class="doc-section">## Screens</div>
-      <div class="doc-line">S-001 &nbsp;Home — orb + entries list</div>
-      <div class="doc-line dim">⋯ 15 more</div>
-      <div class="doc-section">## Features</div>
-      <div class="doc-line">F-007 &nbsp;Entries list on home</div>
-      <div class="doc-line dim">⋯ 69 more</div>
-      <div class="doc-section">## Data</div>
-      <div class="doc-line">D-002 &nbsp;Entry { date · severity · triggers }</div>
-      <div class="doc-section">## Build steps</div>
-      <div class="doc-line">B-001 &nbsp;Set up SwiftUI project</div>
-      <div class="doc-line">B-002 &nbsp;Build the home screen</div>
-      <div class="doc-line">B-003 &nbsp;Add voice logging flow</div>
+    <div class="equation reveal" style="--d:380ms">
+      <div class="card card-us">
+        <div class="card-type">User story</div>
+        <div class="card-id">US-001</div>
+        <div class="card-desc">Log symptoms by voice</div>
+      </div>
+      <div class="op">+</div>
+      <div class="card card-s">
+        <div class="card-type">Screen</div>
+        <div class="card-id">S-001</div>
+        <div class="card-desc">Home — orb + entries</div>
+      </div>
+      <div class="op">+</div>
+      <div class="card card-f">
+        <div class="card-type">Feature</div>
+        <div class="card-id">F-007</div>
+        <div class="card-desc">Entries list on home</div>
+      </div>
+      <div class="op">+</div>
+      <div class="card card-d">
+        <div class="card-type">Data</div>
+        <div class="card-id">D-002</div>
+        <div class="card-desc">Entry { date · severity }</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- 11 · SPEC PREVIEW · Stage 2 (B-002 looks up references) -->
-<section class="slide s-spec" data-i="11">
+<!-- 11 · EQUATION · Stage 2 (= B-002) -->
+<section class="slide s-equation" data-i="11">
   <div class="body">
-    <h1 class="reveal" style="--d:120ms">Build <code>B&#8209;002</code> →<br>looks up the <span class="accent">rest</span>.</h1>
-    <div class="doc reveal" style="--d:380ms">
-      <div class="doc-section">## User stories</div>
-      <div class="doc-line">US-001 &nbsp;Log symptoms by voice, mid-episode</div>
-      <div class="doc-line dim">⋯ 55 more</div>
-      <div class="doc-section">## Screens</div>
-      <div class="doc-line"><mark>S-001</mark> &nbsp;Home — orb + entries list</div>
-      <div class="doc-line dim">⋯ 15 more</div>
-      <div class="doc-section">## Features</div>
-      <div class="doc-line"><mark>F-007</mark> &nbsp;Entries list on home</div>
-      <div class="doc-line dim">⋯ 69 more</div>
-      <div class="doc-section">## Data</div>
-      <div class="doc-line"><mark>D-002</mark> &nbsp;Entry { date · severity · triggers }</div>
-      <div class="doc-section">## Build steps</div>
-      <div class="doc-line">B-001 &nbsp;Set up SwiftUI project</div>
-      <div class="doc-line highlight">B-002 &nbsp;Build the home screen</div>
-      <div class="doc-line indent">→ uses S-001 · F-007 · D-002</div>
-      <div class="doc-line">B-003 &nbsp;Add voice logging flow</div>
+    <h1 class="reveal" style="--d:120ms">Build <code>B&#8209;002</code> →<br>builds <span class="accent">just that</span>.</h1>
+    <div class="equation reveal" style="--d:380ms">
+      <div class="card card-us">
+        <div class="card-type">User story</div>
+        <div class="card-id">US-001</div>
+        <div class="card-desc">Log symptoms by voice</div>
+      </div>
+      <div class="op">+</div>
+      <div class="card card-s">
+        <div class="card-type">Screen</div>
+        <div class="card-id">S-001</div>
+        <div class="card-desc">Home — orb + entries</div>
+      </div>
+      <div class="op">+</div>
+      <div class="card card-f">
+        <div class="card-type">Feature</div>
+        <div class="card-id">F-007</div>
+        <div class="card-desc">Entries list on home</div>
+      </div>
+      <div class="op">+</div>
+      <div class="card card-d">
+        <div class="card-type">Data</div>
+        <div class="card-id">D-002</div>
+        <div class="card-desc">Entry { date · severity }</div>
+      </div>
+      <div class="op">=</div>
+      <div class="card card-b">
+        <div class="card-type">Build step</div>
+        <div class="card-id">B-002</div>
+        <div class="card-desc">Build the home screen</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 · EQUATION · Stage 3 (+ → test) -->
+<section class="slide s-equation" data-i="12">
+  <div class="body">
+    <h1 class="reveal" style="--d:120ms">Build. <span class="accent">Test</span>.<br>Move on.</h1>
+    <div class="equation reveal" style="--d:380ms">
+      <div class="card card-us">
+        <div class="card-type">User story</div>
+        <div class="card-id">US-001</div>
+        <div class="card-desc">Log symptoms by voice</div>
+      </div>
+      <div class="op">+</div>
+      <div class="card card-s">
+        <div class="card-type">Screen</div>
+        <div class="card-id">S-001</div>
+        <div class="card-desc">Home — orb + entries</div>
+      </div>
+      <div class="op">+</div>
+      <div class="card card-f">
+        <div class="card-type">Feature</div>
+        <div class="card-id">F-007</div>
+        <div class="card-desc">Entries list on home</div>
+      </div>
+      <div class="op">+</div>
+      <div class="card card-d">
+        <div class="card-type">Data</div>
+        <div class="card-id">D-002</div>
+        <div class="card-desc">Entry { date · severity }</div>
+      </div>
+      <div class="op">=</div>
+      <div class="card card-b">
+        <div class="card-type">Build step</div>
+        <div class="card-id">B-002</div>
+        <div class="card-desc">Build the home screen</div>
+      </div>
+      <div class="op">→</div>
+      <div class="card card-t">
+        <div class="card-type">Test</div>
+        <div class="card-id">▶</div>
+        <div class="card-desc">Run in simulator</div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- 12 · TOO MUCH FOR NOW (video callout) -->
-<section class="slide s-toomuch" data-i="12">
+<section class="slide s-toomuch" data-i="13">
   <div class="body">
     <h1 class="reveal" style="--d:200ms">It's too much<br>for <span class="accent">now</span>.</h1>
     <div class="sub reveal" style="--d:600ms">↓ Three hours of this in the video at the end</div>
@@ -367,14 +452,14 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 </section>
 
 <!-- 13 · VIBE-DESIGNED, NOT VIBE-CODED -->
-<section class="slide s-spine" data-i="13">
+<section class="slide s-spine" data-i="14">
   <div class="body">
     <h1 class="reveal" style="--d:200ms">Vibe&#8209;designed,<br>not <span class="accent">vibe&#8209;coded</span>.</h1>
   </div>
 </section>
 
 <!-- 11 · ONE-STAR REVIEW -->
-<section class="slide s-review" data-i="14">
+<section class="slide s-review" data-i="15">
   <div class="body">
     <h1 class="reveal" style="--d:120ms">On iOS, you wait<br><span class="accent">3 days</span> to fix it.</h1>
     <div class="review reveal" style="--d:380ms">
@@ -386,7 +471,7 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 </section>
 
 <!-- 12 · REJECTION TIMELINE -->
-<section class="slide s-timeline" data-i="15">
+<section class="slide s-timeline" data-i="16">
   <div class="body">
     <h1 class="reveal" style="--d:120ms">None of it was<br>about the <span class="accent">code</span>.</h1>
     <div class="timeline reveal" style="--d:380ms">
@@ -419,7 +504,7 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 </section>
 
 <!-- 13 · PORTFOLIO MAKERS -->
-<section class="slide s-makers" data-i="16">
+<section class="slide s-makers" data-i="17">
   <div class="body">
     <div class="pair reveal" style="--d:120ms">
       <div class="maker">
@@ -442,7 +527,7 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 </section>
 
 <!-- 14 · CLOSE -->
-<section class="slide s-close" data-i="17">
+<section class="slide s-close" data-i="18">
   <div class="body">
     <h1 class="reveal" style="--d:200ms">See you in<br>the <span class="accent">App Store</span>.</h1>
   </div>
