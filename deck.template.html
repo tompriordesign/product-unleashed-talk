@@ -68,14 +68,13 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 .s-hierarchy .text-col{flex:1;display:flex;flex-direction:column;gap:32px;max-width:1200px}
 .s-hierarchy h1{font-size:140px;line-height:.98;max-width:none;white-space:nowrap}
 .s-hierarchy .image-col{flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.s-hierarchy .meme{max-height:720px;width:auto;display:block;filter:drop-shadow(0 16px 40px rgba(0,0,0,.55))}
+.s-hierarchy .meme{max-height:780px;width:auto;display:block;filter:drop-shadow(0 24px 50px rgba(0,0,0,.6));transform:rotate(8deg) translate(18%,4%);transform-origin:center}
 .s-hierarchy .meme-placeholder{width:440px;height:780px;border:2px dashed var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);text-align:center;padding:24px;line-height:1.6}
 
 /* FIRST PAYER (podium meme) */
-.s-notif .body{justify-content:center;gap:60px}
-.s-notif h1{font-size:180px;max-width:1500px;line-height:1.0}
+.s-notif .body{justify-content:center;align-items:center}
 .s-notif .meme-row{display:flex;align-items:center;justify-content:center}
-.s-notif .meme{max-width:1300px;max-height:600px;width:auto;height:auto;display:block;border-radius:16px;filter:drop-shadow(0 16px 40px rgba(0,0,0,.55))}
+.s-notif .meme{max-width:1640px;max-height:900px;width:auto;height:auto;display:block;border-radius:20px;filter:drop-shadow(0 24px 60px rgba(0,0,0,.6))}
 .s-notif .meme-placeholder{width:1100px;height:560px;border:2px dashed var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);text-align:center;padding:24px;border-radius:16px;line-height:1.6}
 
 /* HOTFIX (split comparison) */
@@ -231,8 +230,7 @@ h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings
 <!-- 5 · £4.99 FIRST PAYER -->
 <section class="slide s-notif" data-i="6">
   <div class="body">
-    <h1 class="reveal" style="--d:120ms">Hits like<br><span class="accent">nothing else</span>.</h1>
-    <div class="meme-row reveal" style="--d:380ms">
+    <div class="meme-row reveal" style="--d:120ms">
       <img class="meme" src="https://i.imgflip.com/atgama.jpg" alt="Podium meme — over-celebrating the first £4.99 on the App Store next to a corporate designer salary" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
       <div class="meme-placeholder" style="display:none">▶ Save your meme to<br>assets/first-payer-meme.png<br>and commit · push</div>
     </div>
