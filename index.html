@@ -131,18 +131,26 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 .s-dist .funnel.faded .funnel-step:nth-child(4){width:50%;opacity:.35}
 .s-dist .funnel.win .funnel-step{border-left:3px solid var(--accent);width:96%}
 
-/* SECURITY · slide 5 */
-.s-sec .archs{display:grid;grid-template-columns:1.4fr 1fr;gap:80px;margin-top:36px;align-items:start}
-.s-sec .arch{display:flex;flex-direction:column;gap:16px}
-.s-sec .arch-title{font-family:var(--mono);font-size:18px;letter-spacing:3px;text-transform:uppercase;color:var(--fg-soft);font-weight:700;margin-bottom:6px}
-.s-sec .arch.win .arch-title{color:var(--accent)}
-.s-sec .arch-flow{display:flex;align-items:center;gap:14px;padding-top:30px}
-.s-sec .arch-node{background:rgba(244,236,217,.08);border-radius:10px;padding:18px 20px;font-family:var(--serif);font-weight:700;font-size:22px;flex:1;text-align:center;min-height:80px;display:flex;align-items:center;justify-content:center}
-.s-sec .arch.win .arch-node{background:rgba(238,125,107,.12);color:var(--accent);border:2px solid var(--accent)}
-.s-sec .arch-arrow{font-family:var(--mono);font-size:26px;color:var(--fg-soft);position:relative;padding:0 4px}
-.s-sec .arch-arrow .leak{position:absolute;top:-30px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11px;color:var(--accent);font-weight:700;letter-spacing:2px;white-space:nowrap;background:var(--bg);padding:3px 8px;border:1px solid var(--accent);border-radius:4px}
-.s-sec .arch-caption{font-family:var(--serif);font-style:italic;font-size:22px;color:var(--fg-soft);margin-top:18px;line-height:1.35;max-width:560px}
-.s-sec .arch-caption .em{color:var(--accent);font-weight:700;font-style:normal}
+/* SECURITY · slide 6 — title-left, icon-cards-right */
+.s-sec .content{display:grid;grid-template-columns:1fr 1.35fr;gap:96px;align-items:center}
+.s-sec .sec-left{display:flex;flex-direction:column;gap:24px}
+.s-sec h1{font-size:160px;line-height:.95}
+.s-sec .sec-left .sub{margin-top:8px}
+.s-sec .sec-coda{font-family:var(--serif);font-style:italic;font-size:24px;line-height:1.4;color:var(--fg-soft);margin-top:18px;padding-top:22px;border-top:1px solid rgba(244,236,217,.15);max-width:480px}
+.s-sec .sec-coda .em{color:var(--accent);font-style:normal;font-weight:700}
+.s-sec .sec-cards{display:flex;flex-direction:column;gap:20px}
+.s-sec .sec-card{display:grid;grid-template-columns:88px 1fr;gap:28px;align-items:center;background:rgba(244,236,217,.05);border:1px solid rgba(244,236,217,.1);border-radius:14px;padding:24px 32px}
+.s-sec .sec-card.win{background:rgba(238,125,107,.08);border:1px solid rgba(238,125,107,.35)}
+.s-sec .sec-icon{width:72px;height:72px;display:flex;align-items:center;justify-content:center}
+.s-sec .sec-icon svg{width:100%;height:100%;display:block}
+.s-sec .sec-icon svg .stroke{stroke:var(--accent);stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.s-sec .sec-icon svg .fill{fill:var(--accent);opacity:.18}
+.s-sec .sec-card.win .sec-icon svg .stroke{stroke:var(--accent)}
+.s-sec .sec-text{display:flex;flex-direction:column;gap:8px}
+.s-sec .sec-title{font-family:var(--serif);font-weight:800;font-size:36px;line-height:1.1;letter-spacing:-.01em;font-variation-settings:'opsz' 144,'SOFT' 60}
+.s-sec .sec-card.win .sec-title{color:var(--accent)}
+.s-sec .sec-title .em{color:var(--accent);font-style:italic}
+.s-sec .sec-desc{font-family:var(--mono);font-size:18px;letter-spacing:.5px;color:var(--fg-soft);line-height:1.4}
 
 /* DEVICE · slide 6 */
 .s-dev .twophones{display:grid;grid-template-columns:1fr 1fr;gap:120px;margin-top:32px;justify-content:center}
@@ -314,29 +322,57 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 </section>
 
 <!-- 6 · SECURITY -->
-<section class="slide s-sec" data-i="6" data-reveals="1">
+<section class="slide s-sec" data-i="6" data-reveals="0">
   <div class="content">
-    <div class="kicker">Reason 2 of 4</div>
-    <h1 class="h1 md"><span class="accent">Security.</span></h1>
-    <div class="sub">iOS removes the failure modes <span class="em">AI is most likely to make.</span></div>
-    <div class="archs reveal" data-reveal="1">
-      <div class="arch">
-        <div class="arch-title">Vibe-coded web app</div>
-        <div class="arch-flow">
-          <div class="arch-node">Device</div>
-          <div class="arch-arrow">→<span class="leak">AUTH BYPASS</span></div>
-          <div class="arch-node">Server</div>
-          <div class="arch-arrow">→<span class="leak">LEAKED DB</span></div>
-          <div class="arch-node">Database</div>
+    <div class="sec-left">
+      <div class="kicker">Reason 2 of 4</div>
+      <h1 class="h1 md"><span class="accent">Security.</span></h1>
+      <div class="sub">iOS removes the failure modes <span class="em">AI is most likely to make.</span></div>
+      <div class="sec-coda">Migrapulse runs <span class="em">on device.</span> No server. No breach surface.</div>
+    </div>
+    <div class="sec-cards">
+      <div class="sec-card">
+        <div class="sec-icon">
+          <svg viewBox="0 0 64 64">
+            <ellipse class="stroke" cx="32" cy="16" rx="20" ry="6"/>
+            <path class="stroke" d="M12 16 v18 c0 3.3 9 6 20 6 s20 -2.7 20 -6 V16"/>
+            <path class="stroke" d="M12 34 v14 c0 3.3 9 6 20 6 s20 -2.7 20 -6 V34"/>
+            <path class="stroke" d="M40 42 l8 14 M48 42 l-8 14" stroke-width="3"/>
+          </svg>
         </div>
-        <div class="arch-caption">Four chances to get owned.</div>
+        <div class="sec-text">
+          <div class="sec-title">Database <span class="em">open to the internet.</span></div>
+          <div class="sec-desc">Default-public schemas. Missing row-level rules. AI ships it; an SQL string finds it.</div>
+        </div>
       </div>
-      <div class="arch win">
-        <div class="arch-title">Migrapulse</div>
-        <div class="arch-flow">
-          <div class="arch-node">Device</div>
+      <div class="sec-card">
+        <div class="sec-icon">
+          <svg viewBox="0 0 64 64">
+            <path class="stroke" d="M32 6 L52 14 V32 c0 14 -10 22 -20 26 -10 -4 -20 -12 -20 -26 V14 Z"/>
+            <path class="stroke" d="M22 28 L42 44 M42 28 L22 44" stroke-width="3"/>
+          </svg>
         </div>
-        <div class="arch-caption">No server. <span class="em">No breach surface.</span> No breach.</div>
+        <div class="sec-text">
+          <div class="sec-title"><span class="em">Auth</span> bypassed in a weekend.</div>
+          <div class="sec-desc">A teenager finds a missing check. The forgot-password flow is the front door.</div>
+        </div>
+      </div>
+      <div class="sec-card">
+        <div class="sec-icon">
+          <svg viewBox="0 0 64 64">
+            <rect class="stroke" x="8" y="12" width="48" height="40" rx="4"/>
+            <line class="stroke" x1="8" y1="24" x2="56" y2="24"/>
+            <line class="stroke" x1="8" y1="34" x2="56" y2="34"/>
+            <line class="stroke" x1="8" y1="44" x2="56" y2="44"/>
+            <line class="stroke" x1="24" y1="12" x2="24" y2="52"/>
+            <line class="stroke" x1="40" y1="12" x2="40" y2="52"/>
+            <path class="stroke" d="M4 56 L60 8" stroke-width="3.5"/>
+          </svg>
+        </div>
+        <div class="sec-text">
+          <div class="sec-title">One bad migration — <span class="em">data gone.</span></div>
+          <div class="sec-desc">Vibe a schema change. Ship it. Wake up to wiped histories you can't restore.</div>
+        </div>
       </div>
     </div>
   </div>
