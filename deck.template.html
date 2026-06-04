@@ -35,17 +35,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 .reveal.shown{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.reveal{transition:opacity 100ms ease;transform:none}.slide{transition:opacity 0ms}}
 
-/* CHROME — topbar, rule, footer */
-.topbar{position:absolute;top:60px;left:96px;right:96px;display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--mono);font-size:14px;text-transform:uppercase;letter-spacing:3px;color:var(--fg-soft);font-weight:500;z-index:5}
-.topbar .meta{text-align:right;line-height:1.5}
-.rule{position:absolute;top:116px;left:96px;right:96px;height:1px;background:rgba(244,236,217,.15);z-index:5}
-.footer{position:absolute;bottom:48px;left:96px;right:96px;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:3px;color:var(--fg-faint);font-weight:500;z-index:5}
-.next{display:flex;align-items:center;gap:14px}
-.next-label{background:var(--accent);color:var(--bg);padding:6px 12px;border-radius:4px;font-weight:700;font-size:11px;letter-spacing:2px}
-.next-what{color:var(--fg-soft)}
-
-/* CONTENT */
-.content{position:absolute;left:96px;right:96px;top:184px;bottom:120px;display:flex;flex-direction:column}
+/* CONTENT (chrome stripped — notes view carries stage cues) */
+.content{position:absolute;inset:96px;display:flex;flex-direction:column}
 .content.center-y{justify-content:center}
 
 /* TYPOGRAPHY */
@@ -211,7 +202,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 /* CLOSE · slide 10 */
 .s-close .content{justify-content:center}
 .s-close .h1{max-width:1700px}
-.s-close .qr-wrap{position:absolute;right:96px;bottom:120px;display:flex;flex-direction:column;align-items:flex-end;gap:10px;z-index:6}
+.s-close .qr-wrap{position:absolute;right:96px;bottom:96px;display:flex;flex-direction:column;align-items:flex-end;gap:10px;z-index:6}
 .s-close .qr{width:200px;height:200px;background:var(--fg);padding:16px;display:grid;grid-template-columns:repeat(11,1fr);grid-template-rows:repeat(11,1fr);gap:2px}
 .s-close .qr i{background:var(--bg)}
 .s-close .qr-label{font-family:var(--mono);font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:700}
@@ -222,20 +213,15 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 
 <!-- 1 · HOOK -->
 <section class="slide s-hook" data-i="1" data-reveals="0">
-  <header class="topbar"><div>Learn to ship native, with AI</div><div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
-  <div class="rule"></div>
   <div class="content center-y">
     <div class="kicker neutral">The question</div>
     <h1 class="h1 xl">How many of you<br>have an app idea you<br><span class="accent">haven't built yet?</span></h1>
     <div class="sub">Six months ago, I had one too.</div>
   </div>
-  <footer class="footer"><div>01 / 10</div><div class="next"><span class="next-label">Next</span><span class="next-what">What I built</span></div></footer>
 </section>
 
 <!-- 2 · WHAT I BUILT -->
 <section class="slide s-built" data-i="2" data-reveals="5">
-  <header class="topbar"><div>Learn to ship native, with AI</div><div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
-  <div class="rule"></div>
   <div class="content">
     <div class="kicker">What I built</div>
     <div class="built-row">
@@ -257,13 +243,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
       </div>
     </div>
   </div>
-  <footer class="footer"><div>02 / 10</div><div class="next"><span class="next-label">Next</span><span class="next-what">The obvious objection</span></div></footer>
 </section>
 
 <!-- 3 · THE OBJECTION -->
 <section class="slide s-obj" data-i="3" data-reveals="3">
-  <header class="topbar"><div>Learn to ship native, with AI</div><div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
-  <div class="rule"></div>
   <div class="content">
     <div class="kicker">The obvious objection</div>
     <h1 class="h1 sm">"Why didn't you just build it in<br><span class="accent">Lovable in two hours?"</span></h1>
@@ -280,13 +263,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
       </div>
     </div>
   </div>
-  <footer class="footer"><div>03 / 10</div><div class="next"><span class="next-label">Next</span><span class="next-what">Reason 1 · Distribution</span></div></footer>
 </section>
 
 <!-- 4 · DISTRIBUTION -->
 <section class="slide s-dist" data-i="4" data-reveals="2">
-  <header class="topbar"><div>Learn to ship native, with AI</div><div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
-  <div class="rule"></div>
   <div class="content">
     <div class="kicker">Reason 1 of 4</div>
     <h1 class="h1 md"><span class="accent">Distribution.</span></h1>
@@ -313,13 +293,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
       </div>
     </div>
   </div>
-  <footer class="footer"><div>04 / 10</div><div class="next"><span class="next-label">Next</span><span class="next-what">Reason 2 · Security</span></div></footer>
 </section>
 
 <!-- 5 · SECURITY -->
 <section class="slide s-sec" data-i="5" data-reveals="1">
-  <header class="topbar"><div>Learn to ship native, with AI</div><div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
-  <div class="rule"></div>
   <div class="content">
     <div class="kicker">Reason 2 of 4</div>
     <h1 class="h1 md"><span class="accent">Security.</span></h1>
@@ -345,13 +322,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
       </div>
     </div>
   </div>
-  <footer class="footer"><div>05 / 10</div><div class="next"><span class="next-label">Next</span><span class="next-what">Reason 3 · Device</span></div></footer>
 </section>
 
 <!-- 6 · DEVICE -->
 <section class="slide s-dev" data-i="6" data-reveals="1">
-  <header class="topbar"><div>Learn to ship native, with AI</div><div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
-  <div class="rule"></div>
   <div class="content">
     <div class="kicker">Reason 3 of 4</div>
     <h1 class="h1 md"><span class="accent">Device.</span></h1>
@@ -380,13 +354,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
       </div>
     </div>
   </div>
-  <footer class="footer"><div>06 / 10</div><div class="next"><span class="next-label">Next</span><span class="next-what">Reason 4 · Creativity</span></div></footer>
 </section>
 
 <!-- 7 · CREATIVITY -->
 <section class="slide s-creat" data-i="7" data-reveals="1">
-  <header class="topbar"><div>Learn to ship native, with AI</div><div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
-  <div class="rule"></div>
   <div class="content">
     <div class="kicker">Reason 4 of 4</div>
     <h1 class="h1 md"><span class="accent">Creativity.</span></h1>
@@ -430,13 +401,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
       </div>
     </div>
   </div>
-  <footer class="footer"><div>07 / 10</div><div class="next"><span class="next-label">Next</span><span class="next-what">The catch</span></div></footer>
 </section>
 
 <!-- 8 · THE CATCH -->
 <section class="slide s-catch" data-i="8" data-reveals="4">
-  <header class="topbar"><div>Learn to ship native, with AI</div><div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
-  <div class="rule"></div>
   <div class="content">
     <div class="kicker">The catch</div>
     <h1 class="h1 md">Effort is <span class="accent">the moat now.</span></h1>
@@ -467,13 +435,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
       <div class="moat-final reveal" data-reveal="4">The list of things that scare designers off iOS is <span class="em">exactly the list of things that make it defensible.</span></div>
     </div>
   </div>
-  <footer class="footer"><div>08 / 10</div><div class="next"><span class="next-label">Next</span><span class="next-what">The how, briefly</span></div></footer>
 </section>
 
 <!-- 9 · THE HOW, BRIEFLY -->
 <section class="slide s-how" data-i="9" data-reveals="3">
-  <header class="topbar"><div>Learn to ship native, with AI</div><div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
-  <div class="rule"></div>
   <div class="content">
     <div class="kicker">The how, briefly</div>
     <h1 class="h1 md">Vibes in. <span class="accent">Structure out.</span></h1>
@@ -497,13 +462,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
     </div>
     <div class="how-callout reveal" data-reveal="3">I'm not telling you how here. <span class="em">There isn't time.</span> The full workflow is a four-hour video, free, no email. QR on the next slide.</div>
   </div>
-  <footer class="footer"><div>09 / 10</div><div class="next"><span class="next-label">Next</span><span class="next-what">Close</span></div></footer>
 </section>
 
 <!-- 10 · CLOSE -->
 <section class="slide s-close" data-i="10" data-reveals="1">
-  <header class="topbar"><div>Learn to ship native, with AI</div><div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
-  <div class="rule"></div>
   <div class="content center-y">
     <div class="kicker">The takeaway</div>
     <h1 class="h1 md">If you've got an<br><span class="accent">iOS-shaped idea</span><br>sitting in your head,<br>the tools are finally there.</h1>
@@ -513,7 +475,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
     <div class="qr" id="closeQr"></div>
     <div class="qr-label">4-hour masterclass →</div>
   </div>
-  <footer class="footer"><div>10 / 10</div><div class="next" style="color:var(--fg-soft)">Thank you · @tomprior</div></footer>
 </section>
 
 </div>
