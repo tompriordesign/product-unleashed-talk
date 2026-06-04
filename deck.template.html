@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Learn to ship native, with AI — Tom · Product Unleashed</title>
+<title>Learn to ship native, with AI, Tom · Product Unleashed</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
   --accent:#2f7a4f;
   --accent-rgb:47,122,79;
   --leak:#d4604f;
-  /* Editorial wash palette — bumped intensity so the cream doesn't read flat */
+  /* Editorial wash palette, bumped intensity so the cream doesn't read flat */
   --peach:rgba(232,176,138,.68);
   --apricot:rgba(238,202,156,.55);
   --lilac:rgba(178,200,180,.58);
@@ -30,7 +30,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--fg);font-family:var(--serif);font-optical-sizing:auto;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-/* Full-bleed wash + noise — lives on the viewport, not the slide, so
+/* Full-bleed wash + noise, lives on the viewport, not the slide, so
    the background never letterboxes regardless of viewport aspect. */
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 78% 88% at 86% 10%,var(--peach) 0%,transparent 62%),radial-gradient(ellipse 70% 78% at 6% 94%,var(--lilac) 0%,transparent 62%)}
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.1;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
@@ -53,7 +53,7 @@ body.dark-slide::after{opacity:.05}
 .reveal.shown{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.reveal{transition:opacity 100ms ease;transform:none}.slide{transition:opacity 0ms}}
 
-/* CONTENT (chrome stripped — notes view carries stage cues) */
+/* CONTENT (chrome stripped, notes view carries stage cues) */
 .content{position:absolute;inset:96px;display:flex;flex-direction:column}
 .content.center-y{justify-content:center}
 
@@ -98,7 +98,7 @@ body.dark-slide::after{opacity:.05}
 .s-hook .content{justify-content:center}
 .s-hook .h1{max-width:1700px}
 
-/* WHAT I BUILT · slide 2 — dark moment, logo + phone video only */
+/* WHAT I BUILT · slide 2, dark moment, logo + phone video only */
 .s-built{background:#13101a}
 .s-built::before{background:radial-gradient(ellipse 1600px 1100px at 50% 0%,rgba(238,125,107,.10),transparent 60%),radial-gradient(ellipse 1200px 900px at 50% 100%,rgba(47,122,79,.10),transparent 60%)}
 .s-built::after{opacity:.05}
@@ -144,7 +144,7 @@ body.dark-slide::after{opacity:.05}
 .s-dist .funnel.faded .funnel-step:nth-child(4){width:50%;opacity:.35}
 .s-dist .funnel.win .funnel-step{border-left:3px solid var(--accent);width:96%}
 
-/* SECURITY · slide 6 — title-left, icon-cards-right */
+/* SECURITY · slide 6, title-left, icon-cards-right */
 .s-sec .content{display:grid;grid-template-columns:1fr 1.35fr;gap:96px;align-items:center}
 .s-sec .sec-left{display:flex;flex-direction:column;gap:24px}
 .s-sec h1{font-size:160px;line-height:.95}
@@ -165,7 +165,7 @@ body.dark-slide::after{opacity:.05}
 .s-sec .sec-title .em{color:var(--accent);font-style:italic}
 .s-sec .sec-desc{font-family:var(--mono);font-size:18px;letter-spacing:.5px;color:var(--fg-soft);line-height:1.4}
 
-/* MOAT (slide 4) + BAR (slide 11) — share the security icon-card pattern */
+/* MOAT (slide 4) + BAR (slide 11), share the security icon-card pattern */
 .s-moat .content,.s-bar .content{display:grid;grid-template-columns:1fr 1.35fr;grid-template-rows:1fr auto;gap:56px 96px;align-items:center}
 .s-moat .sec-left,.s-bar .sec-left{display:flex;flex-direction:column;gap:24px;grid-column:1;grid-row:1}
 .s-moat h1,.s-bar h1{font-size:148px;line-height:.95}
@@ -188,7 +188,7 @@ body.dark-slide::after{opacity:.05}
 .s-moat .moat-pivot .em{color:var(--accent);font-style:normal;font-weight:600}
 .s-moat .moat-others{display:flex;flex-direction:column;gap:18px}
 
-/* iOS MOATS — defensive vs offensive two-column */
+/* iOS MOATS, defensive vs offensive two-column */
 .s-moats .content{display:flex;flex-direction:column;justify-content:center;gap:64px}
 .s-moats h1{font-size:130px;line-height:1;letter-spacing:-.03em;max-width:1700px}
 .s-moats .moats-grid{display:grid;grid-template-columns:1fr 1fr;gap:90px;margin-top:8px}
@@ -200,7 +200,7 @@ body.dark-slide::after{opacity:.05}
 .s-moats .moats-item{font-family:var(--serif);font-weight:500;font-size:46px;letter-spacing:-.018em;line-height:1;color:var(--fg)}
 .s-moats .moats-item .em{color:var(--accent);font-style:italic;font-weight:500}
 
-/* FINAL BOSS — manifesto slide */
+/* FINAL BOSS, manifesto slide */
 .s-boss .content{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
 .s-boss h1{font-size:128px;line-height:1.05;letter-spacing:-.025em;max-width:1700px}
 
@@ -221,7 +221,7 @@ body.dark-slide::after{opacity:.05}
 .s-dev .phone-mic{font-size:48px;margin-top:auto;align-self:center;text-align:center;animation:micPulse 1.8s ease-in-out infinite}
 @keyframes micPulse{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.1);opacity:1}}
 
-/* CREATIVITY · slide 8 — license-to-play axis */
+/* CREATIVITY · slide 8, license-to-play axis */
 .s-creat .content{justify-content:center;gap:72px}
 .s-creat h1{font-size:140px;line-height:1}
 .s-creat .license-stage{display:flex;flex-direction:column;gap:72px;max-width:1700px;margin:0 auto;width:100%}
@@ -247,11 +247,11 @@ body.dark-slide::after{opacity:.05}
 .s-creat .license-item{font-family:var(--serif);font-size:30px;line-height:1.25;color:var(--fg)}
 .s-creat .license-item .em{color:var(--accent);font-style:italic;font-weight:500}
 
-/* RECKONING (31) + NO MOAT (32) — centered single-line manifesto */
+/* RECKONING (31) + NO MOAT (32), centered single-line manifesto */
 .s-reckon .content,.s-nomoat .content{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
 .s-reckon h1,.s-nomoat h1{font-size:170px;line-height:.98;letter-spacing:-.035em;max-width:1700px}
 
-/* FRAMING (35) — the deal up front */
+/* FRAMING (35), the deal up front */
 .s-framing .content{justify-content:center;gap:18px;max-width:1700px;margin:0 auto}
 .s-framing .framing-kicker{font-family:var(--mono);font-size:22px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:24px}
 .s-framing .framing-line{font-family:var(--serif);font-weight:500;font-size:108px;line-height:1.05;letter-spacing:-.028em;color:var(--fg)}
@@ -261,7 +261,7 @@ body.dark-slide::after{opacity:.05}
 .s-framing .framing-sub{font-family:var(--serif);font-style:italic;font-size:30px;color:var(--fg);opacity:.78;margin-top:36px;padding-top:24px;border-top:1px solid rgba(28,26,36,.15);line-height:1.4;max-width:1500px}
 .s-framing .framing-sub .em{color:var(--accent);font-style:normal;font-weight:600;opacity:1}
 
-/* ENVIRONMENT (33) — IDE mock + caption */
+/* ENVIRONMENT (33), IDE mock + caption */
 .s-env .content{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:56px}
 .s-env h1{font-size:108px;line-height:1;text-align:center;max-width:1700px}
 .s-env .env-mock{width:100%;max-width:1500px;height:560px;background:#1a1424;border-radius:14px;border:1px solid rgba(28,26,36,.15);box-shadow:0 30px 70px rgba(28,26,36,.25);display:grid;grid-template-columns:200px 1fr 280px;grid-template-rows:36px 1fr;overflow:hidden;position:relative}
@@ -292,7 +292,7 @@ body.dark-slide::after{opacity:.05}
 .s-env .env-caption{font-family:var(--serif);font-style:italic;font-size:36px;color:var(--fg);text-align:center;max-width:1400px;line-height:1.3}
 .s-env .env-caption .em{color:var(--accent);font-style:italic;font-weight:600}
 
-/* PROCESS (38) — bridge slide before the workflow section */
+/* PROCESS (38), bridge slide before the workflow section */
 .s-process .content{justify-content:center;gap:34px;max-width:1700px;margin:0 auto}
 .s-process h1{font-size:112px;line-height:1}
 .s-process .process-sub{font-family:var(--serif);font-style:italic;font-size:34px;line-height:1.3;color:var(--fg-soft);max-width:1500px}
@@ -303,7 +303,7 @@ body.dark-slide::after{opacity:.05}
 .s-process .process-item{font-family:var(--serif);font-weight:500;font-size:46px;line-height:1.1;letter-spacing:-.015em;color:var(--fg)}
 .s-process .process-item.highlight{color:var(--accent);font-style:italic;font-weight:500;margin-top:12px}
 
-/* TWO APPROACHES (36) — vibe coding vs agentic building */
+/* TWO APPROACHES (36), vibe coding vs agentic building */
 .s-vs .content{justify-content:center;gap:44px}
 .s-vs h1{font-size:108px;line-height:1;letter-spacing:-.025em}
 .s-vs .vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:1700px}
@@ -319,7 +319,7 @@ body.dark-slide::after{opacity:.05}
 .s-vs .vs-item.warn{color:var(--leak);font-style:italic}
 .s-vs .vs-item .em{color:var(--accent);font-style:italic;font-weight:500}
 
-/* FEATURE PAIRING (34) — Migrapulse ↔ iOS capability map */
+/* FEATURE PAIRING (34), Migrapulse ↔ iOS capability map */
 .s-pair .content{justify-content:center;gap:48px}
 .s-pair h1{font-size:96px;line-height:1;letter-spacing:-.025em}
 .s-pair .pair-grid{display:flex;flex-direction:column;gap:0;max-width:1700px}
@@ -451,14 +451,14 @@ body.dark-slide::after{opacity:.05}
 .rp-num{font-family:var(--serif);font-style:italic;font-weight:500;font-size:56px;line-height:1;color:var(--coral);letter-spacing:-1px}
 .rp-title{font-family:var(--serif);font-weight:500;font-size:48px;line-height:1.05;color:var(--ink);letter-spacing:-1.5px}
 
-/* rule I — six lean cards */
+/* rule I, six lean cards */
 .lean-grid{margin-top:44px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px 28px}
 .lean-card{background:rgba(255,255,255,.6);border:2px solid rgba(47,122,79,.28);border-radius:14px;padding:32px 30px;display:flex;flex-direction:column;gap:12px;min-height:220px}
 .lean-label{font-family:var(--mono);font-size:14px;letter-spacing:2.5px;text-transform:uppercase;color:var(--coral);font-weight:600}
 .lean-line{font-family:var(--serif);font-weight:500;font-size:32px;line-height:1.1;color:var(--ink);letter-spacing:-1px}
 .lean-line em{color:var(--coral);font-style:italic}
 
-/* rule II — stack grid */
+/* rule II, stack grid */
 .stack-grid{margin-top:60px;display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
 .stack-item{background:rgba(255,255,255,.55);border:2px solid rgba(47,122,79,.28);border-radius:14px;padding:44px 28px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:200px}
 .stack-name{font-family:var(--serif);font-weight:500;font-size:42px;line-height:1;color:var(--ink);letter-spacing:-1px}
@@ -472,7 +472,7 @@ body.dark-slide::after{opacity:.05}
 .chris-name .em{color:var(--coral);font-style:italic;font-weight:500}
 .chris-sub{font-family:var(--serif);font-style:italic;font-size:22px;color:var(--ink);opacity:.7}
 
-/* rule III — design tools + screenshot */
+/* rule III, design tools + screenshot */
 .design-stage{margin-top:44px;display:grid;grid-template-columns:.78fr 1fr;gap:56px;align-items:stretch}
 .design-tools{display:flex;flex-direction:column;gap:22px;justify-content:center}
 .design-tool-card{background:rgba(255,255,255,.62);border:2px solid rgba(47,122,79,.3);border-radius:14px;padding:26px 30px;display:flex;flex-direction:column;gap:8px}
@@ -484,7 +484,7 @@ body.dark-slide::after{opacity:.05}
 .design-screenshot-slot img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
 .design-screenshot-slot-fallback{font-family:var(--mono);font-size:14px;letter-spacing:2px;text-transform:uppercase;color:rgba(28,26,36,.4);text-align:center;line-height:1.4;padding:32px}
 
-/* rule IV-a — instructions.md doc + callouts */
+/* rule IV-a, instructions.md doc + callouts */
 .md-tagline{font-family:var(--serif);font-style:italic;font-size:40px;line-height:1.2;color:var(--ink);opacity:.78;margin-top:24px;margin-bottom:40px;max-width:1700px}
 .md-tagline .em{color:var(--coral);font-style:italic;font-weight:500;opacity:1}
 .md-stage{display:grid;grid-template-columns:1.45fr .55fr;gap:56px;align-items:start}
@@ -501,7 +501,7 @@ body.dark-slide::after{opacity:.05}
 .md-callout-num{font-family:var(--serif);font-weight:500;font-style:italic;font-size:64px;line-height:1;color:var(--coral);letter-spacing:-2px}
 .md-callout-label{font-family:var(--mono);font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--ink);opacity:.6;margin-top:8px}
 
-/* rule IV-b — build step + phone */
+/* rule IV-b, build step + phone */
 .bse-stage{margin-top:56px;display:grid;grid-template-columns:1.2fr 80px .85fr;gap:36px;align-items:center}
 .bse-step{background:rgba(255,255,255,.62);border:2px solid rgba(47,122,79,.42);border-radius:18px;padding:36px 38px;box-shadow:0 18px 40px rgba(28,26,36,.08)}
 .bse-step-label{font-family:var(--mono);font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--coral);margin-bottom:8px}
@@ -519,9 +519,13 @@ body.dark-slide::after{opacity:.05}
 .bse-phone{width:280px;border-radius:36px;overflow:hidden;box-shadow:0 24px 50px rgba(28,26,36,.22)}
 .bse-phone-img{display:block;width:100%;height:auto}
 
-/* rule V — 1-star review */
+/* rule V, 1-star review */
 .review-stage{margin-top:100px;display:grid;grid-template-columns:1.1fr .9fr;gap:80px;align-items:center}
 .review-card{background:#fff;border:1.5px solid rgba(28,26,36,.18);border-radius:14px;padding:40px 42px;box-shadow:0 36px 70px rgba(28,26,36,.18)}
+.review-shot{position:relative;background:#fff;border:1px solid rgba(28,26,36,.14);border-radius:18px;overflow:hidden;box-shadow:0 36px 70px rgba(28,26,36,.18);max-width:560px;justify-self:start}
+.review-shot img{display:block;width:100%;height:auto}
+.review-shot-fallback{padding:48px 32px;font-family:var(--mono);font-size:18px;color:rgba(28,26,36,.45);text-align:center;line-height:1.6}
+.review-shot-fallback code{font-family:var(--mono);color:var(--coral);background:rgba(28,26,36,.05);padding:3px 8px;border-radius:4px}
 .review-stars{display:flex;gap:6px;margin-bottom:16px}
 .star{width:32px;height:32px;background:rgba(28,26,36,.15);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
 .star.filled{background:var(--coral)}
@@ -541,6 +545,7 @@ body.dark-slide::after{opacity:.05}
 .payoff-bars{display:flex;flex-direction:column;gap:72px;width:100%}
 .payoff-curve-stage{margin-top:32px;display:flex;align-items:center;justify-content:center;width:100%}
 .payoff-curve-stage svg{width:100%;max-width:1300px;height:auto}
+.payoff-curve-stage.tl-stage svg{max-width:1620px}
 .proportion-row{display:flex;flex-direction:column;gap:18px}
 .proportion-cap{font-family:var(--serif);font-weight:500;font-size:52px;line-height:1;letter-spacing:-1px;color:var(--ink);text-transform:none}
 .proportion-cap b,.proportion-cap em{color:var(--coral);font-style:italic;font-weight:500}
@@ -556,6 +561,9 @@ body.dark-slide::after{opacity:.05}
 .anim-draw{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2200ms cubic-bezier(.2,.7,.3,1)}
 .slide.active .anim-draw{stroke-dashoffset:0}
 .slide:not(.active) .anim-draw{transition:none}
+/* draw-on-reveal, animates only when its parent .reveal becomes .shown */
+.draw-on-reveal{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2400ms cubic-bezier(.2,.7,.3,1) 200ms}
+.reveal.shown .draw-on-reveal{stroke-dashoffset:0}
 
 /* closing (load-bearing) */
 .closing-h{font-family:var(--serif);font-weight:500;font-size:132px;line-height:1;letter-spacing:-4px;margin:0;max-width:1700px}
@@ -566,7 +574,7 @@ body.dark-slide::after{opacity:.05}
 .closing-line .label{display:inline-block;width:200px;font-family:var(--mono);font-style:normal;font-size:16px;letter-spacing:2px;text-transform:uppercase;color:var(--coral);opacity:.85;vertical-align:middle}
 .closing-coda{margin-top:44px;font-family:var(--serif);font-weight:500;font-style:italic;font-size:56px;line-height:1.1;color:var(--coral);letter-spacing:-1px}
 
-/* cta — video cover + QR */
+/* cta, video cover + QR */
 .cta-stage{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;width:100%}
 .cta-headline{font-family:var(--serif);font-weight:500;font-size:124px;line-height:1;letter-spacing:-3px;color:var(--ink)}
 .cta-headline .accent{color:var(--coral);font-style:italic;font-weight:500}
@@ -574,6 +582,10 @@ body.dark-slide::after{opacity:.05}
 .qr-box{width:240px;height:240px;background:var(--bg);border:1px solid rgba(28,26,36,.18);border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .qr-box img{display:block;width:100%;height:100%}
 .qr-tag{font-family:var(--mono);font-size:16px;letter-spacing:2px;text-transform:uppercase;color:var(--coral);opacity:.85;line-height:1.4}
+.cta-qr-stack{margin-top:56px;display:flex;flex-direction:column;align-items:flex-start;gap:24px}
+.qr-box-lg{width:360px;height:360px;border-width:2px;border-radius:14px;padding:18px;background:#fff}
+.qr-box-lg img{width:100%;height:100%;object-fit:contain}
+.qr-url{font-family:var(--mono);font-size:24px;color:var(--coral);font-weight:600;letter-spacing:.5px;word-break:break-all}
 .video-cover{aspect-ratio:16/9;width:100%;border-radius:14px;overflow:hidden;background:#0a0604;box-shadow:0 30px 60px rgba(28,26,36,.22);border:1px solid rgba(28,26,36,.18)}
 .video-cover img{display:block;width:100%;height:100%;object-fit:cover}
 
@@ -790,7 +802,7 @@ body.dark-slide::after{opacity:.05}
           </svg>
         </div>
         <div class="sec-text">
-          <div class="sec-title">One bad migration — <span class="em">data gone.</span></div>
+          <div class="sec-title">One bad migration, <span class="em">data gone.</span></div>
         </div>
       </div>
     </div>
@@ -880,7 +892,7 @@ body.dark-slide::after{opacity:.05}
         <div class="tl-row"><div class="date">06 Feb 2026</div><div class="status rejected">REJECTED</div><div class="reason">Microphone-permission copy</div><div class="wait">4 days</div></div>
         <div class="tl-row"><div class="date">14 Feb 2026</div><div class="status rejected">REJECTED</div><div class="reason">US territory button label</div><div class="wait">3 days</div></div>
         <div class="tl-row"><div class="date">22 Feb 2026</div><div class="status rejected">REJECTED</div><div class="reason">Missing medical disclaimer</div><div class="wait">5 days</div></div>
-        <div class="tl-row"><div class="date">08 Mar 2026</div><div class="status approved">APPROVED</div><div class="reason">Live in App Store</div><div class="wait">—</div></div>
+        <div class="tl-row"><div class="date">08 Mar 2026</div><div class="status approved">APPROVED</div><div class="reason">Live in App Store</div><div class="wait">·</div></div>
       </div>
       <div class="inflatable-block reveal" data-reveal="3">
         <svg class="inflatable-chair" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
@@ -1091,7 +1103,7 @@ body.dark-slide::after{opacity:.05}
 <section class="slide" data-i="19" data-slide="fr-rule-3" data-reveals="0">
   <div class="fr-content top">
     <div class="h-rule">Vibe the hell out of <span class="accent">your design.</span></div>
-    <div class="sub" style="font-size:32px;margin-top:18px;max-width:1600px">My taste was way ahead of my Figma. So I <span class="em">vocalised</span> — and AI caught it.</div>
+    <div class="sub" style="font-size:32px;margin-top:18px;max-width:1600px">My taste was way ahead of my Figma. So I <span class="em">vocalised</span>, and AI caught it.</div>
     <div class="design-stage">
       <div class="design-tools">
         <div class="design-tool-card featured anim-fade-up" style="transition-delay:80ms"><div class="design-tool-name">UX Pilot</div><div class="design-tool-desc">My pick. Sketch the whole flow in an hour. Models tuned for design.</div></div>
@@ -1167,16 +1179,18 @@ body.dark-slide::after{opacity:.05}
   </div>
 </section>
 
-<!-- 22 · RULE V (1-star review) -->
+<!-- 22 · RULE V (real 1-star review screenshot, file: app-store-review.png) -->
 <section class="slide" data-i="22" data-slide="fr-rule-5" data-reveals="0">
   <div class="fr-content top">
     <div class="h-rule">Understand <span class="accent">your schema.</span></div>
     <div class="review-stage">
-      <div class="review-card anim-fade-up" style="transition-delay:120ms">
-        <div class="review-stars"><div class="star filled"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-        <div class="review-title">Latest update wiped 8 months of data</div>
-        <div class="review-meta">★ 1 · <span class="redacted">██████</span> · 28 May 2026 · v2.4</div>
-        <div class="review-body">"Updated last night and the app opened to <em>nothing</em>. Eight months of headache logs, gone. Wrote in to support, they said they can't recover it. <span class="redacted">████</span> never replied. <em>Switching to another tracker.</em>"</div>
+      <div class="review-shot anim-fade-up" style="transition-delay:120ms">
+        <img src="app-store-review.png" alt="Real App Store 1-star review · 'Lost the data'" onerror="this.style.display='none';this.parentNode.querySelector('.review-shot-fallback').style.display='block'">
+        <div class="review-shot-fallback" style="display:none">
+          Drop the screenshot file at<br>
+          <code>app-store-review.png</code><br>
+          in the repo root.
+        </div>
       </div>
       <div class="review-aside anim-fade-up" style="transition-delay:220ms">
         AI is the friend who'll happily help you move house. <span class="em">It won't ask if your insurance is up to date.</span>
@@ -1185,7 +1199,7 @@ body.dark-slide::after{opacity:.05}
   </div>
 </section>
 
-<!-- 23 · PAYOFF · BARS (no headline — Tom speaks the title) -->
+<!-- 23 · PAYOFF · BARS (no headline, Tom speaks the title) -->
 <section class="slide" data-i="23" data-slide="fr-payoff-bars" data-reveals="0">
   <div class="fr-content">
     <div class="payoff-stage no-title">
@@ -1207,7 +1221,7 @@ body.dark-slide::after{opacity:.05}
   </div>
 </section>
 
-<!-- 24 · QUALITY CURVE (effort vs quality + App Store bar reveal) — sits second-last -->
+<!-- 24 · QUALITY CURVE (effort vs quality + App Store bar reveal), sits second-last -->
 <section class="slide" data-i="24" data-slide="fr-payoff-curve" data-reveals="1">
   <div class="fr-content top">
     <div class="payoff-h">Quality <span class="accent">keeps climbing.</span></div>
@@ -1223,7 +1237,7 @@ body.dark-slide::after{opacity:.05}
         <text x="710" y="74" font-family="EB Garamond" font-style="italic" font-size="22" fill="#2f7a4f" font-weight="500">structured</text>
         <line x1="60" y1="190" x2="280" y2="190" stroke="#1c1a24" stroke-width="1" opacity=".2" stroke-dasharray="3,3"/>
         <text x="70" y="180" font-family="EB Garamond" font-size="12" fill="#1c1a24" opacity=".5" letter-spacing="1">CEILING</text>
-        <!-- App Store bar — revealed on click -->
+        <!-- App Store bar, revealed on click -->
         <g class="reveal" data-reveal="1">
           <line x1="60" y1="135" x2="700" y2="135" stroke="#d4604f" stroke-width="3"/>
           <rect x="540" y="115" width="160" height="32" rx="4" fill="#d4604f"/>
@@ -1247,20 +1261,20 @@ body.dark-slide::after{opacity:.05}
   </div>
 </section>
 
-<!-- 26 · CTA (video cover + QR) -->
+<!-- 26 · CTA (video cover + bigger QR + URL) -->
 <section class="slide" data-i="26" data-slide="fr-cta" data-reveals="0">
   <div class="fr-content">
     <div class="cta-stage">
       <div>
         <div class="cta-headline">Want to go <span class="accent">deeper?</span></div>
-        <div class="cta-qr-row">
-          <div class="qr-box"><img src="cta-qr.png" alt="QR · scan for the four-hour video" width="240" height="240"></div>
-          <div><div class="qr-tag">Scan ·<br>4-hour video</div></div>
+        <div class="cta-qr-stack">
+          <div class="qr-box qr-box-lg"><img src="cta-qr.png" alt="QR · ai-makers.club mobile app course" width="360" height="360"></div>
+          <div class="qr-url">ai-makers.club/mobile-app-course</div>
         </div>
       </div>
       <div>
         <div class="video-cover anim-fade-up" style="transition-delay:140ms">
-          <img src="youtube-cover.png" alt="Four-hour video — RIP Vibe Coding">
+          <img src="youtube-cover.png" alt="Four-hour mobile app course">
         </div>
       </div>
     </div>
@@ -1270,7 +1284,7 @@ body.dark-slide::after{opacity:.05}
 <!-- 31 · 3-MONTH RECKONING (follow-on after Migrapulse reveal) -->
 <section class="slide s-reckon" data-i="31" data-reveals="0">
   <div class="content">
-    <h1 class="h1">Yeah —<br><span class="accent">that's a long time.</span></h1>
+    <h1 class="h1">Yeah.<br><span class="accent">That's a long time.</span></h1>
   </div>
 </section>
 
@@ -1324,7 +1338,7 @@ body.dark-slide::after{opacity:.05}
         <div class="env-bubble user"></div>
       </div>
     </div>
-    <div class="env-caption">You're not coding. You're <span class="em">orchestrating.</span> Steeper learning curve — worth it.</div>
+    <div class="env-caption">You're not coding. You're <span class="em">orchestrating.</span> Steeper learning curve, worth it.</div>
   </div>
 </section>
 
@@ -1332,7 +1346,7 @@ body.dark-slide::after{opacity:.05}
 <section class="slide s-process" data-i="38" data-reveals="0">
   <div class="content">
     <h1 class="h1">Just <span class="accent">touching on it.</span></h1>
-    <div class="process-sub">There's more than we can cover. If you want to dive deep — <span class="em">the four-hour video is yours, free.</span></div>
+    <div class="process-sub">There's more than we can cover. If you want to dive deep, <span class="em">the four-hour video is yours, free.</span></div>
     <div class="process-divider"></div>
     <div class="process-intro">A process for anything that needs to be:</div>
     <div class="process-list">
@@ -1350,42 +1364,43 @@ body.dark-slide::after{opacity:.05}
 <section class="slide" data-i="37" data-slide="my-timeline" data-reveals="1">
   <div class="fr-content top">
     <div class="payoff-h">Three months. <span class="accent">My timeline.</span></div>
-    <div class="payoff-curve-stage">
-      <svg viewBox="0 0 800 460">
+    <div class="payoff-curve-stage tl-stage">
+      <svg viewBox="0 0 880 480">
         <!-- Phase backgrounds -->
-        <rect x="60" y="40" width="220" height="360" fill="rgba(212,96,79,0.07)"/>
-        <rect x="280" y="40" width="320" height="360" fill="rgba(47,122,79,0.07)"/>
-        <rect x="600" y="40" width="140" height="360" fill="rgba(255,213,74,0.10)"/>
+        <rect x="60" y="40" width="220" height="380" fill="rgba(212,96,79,0.07)"/>
+        <rect x="280" y="40" width="320" height="380" fill="rgba(47,122,79,0.07)"/>
+        <rect x="600" y="40" width="140" height="380" fill="rgba(255,213,74,0.10)"/>
 
         <!-- Phase labels -->
-        <text x="170" y="62" font-family="JetBrains Mono" font-size="13" fill="#d4604f" font-weight="700" text-anchor="middle" letter-spacing="2.5">VIBING</text>
-        <text x="440" y="62" font-family="JetBrains Mono" font-size="13" fill="#2f7a4f" font-weight="700" text-anchor="middle" letter-spacing="2.5">STRUCTURED · NATIVE SWIFT</text>
-        <text x="670" y="62" font-family="JetBrains Mono" font-size="13" fill="#1c1a24" font-weight="700" text-anchor="middle" letter-spacing="2.5" opacity="0.55">REVIEW</text>
+        <text x="170" y="64" font-family="JetBrains Mono" font-size="15" fill="#d4604f" font-weight="700" text-anchor="middle" letter-spacing="2.5">VIBING</text>
+        <text x="440" y="64" font-family="JetBrains Mono" font-size="15" fill="#2f7a4f" font-weight="700" text-anchor="middle" letter-spacing="2.5">STRUCTURED · NATIVE SWIFT</text>
+        <text x="670" y="64" font-family="JetBrains Mono" font-size="15" fill="#1c1a24" font-weight="700" text-anchor="middle" letter-spacing="2.5" opacity="0.55">REVIEW</text>
 
         <!-- Axes -->
-        <line x1="60" y1="400" x2="740" y2="400" stroke="#1c1a24" stroke-width="2" opacity=".4"/>
-        <line x1="60" y1="40" x2="60" y2="400" stroke="#1c1a24" stroke-width="2" opacity=".4"/>
+        <line x1="60" y1="420" x2="740" y2="420" stroke="#1c1a24" stroke-width="2" opacity=".4"/>
+        <line x1="60" y1="40" x2="60" y2="420" stroke="#1c1a24" stroke-width="2" opacity=".4"/>
 
         <!-- Time labels -->
-        <text x="60" y="425" font-family="EB Garamond" font-size="13" fill="#1c1a24" opacity=".55" letter-spacing="2">MONTH 1</text>
-        <text x="400" y="425" font-family="EB Garamond" font-size="13" fill="#1c1a24" opacity=".55" letter-spacing="2" text-anchor="middle">MONTH 2</text>
-        <text x="740" y="425" font-family="EB Garamond" font-size="13" fill="#1c1a24" opacity=".55" letter-spacing="2" text-anchor="end">MONTH 3 →</text>
+        <text x="60" y="448" font-family="EB Garamond" font-size="15" fill="#1c1a24" opacity=".55" letter-spacing="2">MONTH 1</text>
+        <text x="400" y="448" font-family="EB Garamond" font-size="15" fill="#1c1a24" opacity=".55" letter-spacing="2" text-anchor="middle">MONTH 2</text>
+        <text x="740" y="448" font-family="EB Garamond" font-size="15" fill="#1c1a24" opacity=".55" letter-spacing="2" text-anchor="end">MONTH 3 →</text>
 
-        <!-- Quality line: gentler ups/downs in vibing, smooth climb after -->
+        <!-- Quality line: gentle, slow oscillation in vibing, smooth shallow climb after -->
         <path class="anim-draw" pathLength="1"
-              d="M 60 340 L 95 295 L 135 325 L 175 290 L 215 320 L 250 295 L 280 315 C 360 290 440 220 540 150 C 620 110 700 90 740 80"
-              stroke="#2f7a4f" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <text x="745" y="84" font-family="EB Garamond" font-style="italic" font-size="20" fill="#2f7a4f" font-weight="500">quality</text>
+              d="M 60 330 Q 100 305 140 322 Q 180 308 220 322 Q 260 315 280 325 C 380 310 480 250 580 180 C 660 145 710 125 740 115"
+              stroke="#2f7a4f" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="755" y="119" font-family="EB Garamond" font-style="italic" font-size="22" fill="#2f7a4f" font-weight="500">quality</text>
 
-        <!-- Realization beat — end of Vibing phase -->
-        <circle cx="280" cy="315" r="5" fill="#d4604f"/>
-        <text x="280" y="345" font-family="EB Garamond" font-style="italic" font-size="14" fill="#d4604f" text-anchor="middle">"I can't build this here"</text>
+        <!-- Realization beat, end of Vibing phase -->
+        <circle cx="280" cy="325" r="6" fill="#d4604f"/>
+        <text x="280" y="358" font-family="EB Garamond" font-style="italic" font-size="16" fill="#d4604f" text-anchor="middle">"I can't build this here"</text>
 
-        <!-- Reveal: confidence line (starts high, drops, then slow ramp up past starting point) -->
+        <!-- Reveal: confidence line, starts very high, drops fast in vibing, slow ramp through structured + review -->
         <g class="reveal" data-reveal="1">
-          <path d="M 60 180 C 100 220 160 280 220 340 C 250 365 270 372 280 372 C 360 348 440 270 540 180 C 620 145 700 115 740 95"
-                stroke="#a68fc9" stroke-width="2.5" fill="none" stroke-dasharray="6,5" stroke-linecap="round"/>
-          <text x="745" y="99" font-family="EB Garamond" font-style="italic" font-size="20" fill="#a68fc9" font-weight="500">confidence</text>
+          <path class="draw-on-reveal" pathLength="1"
+                d="M 60 130 C 90 165 130 235 180 300 C 220 350 260 375 280 380 C 360 355 440 275 540 200 C 620 165 700 140 740 130"
+                stroke="#a68fc9" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <text x="755" y="134" font-family="EB Garamond" font-style="italic" font-size="22" fill="#a68fc9" font-weight="500">confidence</text>
         </g>
       </svg>
     </div>
@@ -1434,7 +1449,7 @@ body.dark-slide::after{opacity:.05}
   <div class="content">
     <div class="framing-line">Ten minutes for <span class="accent">the why.</span></div>
     <div class="framing-line muted">Four hours for <span class="accent">the how.</span></div>
-    <div class="framing-sub">Free video at the end — no email, no signup. <span class="em">If you get stuck building yours, reach out.</span></div>
+    <div class="framing-sub">Free video at the end, no email, no signup. <span class="em">If you get stuck building yours, reach out.</span></div>
   </div>
 </section>
 
@@ -1476,7 +1491,7 @@ body.dark-slide::after{opacity:.05}
 
 <script>
 // ╔════════════════════════════════════════════════════════════════════╗
-// ║ BAKED ORDER — the "official" deck shape, committed to source.       ║
+// ║ BAKED ORDER, the "official" deck shape, committed to source.       ║
 // ║ Edit these arrays via arrange.html → "Copy bake line" and send to   ║
 // ║ Tom Claude to commit. This is the source of truth on every machine. ║
 // ╚════════════════════════════════════════════════════════════════════╝
@@ -1489,7 +1504,7 @@ const BAKED_HIDDEN = [1,7,8,9,10,11,15,16,17,25,28,29];
   var embed=/[?&]embed=1\b/.test(location.search);
 
   // Resolve the arrange state with this priority:
-  //   1) URL params  ?order=…&hide=…   (portable — bookmark on any machine)
+  //   1) URL params  ?order=…&hide=…   (portable, bookmark on any machine)
   //   2) localStorage (per-browser, set by arrange.html)
   //   3) BAKED_ORDER + BAKED_HIDDEN above (the source-of-truth default)
   function parseList(str){

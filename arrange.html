@@ -95,7 +95,7 @@ footer.export button.primary{background:var(--accent);border-color:var(--accent)
     <strong>To make changes permanent across machines:</strong>
     <em>Copy share link</em> gives a URL that re-applies your order on any browser
     (bookmark it for the event laptop). <em>Copy bake line</em> gives the one-liner
-    you paste back to Claude — once committed, every machine opening the deck
+    you paste back to Claude, once committed, every machine opening the deck
     sees this order by default, no URL needed.</p>
   <div class="controls">
     <button onclick="reset()">Reset to original</button>
@@ -107,16 +107,16 @@ footer.export button.primary{background:var(--accent);border-color:var(--accent)
 
 <footer class="export">
   <span class="lbl">Final order →</span>
-  <span class="out" id="output">—</span>
-  <button onclick="copyShareLink()" title="A URL that opens the deck with this exact order — works on any machine, no localStorage needed.">Copy share link</button>
-  <button onclick="copyBakeLine()" title="A one-liner to send to Claude — gets committed into the deck as the new source-of-truth default.">Copy bake line</button>
+  <span class="out" id="output">·</span>
+  <button onclick="copyShareLink()" title="A URL that opens the deck with this exact order, works on any machine, no localStorage needed.">Copy share link</button>
+  <button onclick="copyBakeLine()" title="A one-liner to send to Claude, gets committed into the deck as the new source-of-truth default.">Copy bake line</button>
   <button class="primary" onclick="copyOrder(true)">Copy plan</button>
 </footer>
 
 <div class="toast" id="toast">Copied</div>
 
 <script>
-// Slide metadata — keep in sync with deck.template.html headlines.
+// Slide metadata, keep in sync with deck.template.html headlines.
 // Order here = default order in the arrange grid (also the BAKED_ORDER default).
 const SLIDES = [
   // ─── Editorial Heat deck (cream, live) ─────────────
@@ -224,7 +224,7 @@ function render() {
       </div>
       <div class="meta">
         <div class="meta-left">
-          <span class="pos">${isHidden ? '—' : String(visiblePos).padStart(2,'0')}</span>
+          <span class="pos">${isHidden ? '·' : String(visiblePos).padStart(2,'0')}</span>
           <span class="slide-id"><span class="num">${String(n).padStart(2,'0')}</span><span class="group ${groupFor(n)}">${groupFor(n)}</span>${nameFor(n)}</span>
         </div>
         <div class="actions">
@@ -250,7 +250,7 @@ function updateOutput() {
     html += '   ·   hidden: ';
     html += hidden.map(n => `<span class="hidden-tag">${n}</span>`).join(', ');
   }
-  out.innerHTML = html || '—';
+  out.innerHTML = html || '·';
 }
 
 function attachActionHandlers() {
@@ -338,17 +338,17 @@ function copyShareLink() {
     + '?order=' + state.order.join(',')
     + (state.hidden.length ? '&hide=' + state.hidden.join(',') : '')
     + '#1';
-  navigator.clipboard.writeText(url).then(() => toast('Share URL copied — bookmark this anywhere'));
+  navigator.clipboard.writeText(url).then(() => toast('Share URL copied, bookmark this anywhere'));
 }
 
 // A one-liner to send to Claude so the order gets COMMITTED into deck source.
-// After committing, every browser/machine sees this order by default — no URL needed.
+// After committing, every browser/machine sees this order by default, no URL needed.
 function copyBakeLine() {
   const text =
     'Bake this into the deck source:\n' +
     'BAKED_ORDER  = [' + state.order.join(',') + ']\n' +
     'BAKED_HIDDEN = [' + state.hidden.join(',') + ']';
-  navigator.clipboard.writeText(text).then(() => toast('Bake line copied — paste to Claude'));
+  navigator.clipboard.writeText(text).then(() => toast('Bake line copied, paste to Claude'));
 }
 
 function toast(msg) {
