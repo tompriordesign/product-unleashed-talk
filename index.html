@@ -216,16 +216,30 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 .s-dev .phone-mic{font-size:48px;margin-top:auto;align-self:center;text-align:center;animation:micPulse 1.8s ease-in-out infinite}
 @keyframes micPulse{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.1);opacity:1}}
 
-/* CREATIVITY · slide 7 */
-.s-creat .verbs-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:80px;margin-top:32px;align-items:start}
-.s-creat .verbs-col{display:flex;flex-direction:column;gap:16px}
-.s-creat .verbs-title{font-family:var(--mono);font-size:18px;letter-spacing:3px;text-transform:uppercase;color:var(--fg-soft);font-weight:700}
-.s-creat .verbs-col.win .verbs-title{color:var(--accent)}
-.s-creat .verbs-list{display:flex;flex-wrap:wrap;gap:10px}
-.s-creat .verb{background:rgba(28,26,36,.08);padding:10px 18px;border-radius:30px;font-family:var(--serif);font-weight:600;font-size:22px;color:var(--fg-soft)}
-.s-creat .verbs-col.win .verb{background:rgba(47,122,79,.1);color:var(--fg);border:1px solid rgba(47,122,79,.45)}
-.s-creat .verbs-count{font-family:var(--mono);font-size:16px;color:var(--fg-soft);letter-spacing:2px;text-transform:uppercase;margin-top:12px}
-.s-creat .verbs-col.win .verbs-count{color:var(--accent);font-weight:700}
+/* CREATIVITY · slide 8 — license-to-play axis */
+.s-creat .content{justify-content:center;gap:64px}
+.s-creat h1{font-size:140px;line-height:1}
+.s-creat .license-stage{display:flex;flex-direction:column;gap:64px;max-width:1640px;margin:0 auto;width:100%}
+.s-creat .license-axis{position:relative;height:120px;padding:0 80px}
+.s-creat .license-line{position:absolute;top:50%;left:80px;right:80px;height:2px;background:rgba(28,26,36,.22)}
+.s-creat .license-tick{position:absolute;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:14px}
+.s-creat .license-tick.web{left:calc(80px + (100% - 160px) * .28)}
+.s-creat .license-tick.ios{left:calc(80px + (100% - 160px) * .82)}
+.s-creat .license-tick .dot{width:24px;height:24px;border-radius:50%;background:var(--fg)}
+.s-creat .license-tick.ios .dot{background:var(--accent);width:32px;height:32px;box-shadow:0 0 0 6px rgba(47,122,79,.15)}
+.s-creat .license-tick .label{font-family:var(--mono);font-size:22px;letter-spacing:3px;font-weight:700;color:var(--fg);position:absolute;top:48px;white-space:nowrap}
+.s-creat .license-tick.ios .label{color:var(--accent)}
+.s-creat .license-end{position:absolute;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:16px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(28,26,36,.5);font-weight:500}
+.s-creat .license-end.left{left:0}
+.s-creat .license-end.right{right:0}
+.s-creat .license-cols{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:8px}
+.s-creat .license-col{display:flex;flex-direction:column;gap:14px}
+.s-creat .license-col-tag{font-family:var(--mono);font-size:16px;letter-spacing:3px;font-weight:700;color:var(--fg-soft);text-transform:uppercase;padding-bottom:14px;border-bottom:1px solid rgba(28,26,36,.18)}
+.s-creat .license-col.win .license-col-tag{color:var(--accent)}
+.s-creat .license-item{font-family:var(--serif);font-size:30px;line-height:1.25;color:var(--fg)}
+.s-creat .license-item .em{color:var(--accent);font-style:italic;font-weight:500}
+.s-creat .license-coda{font-family:var(--serif);font-style:italic;font-size:32px;line-height:1.3;color:var(--fg);text-align:center;max-width:1500px;margin:0 auto;border-top:1px solid rgba(28,26,36,.15);padding-top:28px}
+.s-creat .license-coda .em{color:var(--accent);font-style:italic;font-weight:600}
 
 /* CATCH · slide 8 */
 .s-catch .h1{margin-bottom:0}
@@ -701,46 +715,41 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
   </div>
 </section>
 
-<!-- 8 · CREATIVITY -->
-<section class="slide s-creat" data-i="8" data-reveals="1">
-  <div class="content">
-    <div class="kicker">Reason 4 of 4</div>
+<!-- 8 · CREATIVITY · license-to-play axis -->
+<section class="slide s-creat" data-i="8" data-reveals="0">
+  <div class="content center-y">
     <h1 class="h1 md"><span class="accent">Creativity.</span></h1>
-    <div class="verbs-grid reveal" data-reveal="1">
-      <div class="verbs-col faded">
-        <div class="verbs-title">Web verbs</div>
-        <div class="verbs-list">
-          <span class="verb">Browse</span>
-          <span class="verb">Share</span>
-          <span class="verb">Read</span>
-          <span class="verb">Search</span>
+    <div class="license-stage">
+      <div class="license-axis">
+        <div class="license-line"></div>
+        <div class="license-end left">Constrained</div>
+        <div class="license-end right">Playful</div>
+        <div class="license-tick web">
+          <div class="dot"></div>
+          <div class="label">WEB</div>
+        </div>
+        <div class="license-tick ios">
+          <div class="dot"></div>
+          <div class="label">iOS</div>
         </div>
       </div>
-      <div class="verbs-col win">
-        <div class="verbs-title">iOS verbs</div>
-        <div class="verbs-list">
-          <span class="verb">Tap</span>
-          <span class="verb">Long-press</span>
-          <span class="verb">Swipe</span>
-          <span class="verb">Shake</span>
-          <span class="verb">Voice</span>
-          <span class="verb">Camera</span>
-          <span class="verb">Scan</span>
-          <span class="verb">Walk</span>
-          <span class="verb">Photograph</span>
-          <span class="verb">Health</span>
-          <span class="verb">Heart rate</span>
-          <span class="verb">Action button</span>
-          <span class="verb">Watch tap</span>
-          <span class="verb">Live activity</span>
-          <span class="verb">Widget</span>
-          <span class="verb">Focus mode</span>
-          <span class="verb">Siri</span>
-          <span class="verb">Lock screen</span>
-          <span class="verb">Apple Intelligence</span>
-          <span class="verb">On-device LLM</span>
+      <div class="license-cols">
+        <div class="license-col">
+          <div class="license-col-tag">Web</div>
+          <div class="license-item">Conventions earned.</div>
+          <div class="license-item">Performance penalties.</div>
+          <div class="license-item">Design-system police.</div>
+          <div class="license-item">Break it, justify it.</div>
+        </div>
+        <div class="license-col win">
+          <div class="license-col-tag">iOS</div>
+          <div class="license-item">Whole package downloaded.</div>
+          <div class="license-item">Native widgets to riff on.</div>
+          <div class="license-item">Weird gets <span class="em">praised</span>, not flagged.</div>
+          <div class="license-item">More room to be <span class="em">playful.</span></div>
         </div>
       </div>
+      <div class="license-coda">The most interesting craft right now? <span class="em">It's shipping native.</span></div>
     </div>
   </div>
 </section>
