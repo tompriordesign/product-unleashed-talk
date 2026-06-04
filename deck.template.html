@@ -1223,7 +1223,8 @@ const BAKED_HIDDEN = [12,14,20,21,1,29,10];
     slides[slideIdx].classList.add('active');
     applyReveals(slides[slideIdx],fragIdx);
     cur=slideIdx;curFrag=fragIdx;
-    if(location.hash!=='#'+(cur+1))history.replaceState(null,'','#'+(cur+1));
+    var dataI=slides[cur].getAttribute('data-i');
+    if(location.hash!=='#'+dataI)history.replaceState(null,'','#'+dataI);
     broadcast();
   }
 
@@ -1250,9 +1251,17 @@ const BAKED_HIDDEN = [12,14,20,21,1,29,10];
     document.addEventListener('click',function(e){if(e.clientX<window.innerWidth*0.22)prev();else next()});
   }
 
-  var start=parseInt((location.hash||'').replace('#',''),10);
-  if(!(start>=1&&start<=slides.length))start=1;
-  requestAnimationFrame(function(){requestAnimationFrame(function(){show(start-1,embed?0:0,embed)})});
+  // Hash is the slide's stable data-i (not its position in the deck).
+  // That way arrange.html iframes, bookmarks, and ?v=…#N links all keep pointing
+  // at the same slide even when the order/insertions change.
+  var startN=parseInt((location.hash||'').replace('#',''),10);
+  var startIdx=0;
+  if(!isNaN(startN)){
+    for(var i=0;i<slides.length;i++){
+      if(parseInt(slides[i].getAttribute('data-i'),10)===startN){startIdx=i;break}
+    }
+  }
+  requestAnimationFrame(function(){requestAnimationFrame(function(){show(startIdx,0,embed)})});
 })();
 </script>
 </body>
