@@ -31,9 +31,15 @@ body{padding:32px 48px;display:flex;flex-direction:column;gap:24px;min-height:10
 .slide-title{font-family:var(--serif);font-size:36px;font-weight:700;font-variation-settings:'opsz' 144,'SOFT' 60;letter-spacing:-.01em}
 .head-right{display:flex;align-items:baseline;gap:18px;font-family:var(--mono);font-size:15px;color:var(--fg-soft);letter-spacing:2px;text-transform:uppercase}
 .timer{font-size:32px;color:var(--fg);font-weight:700;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
+.timer.idle{color:var(--fg-faint)}
 .timer.over{color:var(--accent)}
 .timer.warn{color:var(--warn)}
 .timer-label{opacity:.55}
+.timer-budget{font-family:var(--mono);font-size:16px;color:var(--fg-faint);letter-spacing:1px;margin-left:6px}
+.timer-btn{background:var(--accent);color:var(--bg);border:0;font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:8px 18px;border-radius:6px;cursor:pointer;transition:background 200ms ease}
+.timer-btn:hover{background:#ff5a47}
+.timer-btn.running{background:rgba(244,236,217,.12);color:var(--fg-soft)}
+.timer-btn.running:hover{background:rgba(244,236,217,.18);color:var(--fg)}
 
 /* CONNECTION */
 .conn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--fg-faint)}
@@ -91,8 +97,8 @@ body{padding:32px 48px;display:flex;flex-direction:column;gap:24px;min-height:10
   </div>
   <div class="head-right">
     <span class="conn" id="conn">awaiting deck</span>
-    <span class="timer-label">elapsed</span>
-    <span class="timer" id="timer">0:00</span>
+    <button class="timer-btn" id="timer-btn" type="button">Start</button>
+    <span class="timer idle" id="timer">0:00<span class="timer-budget">/ 10:30</span></span>
   </div>
 </div>
 
@@ -164,23 +170,44 @@ const NOTES = {
       next:null}
 };
 
-const SLIDE_BUDGETS_S = {1:30,2:90,3:30,4:100,5:90,6:90,7:90,8:100,9:60,10:60};
+// Total spoken-talk budget. 10:30 = 630s. 13:00 slot includes Q&A.
+const TALK_BUDGET_S = 630;
 
 let curSlide = 1, curFrag = 0, totalReveals = {};
-let slideStart = Date.now(), timerHandle = null;
+let timerStart = null, timerHandle = null;
 
 const $ = id => document.getElementById(id);
 
 function fmt(ms){var s=Math.floor(ms/1000);var m=Math.floor(s/60);return m+':'+String(s%60).padStart(2,'0')}
 
 function renderTimer(){
-  var elapsed = Date.now() - slideStart;
-  var budget = (SLIDE_BUDGETS_S[curSlide]||60)*1000;
   var el = $('timer');
-  el.textContent = fmt(elapsed);
-  el.classList.remove('over','warn');
+  var btn = $('timer-btn');
+  if(!timerStart){
+    el.innerHTML = '0:00<span class="timer-budget">/ 10:30</span>';
+    el.className = 'timer idle';
+    btn.textContent = 'Start';
+    btn.classList.remove('running');
+    return;
+  }
+  var elapsed = Date.now() - timerStart;
+  var budget = TALK_BUDGET_S * 1000;
+  el.innerHTML = fmt(elapsed) + '<span class="timer-budget">/ 10:30</span>';
+  el.classList.remove('idle','over','warn');
   if(elapsed > budget) el.classList.add('over');
-  else if(elapsed > budget*0.75) el.classList.add('warn');
+  else if(elapsed > budget*0.8) el.classList.add('warn');
+  btn.textContent = 'Reset';
+  btn.classList.add('running');
+}
+
+function toggleTimer(){
+  if(timerStart){
+    if(!confirm('Reset the timer back to 0:00?')) return;
+    timerStart = null;
+  } else {
+    timerStart = Date.now();
+  }
+  renderTimer();
 }
 
 function renderBeats(list, into){
@@ -234,9 +261,6 @@ function render(slideIdx, fragIdx, totalRevealsOnSlide){
 }
 
 function setSlide(slideIdx, fragIdx, total){
-  if(slideIdx !== curSlide){
-    slideStart = Date.now();
-  }
   curSlide = slideIdx;
   curFrag = fragIdx;
   totalReveals[slideIdx] = total || totalReveals[slideIdx] || 0;
@@ -263,11 +287,13 @@ if(bc){
   bc.postMessage({req:'state'});
 }
 
-// Timer tick
+// Timer tick + button
 timerHandle = setInterval(renderTimer, 250);
+$('timer-btn').addEventListener('click', toggleTimer);
 
 // Initial render
 render(1, 0, 1);
+renderTimer();
 </script>
 </body>
 </html>
