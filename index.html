@@ -97,13 +97,12 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 .s-built .fact{background:rgba(244,236,217,.05);border-left:3px solid var(--accent);padding:18px 22px;font-family:var(--serif);font-size:26px;line-height:1.35;color:var(--fg)}
 .s-built .fact .em{color:var(--accent);font-weight:700}
 
-/* OBJECTION · slide 3 */
-.s-obj .h1{max-width:1700px}
-.s-obj .gif-row{display:flex;justify-content:center;align-items:center;gap:48px;margin-top:32px}
-.s-obj .gif-label{font-family:var(--serif);font-weight:800;font-size:96px;line-height:1;font-variation-settings:'opsz' 144,'SOFT' 60;letter-spacing:-.02em;flex-shrink:0}
+/* OBJECTION · slide 3 (Lovable / Me) */
+.s-obj .gif-row{display:flex;justify-content:center;align-items:center;gap:64px}
+.s-obj .gif-label{font-family:var(--serif);font-weight:800;font-size:140px;line-height:1;font-variation-settings:'opsz' 144,'SOFT' 60;letter-spacing:-.02em;flex-shrink:0}
 .s-obj .gif-label.left{color:var(--accent)}
 .s-obj .gif-label.right{color:var(--fg)}
-.s-obj .gif-meme{max-width:760px;max-height:440px;width:auto;height:auto;display:block;border-radius:14px;filter:drop-shadow(0 16px 40px rgba(0,0,0,.55));flex-shrink:0}
+.s-obj .gif-meme{max-width:1100px;max-height:620px;width:auto;height:auto;display:block;border-radius:16px;filter:drop-shadow(0 20px 50px rgba(0,0,0,.6));flex-shrink:0}
 
 /* DISTRIBUTION · slide 4 */
 .s-dist .dist-row{display:grid;grid-template-columns:1fr 1.3fr;gap:60px;align-items:start;margin-top:32px;flex:1}
@@ -250,21 +249,12 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 </section>
 
 <!-- 3 · THE OBJECTION -->
-<section class="slide s-obj" data-i="3" data-reveals="3">
-  <div class="content">
-    <div class="kicker">The obvious objection</div>
-    <h1 class="h1 sm">"Why didn't you just build it in<br><span class="accent">Lovable in two hours?"</span></h1>
-    <div class="gif-row reveal" data-reveal="1">
+<section class="slide s-obj" data-i="3" data-reveals="0">
+  <div class="content center-y">
+    <div class="gif-row">
       <div class="gif-label left">Lovable</div>
       <img class="gif-meme" src="https://media1.tenor.com/m/M6WgkbXFHjwAAAAd/casino-oldpeople.gif" alt="Old people at a casino slot machine">
       <div class="gif-label right">Me</div>
-    </div>
-    <div class="inset reveal" data-reveal="2">
-      <div class="inset-label">Two quick things first</div>
-      <div class="inset-body">
-        <p>I did <span class="em">not</span> learn to code. I still don't write code. What changed is the tool I use to talk to AI.</p>
-        <p class="reveal" data-reveal="3" style="display:none">"Lovable" here is shorthand. Same argument applies to Bolt, v0, Replit Mobile Apps (which now ships React Native to iOS, not Swift).</p>
-      </div>
     </div>
   </div>
 </section>
