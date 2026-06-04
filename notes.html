@@ -127,7 +127,7 @@ body{padding:clamp(16px,2.5vw,32px) clamp(20px,3vw,48px);display:flex;flex-direc
 <script>
 const NOTES = {
   1:{title:"Hook",budget:"~30s",echo:'How many of you have an app idea you <span class="accent">haven\'t built yet?</span>',
-     beats:["Stand still. Make eye contact with the back row.","Pause <strong>after</strong> the question. Let it sit two beats.","On click — quietly: <em>'Six months ago, I had one too.'</em>"],
+     beats:["Stand still. Make eye contact with the back row.","Pause <strong>after</strong> the question. Let it sit two beats.","Sub is already on screen: <em>'Six months ago, I had one too.'</em> Read it quietly after the pause."],
      asides:[],
      next:{title:"What I built",hint:"Migrapulse facts + live site embed + demo."}},
   2:{title:"What I built",budget:"~90s",echo:'<span class="accent">Migrapulse.</span>',
@@ -143,15 +143,15 @@ const NOTES = {
      asides:[{label:"Somewhere in the funnel beat",text:"I haven't done any marketing yet. People are still finding it. Some are paying. That's the pond doing the work, not me."}],
      next:{title:"Reason 2 · Security",hint:"Architecture diagram. Vibe-coded web vs Migrapulse."}},
   5:{title:"Reason 2 · Security",budget:"~90s",echo:'<span class="accent">Security.</span>',
-     beats:["Open with the horror story. Sub reveals.","Then the architecture diagram drops in.","Let the contrast land silently: four arrows vs one node."],
+     beats:["Headline and sub are both on screen. Open with the horror story aside.","Click: architecture diagram drops in.","Let the contrast land silently: four arrows vs one node."],
      asides:[{label:"Opening line for this slide",text:"Last month a vibe-coded SaaS leaked every customer's data because the database was open to the internet. The week before, another one had its auth bypassed by a teenager. These aren't AI's fault. They're the failure modes of moving fast on the web."}],
      next:{title:"Reason 3 · Device",hint:"Two phones. Lovable signup vs Migrapulse home."}},
   6:{title:"Reason 3 · Device",budget:"~90s",echo:'<span class="accent">Device.</span>',
-     beats:["Sub reveals first: some products <strong>cannot exist</strong> on the web.","Two phones reveal. Left fades — browser tab, email, password.","Right is the action button + voice. Three seconds beats three minutes.","<strong>Introduce \"iOS-shaped idea\" here.</strong> This is where the phrase enters the talk."],
+     beats:["Sub is already on screen: some products <strong>cannot exist</strong> on the web.","Click: two phones reveal. Left fades, browser tab, email, password.","Right is the action button + voice. Three seconds beats three minutes.","<strong>Introduce \"iOS-shaped idea\" here.</strong> This is where the phrase enters the talk."],
      asides:[{label:"Define iOS-shaped idea",text:"Anything that touches the body or the moment. The camera. The mic. The watch. Your health. The action you take in the seconds before you forget."}],
      next:{title:"Reason 4 · Creativity",hint:"Web verbs vs iOS verbs."}},
   7:{title:"Reason 4 · Creativity",budget:"~90s",echo:'<span class="accent">Creativity.</span>',
-     beats:["Sub: the platform changes the product you imagine.","Verbs reveal. Left: 4 web verbs. Right: 20+ iOS verbs.","Let the accumulation do the work. <em>The cascade IS the argument.</em>","Read 3–4 iOS verbs aloud at the end for emphasis."],
+     beats:["Sub on screen: the platform changes the product you imagine.","Click: verbs reveal. Left: 4 web verbs. Right: 20+ iOS verbs.","Let the accumulation do the work. <em>The cascade IS the argument.</em>","Read 3 or 4 iOS verbs aloud at the end for emphasis."],
      asides:[],
      next:{title:"The catch",hint:"Effort is the moat. Four reveals."}},
   8:{title:"The catch · Effort is the moat",budget:"~100s",echo:'Effort is <span class="accent">the moat now.</span>',
@@ -159,11 +159,11 @@ const NOTES = {
      asides:[{label:"R3 delivery cadence",text:"A vibe-coded app is inflatable furniture. [pause] Real humans at Apple sit on it. They can tell. The bar is rising. Make your first submission count."}],
      next:{title:"The how, briefly",hint:"Vibes in. Structure out. Equation cards."}},
   9:{title:"The how, briefly",budget:"~60s",echo:'Vibes in. <span class="accent">Structure out.</span>',
-     beats:["Sub: I can't fit the workflow in ten minutes.","Forcing pair reveals. Swift forces it. RN abstracts.","Equation cards reveal. Walk left-to-right at a brisk pace, one phrase per card.","How-callout: <strong>plug the masterclass.</strong> QR is next slide."],
+     beats:["Sub on screen: I can't fit the workflow in ten minutes.","Click: forcing pair reveals. Swift forces it. RN abstracts.","Click: equation cards reveal. Walk left-to-right, one phrase per card.","Click: how-callout. <strong>Plug the masterclass.</strong> QR is next slide."],
      asides:[],
      next:{title:"Close",hint:"iOS-shaped idea callback + QR."}},
   10:{title:"Close",budget:"~60s",echo:'If you\'ve got an<br><span class="accent">iOS-shaped idea</span><br>sitting in your head,<br>the tools are finally there.',
-      beats:["<strong>Open with the migraine callback.</strong>","Then the takeaway headline.","Then the load-bearing sub.","QR appears. Stand still. Drop the mic."],
+      beats:["<strong>Open with the migraine callback.</strong>","Headline and sub are both on screen. Read them slowly.","Click: QR appears. Stand still. Drop the mic."],
       asides:[{label:"The callback opener",text:"Six months ago I had a migraine and I couldn't open my journal app fast enough. I built an app. I shipped it. Two months. One person. No team. No funding."}],
       next:null}
 };
@@ -272,14 +272,8 @@ if(bc){
     if(!e.data || typeof e.data.slideIdx !== 'number') return;
     $('conn').textContent = 'live';
     $('conn').classList.add('live');
-    // deck broadcasts 0-indexed
-    setSlide(e.data.slideIdx + 1, e.data.fragIdx, null);
-    // try to fetch slide reveal count by re-asking the deck (we don't know exact count here)
-    if(typeof e.data.fragIdx === 'number'){
-      // Best effort: track max frag seen as the total. Deck doesn't broadcast total.
-      var seen = totalReveals[curSlide] || 0;
-      if(curFrag > seen){ totalReveals[curSlide] = curFrag; render(curSlide, curFrag, curFrag); }
-    }
+    // deck broadcasts 0-indexed slideIdx, plus the slide's total reveal count
+    setSlide(e.data.slideIdx + 1, e.data.fragIdx, e.data.fragTotal);
   };
   // Ask deck for current state in case we connected late
   bc.postMessage({req:'state'});
