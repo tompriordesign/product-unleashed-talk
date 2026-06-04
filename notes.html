@@ -89,7 +89,7 @@ body{padding:clamp(16px,2.5vw,32px) clamp(20px,3vw,48px);display:flex;flex-direc
 
 <div class="head">
   <div class="head-left">
-    <span class="pill" id="slide-num">01 / 10</span>
+    <span class="pill" id="slide-num">01 / 11</span>
     <span class="slide-title" id="slide-title">Hook</span>
     <span class="pill muted" id="slide-budget">~30s</span>
   </div>
@@ -137,32 +137,36 @@ const NOTES = {
   3:{title:"The obvious objection",budget:"~30s",echo:'<span class="accent">Lovable</span> · Me',
      beats:["Meme carries the joke. No clicks on this slide, no headline, no list.","Say the question aloud: <em>\"Why didn't you just Lovable it in two hours?\"</em>","Then the two clarifications: <strong>(1)</strong> I didn't learn to code, the tool changed. <strong>(2)</strong> Lovable is shorthand for the whole category."],
      asides:[{label:"After the inset reveals",text:"Cursor sits next to Xcode. I can see what the AI is generating. I can read the file tree. I can pause it before it does something dumb. The AI is still doing the typing. I'm just watching it happen instead of having it hidden behind a chat box."}],
-     next:{title:"Reason 1 · Distribution",hint:"Yhorm + funnel comparison."}},
-  4:{title:"Reason 1 · Distribution",budget:"~100s",echo:'<span class="accent">Distribution.</span>',
-     beats:["Yhorm reveals first — gut-punch image of distribution dwarfing product.","Funnel reveals second. Walk down the web funnel slowly (steps shrink). Then up the iOS funnel (steps stay substantial).","The visual contrast IS the argument."],
-     asides:[{label:"Somewhere in the funnel beat",text:"I haven't done any marketing yet. People are still finding it. Some are paying. That's the pond doing the work, not me."}],
+     next:{title:"Reason 1 · Distribution",hint:"Yhorm meme. Distribution is the final boss."}},
+  4:{title:"Reason 1 · Distribution",budget:"~45s",echo:'<span class="accent">Distribution.</span>',
+     beats:["Yhorm is the whole slide. No headline. No text. Let the image do the talking.","Land the line: <em>\"Distribution is the final boss.\"</em>","Hold the silence for a beat before clicking to the head-start slide."],
+     asides:[{label:"The setup line",text:"Reason one. Distribution. This is the one people miss. You can ship anything you want, but if you can't get it in front of anyone, it doesn't matter."}],
+     next:{title:"A head start",hint:"Four iOS distribution advantages."}},
+  5:{title:"A head start",budget:"~75s",echo:'A <span class="accent">head start.</span>',
+     beats:["Frame: <strong>iOS gives you a head start on distribution.</strong> Well-established. Good guardrails.","All four advantages are on screen. Walk them top to bottom — one beat each.","01 Storefront in 30 minutes — title, subtitle, screenshots. That's the store.","02 A known playbook — ASO + search. 20 years of best practice you can copy.","03 Apple helps you — Featured, social, paid acquisition all built in.","04 Good guardrails — review keeps the bar high; your competitors have to clear it too."],
+     asides:[{label:"Why this matters",text:"On the web, every founder has to invent distribution from scratch. On iOS, the pond is already stocked. You're not building the distribution — you're plugging into one that's been compounding for nearly 20 years."}],
      next:{title:"Reason 2 · Security",hint:"Architecture diagram. Vibe-coded web vs Migrapulse."}},
-  5:{title:"Reason 2 · Security",budget:"~90s",echo:'<span class="accent">Security.</span>',
+  6:{title:"Reason 2 · Security",budget:"~90s",echo:'<span class="accent">Security.</span>',
      beats:["Headline and sub are both on screen. Open with the horror story aside.","Click: architecture diagram drops in.","Let the contrast land silently: four arrows vs one node."],
      asides:[{label:"Opening line for this slide",text:"Last month a vibe-coded SaaS leaked every customer's data because the database was open to the internet. The week before, another one had its auth bypassed by a teenager. These aren't AI's fault. They're the failure modes of moving fast on the web."}],
      next:{title:"Reason 3 · Device",hint:"Two phones. Lovable signup vs Migrapulse home."}},
-  6:{title:"Reason 3 · Device",budget:"~90s",echo:'<span class="accent">Device.</span>',
+  7:{title:"Reason 3 · Device",budget:"~90s",echo:'<span class="accent">Device.</span>',
      beats:["Sub is already on screen: some products <strong>cannot exist</strong> on the web.","Click: two phones reveal. Left fades, browser tab, email, password.","Right is the action button + voice. Three seconds beats three minutes.","<strong>Introduce \"iOS-shaped idea\" here.</strong> This is where the phrase enters the talk."],
      asides:[{label:"Define iOS-shaped idea",text:"Anything that touches the body or the moment. The camera. The mic. The watch. Your health. The action you take in the seconds before you forget."}],
      next:{title:"Reason 4 · Creativity",hint:"Web verbs vs iOS verbs."}},
-  7:{title:"Reason 4 · Creativity",budget:"~90s",echo:'<span class="accent">Creativity.</span>',
+  8:{title:"Reason 4 · Creativity",budget:"~90s",echo:'<span class="accent">Creativity.</span>',
      beats:["Sub on screen: the platform changes the product you imagine.","Click: verbs reveal. Left: 4 web verbs. Right: 20+ iOS verbs.","Let the accumulation do the work. <em>The cascade IS the argument.</em>","Read 3 or 4 iOS verbs aloud at the end for emphasis."],
      asides:[],
      next:{title:"The catch",hint:"Effort is the moat. Four reveals."}},
-  8:{title:"The catch · Effort is the moat",budget:"~100s",echo:'Effort is <span class="accent">the moat now.</span>',
+  9:{title:"The catch · Effort is the moat",budget:"~100s",echo:'Effort is <span class="accent">the moat now.</span>',
      beats:["<strong>Dense slide. Give each reveal its own breath.</strong>","R1 — Requirements list. Walk through: $20, $99, Free, week, rejection.","R2 — Rejection timeline. Walk the four dates. Acknowledge the wait.","R3 — Inflatable furniture. <strong>Deliver slowly.</strong>","R4 — Moat-line. Land it and stop talking for a beat."],
      asides:[{label:"R3 delivery cadence",text:"A vibe-coded app is inflatable furniture. [pause] Real humans at Apple sit on it. They can tell. The bar is rising. Make your first submission count."}],
      next:{title:"The how, briefly",hint:"Vibes in. Structure out. Equation cards."}},
-  9:{title:"The how, briefly",budget:"~60s",echo:'Vibes in. <span class="accent">Structure out.</span>',
-     beats:["Sub on screen: I can't fit the workflow in ten minutes.","Click: forcing pair reveals. Swift forces it. RN abstracts.","Click: equation cards reveal. Walk left-to-right, one phrase per card.","Click: how-callout. <strong>Plug the masterclass.</strong> QR is next slide."],
-     asides:[],
-     next:{title:"Close",hint:"iOS-shaped idea callback + QR."}},
-  10:{title:"Close",budget:"~60s",echo:'If you\'ve got an<br><span class="accent">iOS-shaped idea</span><br>sitting in your head,<br>the tools are finally there.',
+  10:{title:"The how, briefly",budget:"~60s",echo:'Vibes in. <span class="accent">Structure out.</span>',
+      beats:["Sub on screen: I can't fit the workflow in ten minutes.","Click: forcing pair reveals. Swift forces it. RN abstracts.","Click: equation cards reveal. Walk left-to-right, one phrase per card.","Click: how-callout. <strong>Plug the masterclass.</strong> QR is next slide."],
+      asides:[],
+      next:{title:"Close",hint:"iOS-shaped idea callback + QR."}},
+  11:{title:"Close",budget:"~60s",echo:'If you\'ve got an<br><span class="accent">iOS-shaped idea</span><br>sitting in your head,<br>the tools are finally there.',
       beats:["<strong>Open with the migraine callback.</strong>","Headline and sub are both on screen. Read them slowly.","Click: QR appears. Stand still. Drop the mic."],
       asides:[{label:"The callback opener",text:"Six months ago I had a migraine and I couldn't open my journal app fast enough. I built an app. I shipped it. Two months. One person. No team. No funding."}],
       next:null}
@@ -248,7 +252,7 @@ function renderNext(nextObj){
 
 function render(slideIdx, fragIdx, totalRevealsOnSlide){
   var n = NOTES[slideIdx] || NOTES[1];
-  $('slide-num').textContent = String(slideIdx).padStart(2,'0')+' / 10';
+  $('slide-num').textContent = String(slideIdx).padStart(2,'0')+' / 11';
   $('slide-title').textContent = n.title;
   $('slide-budget').textContent = n.budget;
   $('echo').innerHTML = n.echo;

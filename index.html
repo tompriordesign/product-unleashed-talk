@@ -104,10 +104,20 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 .s-obj .gif-label.right{color:var(--fg)}
 .s-obj .gif-meme{max-width:1100px;max-height:620px;width:auto;height:auto;display:block;border-radius:16px;filter:drop-shadow(0 20px 50px rgba(0,0,0,.6));flex-shrink:0}
 
-/* DISTRIBUTION · slide 4 */
-.s-dist .dist-row{display:grid;grid-template-columns:1fr 1.3fr;gap:60px;align-items:start;margin-top:32px;flex:1}
-.s-dist .yhorm-col{display:flex;align-items:center;justify-content:center;position:relative;height:100%;min-height:520px}
-.s-dist .yhorm{max-height:560px;width:auto;display:block;filter:drop-shadow(0 16px 40px rgba(0,0,0,.55));border-radius:8px}
+/* DISTRIBUTION · slide 4 (Yhorm meme centred) */
+.s-dist .yhorm{max-height:880px;max-width:1200px;width:auto;height:auto;display:block;margin:0 auto;filter:drop-shadow(0 24px 60px rgba(0,0,0,.6));border-radius:12px}
+
+/* HEAD START · slide 5 (iOS distribution advantages) */
+.s-headstart .content{justify-content:center;gap:56px}
+.s-headstart h1{font-size:140px;line-height:1.0}
+.s-headstart .adv-list{display:flex;flex-direction:column;gap:36px;max-width:1500px}
+.s-headstart .adv{display:grid;grid-template-columns:120px 1fr;gap:48px;align-items:baseline}
+.s-headstart .adv-num{font-family:var(--mono);font-size:48px;font-weight:500;color:var(--fg-faint)}
+.s-headstart .adv-title{font-family:var(--serif);font-size:64px;font-weight:800;line-height:1.05;font-variation-settings:'opsz' 144,'SOFT' 60;letter-spacing:-.015em}
+.s-headstart .adv-title .em{color:var(--accent);font-style:italic}
+.s-headstart .adv-desc{font-family:var(--mono);font-size:22px;letter-spacing:1px;color:var(--fg-soft);margin-top:10px}
+
+/* (deprecated funnel styles kept for historical reference) */
 .s-dist .funnels{display:flex;flex-direction:column;gap:24px}
 .s-dist .funnel{display:flex;flex-direction:column;gap:8px}
 .s-dist .funnel-title{font-family:var(--mono);font-size:18px;letter-spacing:3px;text-transform:uppercase;color:var(--fg-soft);font-weight:700;margin-bottom:6px}
@@ -259,38 +269,52 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
   </div>
 </section>
 
-<!-- 4 · DISTRIBUTION -->
-<section class="slide s-dist" data-i="4" data-reveals="2">
-  <div class="content">
-    <div class="kicker">Reason 1 of 4</div>
-    <h1 class="h1 md"><span class="accent">Distribution.</span></h1>
-    <div class="sub">The final boss of every side project you've ever launched.</div>
-    <div class="dist-row">
-      <div class="yhorm-col reveal" data-reveal="1">
-        <img class="yhorm" src="https://i.imgflip.com/atg7zr.jpg" alt="Yhorm meme: Distribution dwarfs Product">
-      </div>
-      <div class="funnels reveal" data-reveal="2">
-        <div class="funnel faded">
-          <div class="funnel-title">Web</div>
-          <div class="funnel-step"><span class="label">Lovable site</span><span class="meta">2 hours</span></div>
-          <div class="funnel-step"><span class="label">Tweet a link</span><span class="meta">12 likes</span></div>
-          <div class="funnel-step"><span class="label">Hope</span><span class="meta">SEO, ads, prayer</span></div>
-          <div class="funnel-step"><span class="label">Forgotten</span><span class="meta">a month later</span></div>
+<!-- 4 · DISTRIBUTION (Yhorm meme only, centred) -->
+<section class="slide s-dist" data-i="4" data-reveals="0">
+  <div class="content center-y">
+    <img class="yhorm" src="https://i.imgflip.com/atg7zr.jpg" alt="Yhorm meme: Distribution dwarfs Product">
+  </div>
+</section>
+
+<!-- 5 · iOS HEAD START -->
+<section class="slide s-headstart" data-i="5" data-reveals="0">
+  <div class="content center-y">
+    <h1 class="h1 md">A <span class="accent">head start</span>.</h1>
+    <div class="adv-list">
+      <div class="adv">
+        <div class="adv-num">01</div>
+        <div>
+          <div class="adv-title">Storefront in <span class="em">30 minutes</span>.</div>
+          <div class="adv-desc">Title, subtitle, screenshots.</div>
         </div>
-        <div class="funnel win">
-          <div class="funnel-title">iOS native</div>
-          <div class="funnel-step"><span class="label">App Store listing</span><span class="meta">title, screens</span></div>
-          <div class="funnel-step"><span class="label">ASO + search</span><span class="meta">20-year playbook</span></div>
-          <div class="funnel-step"><span class="label">Featured, social, paid</span><span class="meta">Apple helps</span></div>
-          <div class="funnel-step"><span class="label">Install + pay</span><span class="meta">payment on file</span></div>
+      </div>
+      <div class="adv">
+        <div class="adv-num">02</div>
+        <div>
+          <div class="adv-title">A <span class="em">known</span> playbook.</div>
+          <div class="adv-desc">ASO + search. 20 years of best practice.</div>
+        </div>
+      </div>
+      <div class="adv">
+        <div class="adv-num">03</div>
+        <div>
+          <div class="adv-title">Apple <span class="em">helps you</span>.</div>
+          <div class="adv-desc">Featured. Social. Paid acquisition.</div>
+        </div>
+      </div>
+      <div class="adv">
+        <div class="adv-num">04</div>
+        <div>
+          <div class="adv-title">Good <span class="em">guardrails</span>.</div>
+          <div class="adv-desc">Review keeps the bar high. Yours included.</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 5 · SECURITY -->
-<section class="slide s-sec" data-i="5" data-reveals="1">
+<!-- 6 · SECURITY -->
+<section class="slide s-sec" data-i="6" data-reveals="1">
   <div class="content">
     <div class="kicker">Reason 2 of 4</div>
     <h1 class="h1 md"><span class="accent">Security.</span></h1>
@@ -318,8 +342,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
   </div>
 </section>
 
-<!-- 6 · DEVICE -->
-<section class="slide s-dev" data-i="6" data-reveals="1">
+<!-- 7 · DEVICE -->
+<section class="slide s-dev" data-i="7" data-reveals="1">
   <div class="content">
     <div class="kicker">Reason 3 of 4</div>
     <h1 class="h1 md"><span class="accent">Device.</span></h1>
@@ -350,8 +374,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
   </div>
 </section>
 
-<!-- 7 · CREATIVITY -->
-<section class="slide s-creat" data-i="7" data-reveals="1">
+<!-- 8 · CREATIVITY -->
+<section class="slide s-creat" data-i="8" data-reveals="1">
   <div class="content">
     <div class="kicker">Reason 4 of 4</div>
     <h1 class="h1 md"><span class="accent">Creativity.</span></h1>
@@ -397,8 +421,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
   </div>
 </section>
 
-<!-- 8 · THE CATCH -->
-<section class="slide s-catch" data-i="8" data-reveals="4">
+<!-- 9 · THE CATCH -->
+<section class="slide s-catch" data-i="9" data-reveals="4">
   <div class="content">
     <div class="kicker">The catch</div>
     <h1 class="h1 md">Effort is <span class="accent">the moat now.</span></h1>
@@ -431,8 +455,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
   </div>
 </section>
 
-<!-- 9 · THE HOW, BRIEFLY -->
-<section class="slide s-how" data-i="9" data-reveals="3">
+<!-- 10 · THE HOW, BRIEFLY -->
+<section class="slide s-how" data-i="10" data-reveals="3">
   <div class="content">
     <div class="kicker">The how, briefly</div>
     <h1 class="h1 md">Vibes in. <span class="accent">Structure out.</span></h1>
@@ -458,8 +482,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
   </div>
 </section>
 
-<!-- 10 · CLOSE -->
-<section class="slide s-close" data-i="10" data-reveals="1">
+<!-- 11 · CLOSE -->
+<section class="slide s-close" data-i="11" data-reveals="1">
   <div class="content center-y">
     <div class="kicker">The takeaway</div>
     <h1 class="h1 md">If you've got an<br><span class="accent">iOS-shaped idea</span><br>sitting in your head,<br>the tools are finally there.</h1>
