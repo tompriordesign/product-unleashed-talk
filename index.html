@@ -514,19 +514,21 @@ body.dark-slide::after{opacity:.05}
 /* rule IV-a, instructions.md doc + callouts */
 .md-tagline{font-family:var(--serif);font-style:italic;font-size:40px;line-height:1.2;color:var(--ink);opacity:.78;margin-top:24px;margin-bottom:40px;max-width:1700px}
 .md-tagline .em{color:var(--coral);font-style:italic;font-weight:500;opacity:1}
-.md-stage{display:grid;grid-template-columns:1.45fr .55fr;gap:56px;align-items:start}
+.md-stage{display:grid;grid-template-columns:1fr 56px 1fr;gap:32px;align-items:start}
+.md-bubble{position:relative;background:#fff;border:2px solid rgba(212,96,79,.55);border-radius:22px;padding:28px 32px 30px;box-shadow:0 24px 50px rgba(28,26,36,.10)}
+.md-bubble::after{content:'';position:absolute;left:46px;bottom:-18px;width:30px;height:30px;background:#fff;border-right:2px solid rgba(212,96,79,.55);border-bottom:2px solid rgba(212,96,79,.55);transform:rotate(45deg);border-bottom-right-radius:6px}
+.md-bubble-meta{font-family:var(--mono);font-size:14px;letter-spacing:2.5px;text-transform:uppercase;color:var(--coral);font-weight:700;margin-bottom:14px}
+.md-bubble-body{font-family:var(--serif);font-style:italic;font-weight:400;font-size:22px;line-height:1.45;color:var(--ink);letter-spacing:-.005em}
+.md-bubble-body .md-em{color:var(--coral);font-weight:500;font-style:italic}
+.md-arrow{font-family:var(--serif);font-style:italic;font-size:72px;line-height:1;color:var(--accent);opacity:.7;display:flex;align-items:center;justify-content:center;padding-top:80px}
 .md-doc{background:#fff;border:2px solid rgba(47,122,79,.45);border-radius:12px;overflow:hidden;box-shadow:0 24px 50px rgba(28,26,36,.12)}
-.md-doc-header{background:rgba(28,26,36,.04);padding:16px 28px;border-bottom:1px solid rgba(28,26,36,.1);font-family:var(--mono);font-size:17px;opacity:.7;display:flex;gap:10px;align-items:center}
-.md-doc-dot{width:12px;height:12px;border-radius:50%}
-.md-doc-body{padding:30px 36px;font-family:var(--mono);font-size:18px;line-height:1.6}
-.md-doc-h{font-family:var(--serif);font-weight:500;font-size:30px;color:var(--ink);margin:22px 0 8px;letter-spacing:-.5px}
+.md-doc-header{background:rgba(28,26,36,.04);padding:14px 24px;border-bottom:1px solid rgba(28,26,36,.1);font-family:var(--mono);font-size:15px;opacity:.7;display:flex;gap:10px;align-items:center}
+.md-doc-dot{width:11px;height:11px;border-radius:50%}
+.md-doc-body{padding:24px 30px;font-family:var(--mono);font-size:16px;line-height:1.55}
+.md-doc-h{font-family:var(--serif);font-weight:500;font-size:26px;color:var(--ink);margin:18px 0 6px;letter-spacing:-.5px}
 .md-doc-h:first-child{margin-top:0}
 .md-doc-line{opacity:.78}
 .md-doc-line .coral{color:var(--coral);opacity:1;font-weight:500}
-.md-callouts{display:flex;flex-direction:column;gap:24px;margin-top:8px}
-.md-callout{background:rgba(47,122,79,.06);border-left:4px solid var(--coral);padding:22px 26px;border-radius:4px}
-.md-callout-num{font-family:var(--serif);font-weight:500;font-style:italic;font-size:64px;line-height:1;color:var(--coral);letter-spacing:-2px}
-.md-callout-label{font-family:var(--mono);font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--ink);opacity:.6;margin-top:8px}
 
 /* rule IV-b, build step + phone */
 .bse-stage{margin-top:56px;display:grid;grid-template-columns:1.2fr 80px .85fr;gap:36px;align-items:center}
@@ -534,9 +536,9 @@ body.dark-slide::after{opacity:.05}
 .bse-step-label{font-family:var(--mono);font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--coral);margin-bottom:8px}
 .bse-step-id{font-family:var(--mono);font-weight:600;font-size:44px;color:var(--coral);letter-spacing:1.5px;margin-bottom:6px}
 .bse-step-title{font-family:var(--serif);font-weight:500;font-size:40px;line-height:1.08;color:var(--ink);letter-spacing:-1.2px;margin-bottom:24px}
-.bse-step-refs{display:flex;flex-direction:column;gap:12px;border-top:1px solid rgba(28,26,36,.1);padding-top:20px}
-.bse-ref{font-family:var(--serif);font-size:22px;line-height:1.3;color:var(--ink);display:flex;align-items:baseline;gap:14px}
-.bse-ref-tag{font-family:var(--mono);font-weight:600;font-size:13px;letter-spacing:1px;color:var(--coral);padding:4px 9px;background:rgba(47,122,79,.14);border-radius:4px;flex:none}
+.bse-step-refs{display:flex;flex-direction:column;gap:18px;border-top:1px solid rgba(28,26,36,.1);padding-top:26px}
+.bse-ref{font-family:var(--serif);font-size:34px;line-height:1.25;color:var(--ink);display:flex;align-items:baseline;gap:18px}
+.bse-ref-tag{font-family:var(--mono);font-weight:700;font-size:22px;letter-spacing:1.5px;color:var(--coral);padding:8px 14px;background:rgba(47,122,79,.14);border-radius:6px;flex:none}
 .bse-ref-tag.t-screen{color:#b86f3a;background:rgba(184,111,58,.14)}
 .bse-ref-tag.t-user{color:#3a6b8b;background:rgba(58,107,139,.14)}
 .bse-ref-tag.t-data{color:#6a4a8b;background:rgba(106,74,139,.14)}
@@ -1155,8 +1157,15 @@ body.dark-slide::after{opacity:.05}
 <section class="slide" data-i="20" data-slide="fr-rule-4a" data-reveals="0">
   <div class="fr-content top">
     <div class="h-rule">Embrace <span class="filename" style="font-size:.82em">instructions.md</span>.</div>
-    <div class="md-stage" style="margin-top:56px">
-      <div class="md-doc anim-fade-up" style="transition-delay:200ms">
+    <div class="md-stage" style="margin-top:48px">
+      <div class="md-bubble anim-fade-up" style="transition-delay:160ms">
+        <div class="md-bubble-meta">Voice note · 04:37</div>
+        <div class="md-bubble-body">
+          ok so the app is basically a migraine tracker but voice-first because when I'm in an attack I really can't be tapping around, just hold the button and talk and it logs it. nothing leaves the phone, no accounts, no cloud, that's a big deal for me, people in the reviews keep saying their data got wiped, can't have that. early signs — those <span class="md-em">prodrome</span> bits — sometimes start a day before, so maybe a separate quick-log thing for that, kind of like a card at the top of the entries screen. oh and onboarding should ask what your <span class="md-em">goals</span> are, like reduce frequency or spot triggers, then the home view adapts. screens roughly: onboarding, today, entries list, entry detail, an insights tab eventually. data model is small — entry, symptom, trigger, medication, user-goals. it all needs to feel calm, no harsh red alerts, big tap targets, dark mode by default…
+        </div>
+      </div>
+      <div class="md-arrow anim-fade-in" style="transition-delay:340ms">→</div>
+      <div class="md-doc anim-fade-up" style="transition-delay:440ms">
         <div class="md-doc-header">
           <span class="md-doc-dot" style="background:#ff5f57"></span>
           <span class="md-doc-dot" style="background:#febc2e"></span>
@@ -1176,11 +1185,6 @@ body.dark-slide::after{opacity:.05}
           <div class="md-doc-line"><span class="coral">B-076 Add prodrome card to Entries view</span> · refs S-008, U-014, D-019</div>
           <div class="md-doc-line">B-077, B-078, B-079 ...</div>
         </div>
-      </div>
-      <div class="md-callouts">
-        <div class="md-callout anim-fade-up" style="transition-delay:300ms"><div class="md-callout-num">186</div><div class="md-callout-label">numbered build steps</div></div>
-        <div class="md-callout anim-fade-up" style="transition-delay:380ms"><div class="md-callout-num">×4</div><div class="md-callout-label">cross-references each</div></div>
-        <div class="md-callout anim-fade-up" style="transition-delay:460ms"><div class="md-callout-num">0</div><div class="md-callout-label">things AI has to guess</div></div>
       </div>
     </div>
   </div>
