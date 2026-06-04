@@ -511,24 +511,24 @@ body.dark-slide::after{opacity:.05}
 /* rule IV-a, instructions.md doc + callouts */
 .md-tagline{font-family:var(--serif);font-style:italic;font-size:40px;line-height:1.2;color:var(--ink);opacity:.78;margin-top:24px;margin-bottom:40px;max-width:1700px}
 .md-tagline .em{color:var(--coral);font-style:italic;font-weight:500;opacity:1}
-.md-stage{display:grid;grid-template-columns:1fr 56px 1fr;gap:32px;align-items:start}
-.md-bubble{position:relative;background:#fff;border:2px solid rgba(212,96,79,.55);border-radius:22px;padding:28px 32px 30px;box-shadow:0 24px 50px rgba(28,26,36,.10)}
+.md-stage{display:grid;grid-template-columns:1fr 56px 1fr;gap:32px;align-items:stretch;min-height:820px}
+.md-bubble{position:relative;background:#fff;border:2px solid rgba(212,96,79,.55);border-radius:22px;padding:36px 38px 40px;box-shadow:0 24px 50px rgba(28,26,36,.10);display:flex;flex-direction:column}
 .md-bubble::after{content:'';position:absolute;left:46px;bottom:-18px;width:30px;height:30px;background:#fff;border-right:2px solid rgba(212,96,79,.55);border-bottom:2px solid rgba(212,96,79,.55);transform:rotate(45deg);border-bottom-right-radius:6px}
-.md-bubble-meta{font-family:var(--mono);font-size:14px;letter-spacing:2.5px;text-transform:uppercase;color:var(--coral);font-weight:700;margin-bottom:14px}
-.md-bubble-body{font-family:var(--serif);font-style:italic;font-weight:400;font-size:22px;line-height:1.45;color:var(--ink);letter-spacing:-.005em}
+.md-bubble-meta{font-family:var(--mono);font-size:14px;letter-spacing:2.5px;text-transform:uppercase;color:var(--coral);font-weight:700;margin-bottom:18px}
+.md-bubble-body{font-family:var(--serif);font-style:italic;font-weight:400;font-size:26px;line-height:1.5;color:var(--ink);letter-spacing:-.005em;flex:1}
 .md-bubble-body .md-em{color:var(--coral);font-weight:500;font-style:italic}
-.md-arrow{font-family:var(--serif);font-style:italic;font-size:72px;line-height:1;color:var(--accent);opacity:.7;display:flex;align-items:center;justify-content:center;padding-top:80px}
-.md-doc{background:#fff;border:2px solid rgba(47,122,79,.45);border-radius:12px;overflow:hidden;box-shadow:0 24px 50px rgba(28,26,36,.12)}
-.md-doc-header{background:rgba(28,26,36,.04);padding:14px 24px;border-bottom:1px solid rgba(28,26,36,.1);font-family:var(--mono);font-size:15px;opacity:.7;display:flex;gap:10px;align-items:center}
-.md-doc-dot{width:11px;height:11px;border-radius:50%}
-.md-doc-body{padding:24px 30px;font-family:var(--mono);font-size:16px;line-height:1.55}
-.md-doc-h{font-family:var(--serif);font-weight:500;font-size:26px;color:var(--ink);margin:18px 0 6px;letter-spacing:-.5px}
+.md-arrow{font-family:var(--serif);font-style:italic;font-size:80px;line-height:1;color:var(--accent);opacity:.7;display:flex;align-items:center;justify-content:center}
+.md-doc{background:#fff;border:2px solid rgba(47,122,79,.45);border-radius:12px;overflow:hidden;box-shadow:0 24px 50px rgba(28,26,36,.12);display:flex;flex-direction:column}
+.md-doc-header{background:rgba(28,26,36,.04);padding:18px 28px;border-bottom:1px solid rgba(28,26,36,.1);font-family:var(--mono);font-size:17px;opacity:.7;display:flex;gap:10px;align-items:center;flex:none}
+.md-doc-dot{width:12px;height:12px;border-radius:50%}
+.md-doc-body{padding:32px 38px;font-family:var(--mono);font-size:18px;line-height:1.6;flex:1;display:flex;flex-direction:column;gap:4px}
+.md-doc-h{font-family:var(--serif);font-weight:500;font-size:30px;color:var(--ink);margin:18px 0 4px;letter-spacing:-.5px}
 .md-doc-h:first-child{margin-top:0}
 .md-doc-line{opacity:.78}
 .md-doc-line .coral{color:var(--coral);opacity:1;font-weight:500}
 
 /* rule IV-b, build step + phone */
-.bse-stage{margin-top:56px;display:grid;grid-template-columns:1.2fr 80px .85fr;gap:36px;align-items:center}
+.bse-stage{margin-top:56px;display:grid;grid-template-columns:1.2fr 1fr .85fr;gap:24px;align-items:center}
 .bse-step{background:rgba(255,255,255,.62);border:2px solid rgba(47,122,79,.42);border-radius:18px;padding:36px 38px;box-shadow:0 18px 40px rgba(28,26,36,.08)}
 .bse-step-label{font-family:var(--mono);font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--coral);margin-bottom:8px}
 .bse-step-id{font-family:var(--mono);font-weight:600;font-size:44px;color:var(--coral);letter-spacing:1.5px;margin-bottom:6px}
@@ -539,7 +539,9 @@ body.dark-slide::after{opacity:.05}
 .bse-ref-tag.t-screen{color:#b86f3a;background:rgba(184,111,58,.14)}
 .bse-ref-tag.t-user{color:#3a6b8b;background:rgba(58,107,139,.14)}
 .bse-ref-tag.t-data{color:#6a4a8b;background:rgba(106,74,139,.14)}
-.bse-arrow{align-self:center;font-family:var(--serif);font-size:64px;color:var(--coral);text-align:center}
+.bse-arrow{align-self:center;display:flex;align-items:center;justify-content:center;gap:0;width:100%;color:var(--coral)}
+.bse-arrow::before{content:'';flex:1;height:3px;background:currentColor;border-radius:2px}
+.bse-arrow::after{content:'';width:0;height:0;border-left:22px solid currentColor;border-top:14px solid transparent;border-bottom:14px solid transparent;margin-left:-2px}
 .bse-output{display:flex;flex-direction:column;align-items:center;gap:18px}
 .bse-output-label{font-family:var(--mono);font-size:14px;letter-spacing:2.5px;text-transform:uppercase;color:var(--coral);font-weight:600;text-align:center}
 .bse-phone{width:280px;border-radius:36px;overflow:hidden;box-shadow:0 24px 50px rgba(28,26,36,.22)}
@@ -1210,7 +1212,7 @@ body.dark-slide::after{opacity:.05}
           <div class="bse-ref"><span class="bse-ref-tag t-data">D-004</span> User goals model</div>
         </div>
       </div>
-      <div class="bse-arrow anim-fade-in" style="transition-delay:240ms">→</div>
+      <div class="bse-arrow anim-fade-in" style="transition-delay:240ms"></div>
       <div class="bse-output anim-fade-up" style="transition-delay:280ms">
         <div class="bse-output-label">A working screen<br>you can test</div>
         <div class="bse-phone">
