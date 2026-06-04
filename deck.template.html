@@ -591,6 +591,13 @@ body.dark-slide::after{opacity:.05}
 .draw-on-reveal{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2400ms cubic-bezier(.2,.7,.3,1) 200ms}
 .reveal.shown .draw-on-reveal{stroke-dashoffset:0}
 
+/* my-timeline · 2s entrance delay + 2× slower for all animations on this slide */
+.slide[data-slide="my-timeline"].active .anim-draw{transition:stroke-dashoffset 4400ms cubic-bezier(.2,.7,.3,1) 2000ms}
+.slide[data-slide="my-timeline"] .draw-on-reveal{transition:stroke-dashoffset 4800ms cubic-bezier(.2,.7,.3,1) 400ms}
+.slide[data-slide="my-timeline"].active .anim-fade-up{transition:opacity 900ms cubic-bezier(.2,.7,.3,1),transform 900ms cubic-bezier(.2,.7,.3,1)}
+.slide[data-slide="my-timeline"].active .anim-fade-in{transition:opacity 900ms cubic-bezier(.2,.7,.3,1)}
+.slide[data-slide="my-timeline"].active .anim-grow{transition:width 1800ms cubic-bezier(.2,.7,.3,1)}
+
 /* closing (load-bearing) */
 .closing-h{font-family:var(--serif);font-weight:500;font-size:132px;line-height:1;letter-spacing:-4px;margin:0;max-width:1700px}
 .closing-h .accent{color:var(--coral);font-style:italic;font-weight:500}
