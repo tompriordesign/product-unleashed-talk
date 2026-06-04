@@ -511,21 +511,24 @@ body.dark-slide::after{opacity:.05}
 /* rule IV-a, instructions.md doc + callouts */
 .md-tagline{font-family:var(--serif);font-style:italic;font-size:40px;line-height:1.2;color:var(--ink);opacity:.78;margin-top:24px;margin-bottom:40px;max-width:1700px}
 .md-tagline .em{color:var(--coral);font-style:italic;font-weight:500;opacity:1}
-.md-stage{display:grid;grid-template-columns:1fr 56px 1fr;gap:32px;align-items:stretch;min-height:820px}
-.md-bubble{position:relative;background:#fff;border:2px solid rgba(212,96,79,.55);border-radius:22px;padding:36px 38px 40px;box-shadow:0 24px 50px rgba(28,26,36,.10);display:flex;flex-direction:column}
+.md-stage{display:grid;grid-template-columns:1fr 56px 1fr;gap:32px;align-items:start}
+.md-bubble{position:relative;background:#fff;border:2px solid rgba(212,96,79,.55);border-radius:22px;padding:32px 36px 34px;box-shadow:0 24px 50px rgba(28,26,36,.10)}
 .md-bubble::after{content:'';position:absolute;left:46px;bottom:-18px;width:30px;height:30px;background:#fff;border-right:2px solid rgba(212,96,79,.55);border-bottom:2px solid rgba(212,96,79,.55);transform:rotate(45deg);border-bottom-right-radius:6px}
-.md-bubble-meta{font-family:var(--mono);font-size:14px;letter-spacing:2.5px;text-transform:uppercase;color:var(--coral);font-weight:700;margin-bottom:18px}
-.md-bubble-body{font-family:var(--serif);font-style:italic;font-weight:400;font-size:26px;line-height:1.5;color:var(--ink);letter-spacing:-.005em;flex:1}
+.md-bubble-meta{font-family:var(--mono);font-size:14px;letter-spacing:2.5px;text-transform:uppercase;color:var(--coral);font-weight:700;margin-bottom:16px}
+.md-bubble-body{font-family:var(--serif);font-style:italic;font-weight:400;font-size:24px;line-height:1.5;color:var(--ink);letter-spacing:-.005em}
 .md-bubble-body .md-em{color:var(--coral);font-weight:500;font-style:italic}
-.md-arrow{font-family:var(--serif);font-style:italic;font-size:80px;line-height:1;color:var(--accent);opacity:.7;display:flex;align-items:center;justify-content:center}
-.md-doc{background:#fff;border:2px solid rgba(47,122,79,.45);border-radius:12px;overflow:hidden;box-shadow:0 24px 50px rgba(28,26,36,.12);display:flex;flex-direction:column}
+.md-arrow{font-family:var(--serif);font-style:italic;font-size:80px;line-height:1;color:var(--accent);opacity:.7;display:flex;align-items:center;justify-content:center;min-height:860px}
+.md-doc{background:#fff;border:2px solid rgba(47,122,79,.45);border-radius:12px;overflow:hidden;box-shadow:0 24px 50px rgba(28,26,36,.12);display:flex;flex-direction:column;min-height:860px;position:relative}
 .md-doc-header{background:rgba(28,26,36,.04);padding:18px 28px;border-bottom:1px solid rgba(28,26,36,.1);font-family:var(--mono);font-size:17px;opacity:.7;display:flex;gap:10px;align-items:center;flex:none}
 .md-doc-dot{width:12px;height:12px;border-radius:50%}
-.md-doc-body{padding:32px 38px;font-family:var(--mono);font-size:18px;line-height:1.6;flex:1;display:flex;flex-direction:column;gap:4px}
+.md-doc-body{padding:32px 38px 80px;font-family:var(--mono);font-size:18px;line-height:1.6;flex:1;display:flex;flex-direction:column;gap:2px;overflow:hidden}
 .md-doc-h{font-family:var(--serif);font-weight:500;font-size:30px;color:var(--ink);margin:18px 0 4px;letter-spacing:-.5px}
 .md-doc-h:first-child{margin-top:0}
 .md-doc-line{opacity:.78}
 .md-doc-line .coral{color:var(--coral);opacity:1;font-weight:500}
+.md-doc-line.faint{opacity:.45}
+.md-doc-line.fainter{opacity:.25}
+.md-doc::after{content:'';position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(to bottom,rgba(255,255,255,0),rgba(255,255,255,.96) 70%,#fff);pointer-events:none}
 
 /* rule IV-b, build step + phone */
 .bse-stage{margin-top:56px;display:grid;grid-template-columns:1.2fr 1fr .85fr;gap:24px;align-items:center}
@@ -1182,15 +1185,25 @@ body.dark-slide::after{opacity:.05}
         <div class="md-doc-body">
           <div class="md-doc-h">01 · Overview</div>
           <div class="md-doc-line">Voice-first migraine tracker. On-device. No accounts.</div>
+          <div class="md-doc-line">Calm, dark by default. Big tap targets.</div>
           <div class="md-doc-h">02 · User stories</div>
           <div class="md-doc-line">U-001 to U-024.  e.g. <span class="coral">U-014 Track early signs.</span></div>
+          <div class="md-doc-line">U-009 Quick-log a prodrome from anywhere.</div>
+          <div class="md-doc-line">U-017 Adapt home view to onboarding goals.</div>
           <div class="md-doc-h">03 · Screens</div>
           <div class="md-doc-line">S-001 to S-019.  Each references a UX Pilot HTML file.</div>
+          <div class="md-doc-line"><span class="coral">S-008 Entries · prodrome card on top.</span></div>
+          <div class="md-doc-line">S-012 Insights · trigger heatmap.</div>
           <div class="md-doc-h">04 · Data</div>
           <div class="md-doc-line">D-001 to D-027.  SwiftData models, on-device.</div>
+          <div class="md-doc-line">D-019 Prodrome entry · linked to U-014.</div>
           <div class="md-doc-h">05 · Build steps</div>
           <div class="md-doc-line"><span class="coral">B-076 Add prodrome card to Entries view</span> · refs S-008, U-014, D-019</div>
-          <div class="md-doc-line">B-077, B-078, B-079 ...</div>
+          <div class="md-doc-line">B-077 Wire quick-log entry point to home.</div>
+          <div class="md-doc-line">B-078 Persist prodrome via SwiftData.</div>
+          <div class="md-doc-line faint">B-079 Surface in last-7-days summary.</div>
+          <div class="md-doc-line faint">B-080 Add to insights heatmap legend.</div>
+          <div class="md-doc-line fainter">B-081 ...</div>
         </div>
       </div>
     </div>
