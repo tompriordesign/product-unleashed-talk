@@ -320,22 +320,21 @@ body.dark-slide::after{opacity:.05}
 .s-process .process-item.highlight{color:var(--accent);font-style:italic;font-weight:500;margin-top:12px}
 
 /* TWO APPROACHES (36), vibe coding vs agentic building — pros/cons */
-.s-vs .content{justify-content:center;gap:40px}
-.s-vs h1{font-size:96px;line-height:1;letter-spacing:-.025em}
-.s-vs .vs-sub{font-family:var(--serif);font-style:italic;font-size:30px;color:var(--fg-soft);margin-top:-12px}
-.s-vs .vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;max-width:1700px;align-items:start}
-.s-vs .vs-col{padding:32px 36px 36px;border-radius:16px;border:1px solid rgba(28,26,36,.12);background:rgba(28,26,36,.025);display:flex;flex-direction:column;gap:24px}
+.s-vs .content{justify-content:center;gap:36px}
+.s-vs h1{font-size:76px;line-height:1.05;letter-spacing:-.025em}
+.s-vs .vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;max-width:1750px;align-items:start}
+.s-vs .vs-col{padding:36px 42px 42px;border-radius:16px;border:1px solid rgba(28,26,36,.12);background:rgba(28,26,36,.025);display:flex;flex-direction:column;gap:26px}
 .s-vs .vs-col.win{border-color:var(--accent);background:rgba(47,122,79,.07);box-shadow:0 18px 38px rgba(28,26,36,.08)}
-.s-vs .vs-tag{font-family:var(--serif);font-style:italic;font-weight:500;font-size:48px;line-height:1;letter-spacing:-.02em;color:var(--leak)}
+.s-vs .vs-tag{font-family:var(--serif);font-style:italic;font-weight:500;font-size:60px;line-height:1;letter-spacing:-.02em;color:var(--leak)}
 .s-vs .vs-col.win .vs-tag{color:var(--accent)}
-.s-vs .vs-tools{font-family:var(--mono);font-size:18px;letter-spacing:.5px;color:var(--fg);line-height:1.35;padding:14px 0;border-top:1px solid rgba(28,26,36,.12);border-bottom:1px solid rgba(28,26,36,.12)}
-.s-vs .vs-tools-label{font-size:13px;letter-spacing:2.5px;text-transform:uppercase;color:var(--fg-faint);font-weight:700;margin-right:10px;display:inline-block}
-.s-vs .vs-section{display:flex;flex-direction:column;gap:10px}
-.s-vs .vs-section-label{font-family:var(--mono);font-size:14px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;display:flex;align-items:center;gap:8px}
+.s-vs .vs-tools{font-family:var(--mono);font-size:22px;letter-spacing:.5px;color:var(--fg);line-height:1.35;padding:18px 0;border-top:1px solid rgba(28,26,36,.12);border-bottom:1px solid rgba(28,26,36,.12)}
+.s-vs .vs-tools-label{font-size:15px;letter-spacing:2.5px;text-transform:uppercase;color:var(--fg-faint);font-weight:700;margin-right:12px;display:inline-block}
+.s-vs .vs-section{display:flex;flex-direction:column;gap:14px}
+.s-vs .vs-section-label{font-family:var(--mono);font-size:17px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;display:flex;align-items:center;gap:8px}
 .s-vs .vs-section-label.pros{color:var(--accent)}
 .s-vs .vs-section-label.cons{color:var(--leak)}
-.s-vs .vs-list{display:flex;flex-direction:column;gap:6px}
-.s-vs .vs-item{font-family:var(--serif);font-size:26px;line-height:1.3;color:var(--fg);display:flex;gap:14px;align-items:baseline}
+.s-vs .vs-list{display:flex;flex-direction:column;gap:10px}
+.s-vs .vs-item{font-family:var(--serif);font-size:32px;line-height:1.3;color:var(--fg);display:flex;gap:16px;align-items:baseline}
 .s-vs .vs-item::before{content:'';display:inline-block;width:1.05em;flex:none;font-family:var(--mono);font-weight:700;font-size:.78em;font-style:normal;letter-spacing:0}
 .s-vs .vs-item.pro::before{content:'✓';color:var(--accent)}
 .s-vs .vs-item.con::before{content:'✕';color:var(--leak)}
@@ -1410,8 +1409,7 @@ body.dark-slide::after{opacity:.05}
 <!-- 36 · TWO APPROACHES · vibe coding vs agentic building -->
 <section class="slide s-vs" data-i="36" data-reveals="0">
   <div class="content">
-    <h1 class="h1">Two approaches.</h1>
-    <div class="vs-sub">For building an iOS app.</div>
+    <h1 class="h1">Two approaches for solo designers<br>to ship for iOS.</h1>
     <div class="vs-grid">
       <div class="vs-col">
         <div class="vs-tag">Vibe coding</div>
@@ -1430,20 +1428,20 @@ body.dark-slide::after{opacity:.05}
             <div class="vs-item con">Web app in a native shell.</div>
             <div class="vs-item con">No camera, HealthKit, sensors.</div>
             <div class="vs-item con">Sluggish on real devices.</div>
-            <div class="vs-item con">Won't pass App Store review.</div>
+            <div class="vs-item con">Harder to pass Apple review.</div>
             <div class="vs-item con">Security and auth gaps.</div>
           </div>
         </div>
       </div>
       <div class="vs-col win">
         <div class="vs-tag">Agentic building</div>
-        <div class="vs-tools"><span class="vs-tools-label">Tools</span>Cursor · Claude Code</div>
+        <div class="vs-tools"><span class="vs-tools-label">Tools</span>Cursor or similar, Opus model or similar</div>
         <div class="vs-section">
           <div class="vs-section-label pros">Pros</div>
           <div class="vs-list">
             <div class="vs-item pro">Real native Swift.</div>
             <div class="vs-item pro">Full hardware + sensors.</div>
-            <div class="vs-item pro">Passes App Store review.</div>
+            <div class="vs-item pro">Better odds of positive Apple review.</div>
             <div class="vs-item pro">Privacy + on-device by default.</div>
             <div class="vs-item pro">Step by step, you stay in control.</div>
           </div>
