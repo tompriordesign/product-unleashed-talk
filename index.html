@@ -33,20 +33,18 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--fg);font-family:var(--serif);font-optical-sizing:auto;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+/* Full-bleed wash + noise — lives on the viewport, not the slide, so
+   the background never letterboxes regardless of viewport aspect. */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 78% 88% at 86% 10%,var(--peach) 0%,transparent 62%),radial-gradient(ellipse 70% 78% at 6% 94%,var(--lilac) 0%,transparent 62%)}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.1;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
 
 /* DECK STAGE */
-.deck{position:fixed;left:50%;top:50%;width:1920px;height:1080px;transform-origin:50% 50%}
-.slide{position:absolute;inset:0;width:1920px;height:1080px;background:var(--bg);overflow:hidden;color:var(--fg);opacity:0;z-index:0;pointer-events:none;visibility:hidden;transition:opacity .25s ease}
+.deck{position:fixed;left:50%;top:50%;width:1920px;height:1080px;transform-origin:50% 50%;z-index:1}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;background:transparent;overflow:hidden;color:var(--fg);opacity:0;z-index:0;pointer-events:none;visibility:hidden;transition:opacity .25s ease}
 .slide.leaving{opacity:1;z-index:1;visibility:visible;transition:none;will-change:opacity}
 .slide.active{opacity:1;z-index:2;pointer-events:auto;visibility:visible;will-change:opacity}
-.slide::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 1400px 950px at 86% 10%,var(--peach) 0%,transparent 62%),radial-gradient(ellipse 1200px 850px at 6% 94%,var(--lilac) 0%,transparent 62%)}
-.slide::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.1;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
-/* Per-slide wash variation — keeps consecutive slides feeling related but not identical. */
-.slide:nth-of-type(6n+2)::before{background:radial-gradient(ellipse 1300px 900px at 12% 8%,var(--apricot) 0%,transparent 62%),radial-gradient(ellipse 1100px 800px at 92% 88%,var(--sage) 0%,transparent 62%)}
-.slide:nth-of-type(6n+3)::before{background:radial-gradient(ellipse 1500px 1000px at 50% 100%,var(--rose) 0%,transparent 60%),radial-gradient(ellipse 1100px 800px at 12% 10%,var(--apricot) 0%,transparent 62%)}
-.slide:nth-of-type(6n+4)::before{background:radial-gradient(ellipse 1400px 950px at 88% 92%,var(--peach) 0%,transparent 62%),radial-gradient(ellipse 1100px 800px at 8% 12%,var(--sage) 0%,transparent 62%)}
-.slide:nth-of-type(6n+5)::before{background:radial-gradient(ellipse 1300px 900px at 6% 50%,var(--lilac) 0%,transparent 60%),radial-gradient(ellipse 1100px 800px at 96% 8%,var(--rose) 0%,transparent 62%)}
-.slide:nth-of-type(6n)::before{background:radial-gradient(ellipse 1400px 950px at 50% 6%,var(--apricot) 0%,transparent 58%),radial-gradient(ellipse 1100px 800px at 50% 100%,var(--lilac) 0%,transparent 60%)}
+/* Per-slide wash variants were removed when the wash moved to body —
+   the viewport-level wash + noise is the only background layer now. */
 .content{z-index:1}
 
 /* REVEAL */
