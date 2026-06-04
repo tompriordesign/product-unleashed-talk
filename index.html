@@ -166,6 +166,27 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 .s-sec .sec-title .em{color:var(--accent);font-style:italic}
 .s-sec .sec-desc{font-family:var(--mono);font-size:18px;letter-spacing:.5px;color:var(--fg-soft);line-height:1.4}
 
+/* MOAT (slide 4) + BAR (slide 11) — share the security icon-card pattern */
+.s-moat .content,.s-bar .content{display:grid;grid-template-columns:1fr 1.35fr;grid-template-rows:1fr auto;gap:56px 96px;align-items:center}
+.s-moat .sec-left,.s-bar .sec-left{display:flex;flex-direction:column;gap:24px;grid-column:1;grid-row:1}
+.s-moat h1,.s-bar h1{font-size:148px;line-height:.95}
+.s-moat .sec-cards,.s-bar .sec-cards{display:flex;flex-direction:column;gap:20px;grid-column:2;grid-row:1}
+.s-moat .sec-card,.s-bar .sec-card{display:grid;grid-template-columns:88px 1fr;gap:28px;align-items:center;background:rgba(28,26,36,.05);border:1px solid rgba(28,26,36,.1);border-radius:14px;padding:24px 32px}
+.s-moat .sec-card.win,.s-bar .sec-card.win{background:rgba(47,122,79,.08);border:1px solid rgba(47,122,79,.35)}
+.s-moat .sec-icon,.s-bar .sec-icon{width:72px;height:72px;display:flex;align-items:center;justify-content:center}
+.s-moat .sec-icon svg,.s-bar .sec-icon svg{width:100%;height:100%;display:block}
+.s-moat .sec-icon svg .stroke,.s-bar .sec-icon svg .stroke{stroke:var(--accent);stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.s-moat .sec-title,.s-bar .sec-title{font-family:var(--serif);font-weight:500;font-size:38px;line-height:1.15;letter-spacing:-.015em}
+.s-moat .sec-title .em,.s-bar .sec-title .em{color:var(--accent);font-style:italic;font-weight:500}
+.s-moat .footer-line,.s-bar .footer-line{grid-column:1 / -1;grid-row:2;background:rgba(47,122,79,.08);border-left:4px solid var(--accent);padding:22px 30px;font-family:var(--serif);font-style:italic;font-size:32px;line-height:1.35;color:var(--fg);max-width:none}
+.s-moat .footer-line .em,.s-bar .footer-line .em{color:var(--accent);font-style:normal;font-weight:600}
+
+/* FINAL BOSS — manifesto slide */
+.s-boss .content{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:48px}
+.s-boss h1{font-size:178px;line-height:.95;letter-spacing:-.04em;max-width:1700px}
+.s-boss .boss-coda{position:absolute;left:96px;right:96px;bottom:96px;background:rgba(47,122,79,.08);border-left:4px solid var(--accent);padding:26px 32px;font-family:var(--serif);font-style:italic;font-size:34px;line-height:1.35;color:var(--fg);text-align:left}
+.s-boss .boss-coda .em{color:var(--accent);font-style:normal;font-weight:600}
+
 /* DEVICE · slide 6 */
 .s-dev .twophones{display:grid;grid-template-columns:1fr 1fr;gap:120px;margin-top:32px;justify-content:center}
 .s-dev .tp-col{display:flex;flex-direction:column;align-items:center;gap:20px}
@@ -475,7 +496,59 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
   </div>
 </section>
 
-<!-- 4 · DISTRIBUTION (Yhorm meme only, centred) -->
+<!-- 4 · WHAT'S YOUR MOAT? (sets up the iOS argument) -->
+<section class="slide s-moat" data-i="27" data-reveals="0">
+  <div class="content">
+    <div class="sec-left">
+      <div class="kicker">The question nobody asks</div>
+      <h1 class="h1">What's your<br><span class="accent">moat?</span></h1>
+    </div>
+    <div class="sec-cards">
+      <div class="sec-card">
+        <div class="sec-icon">
+          <svg viewBox="0 0 64 64">
+            <circle class="stroke" cx="32" cy="32" r="5"/>
+            <path class="stroke" d="M22 22 Q14 32 22 42"/>
+            <path class="stroke" d="M42 22 Q50 32 42 42"/>
+            <path class="stroke" d="M14 14 Q-2 32 14 50"/>
+            <path class="stroke" d="M50 14 Q66 32 50 50"/>
+          </svg>
+        </div>
+        <div class="sec-text"><div class="sec-title"><span class="em">Distribution.</span></div></div>
+      </div>
+      <div class="sec-card">
+        <div class="sec-icon">
+          <svg viewBox="0 0 64 64">
+            <circle class="stroke" cx="32" cy="32" r="22"/>
+            <path class="stroke" d="M20 32 L29 41 L46 24" stroke-width="3.2"/>
+          </svg>
+        </div>
+        <div class="sec-text"><div class="sec-title"><span class="em">Credibility.</span></div></div>
+      </div>
+      <div class="sec-card">
+        <div class="sec-icon">
+          <svg viewBox="0 0 64 64">
+            <rect class="stroke" x="14" y="28" width="36" height="28" rx="3"/>
+            <path class="stroke" d="M22 28 V18 a10 10 0 0 1 20 0 V28"/>
+            <circle class="stroke" cx="32" cy="42" r="3"/>
+          </svg>
+        </div>
+        <div class="sec-text"><div class="sec-title"><span class="em">Privacy &amp; security.</span></div></div>
+      </div>
+    </div>
+    <div class="footer-line">Copy a vibe-coded SaaS and you have <span class="em">none of them.</span></div>
+  </div>
+</section>
+
+<!-- 5 · DISTRIBUTION IS THE FINAL BOSS (manifesto) -->
+<section class="slide s-boss" data-i="28" data-reveals="0">
+  <div class="content">
+    <h1 class="h1">Distribution is the<br><span class="accent">final boss</span> of product.</h1>
+  </div>
+  <div class="boss-coda">If monetization is on your list — <span class="em">don't build anything</span> until you've worked out the distribution plan.</div>
+</section>
+
+<!-- 6 · DISTRIBUTION (Yhorm meme only, centred) -->
 <section class="slide s-dist" data-i="4" data-reveals="0">
   <div class="content center-y">
     <img class="yhorm" src="https://i.imgflip.com/atg7zr.jpg" alt="Yhorm meme: Distribution dwarfs Product">
@@ -666,7 +739,54 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
   </div>
 </section>
 
-<!-- 10 · THE HOW, BRIEFLY -->
+<!-- 12 · APPLE IS THE BOUNCER (sets up why structure matters) -->
+<section class="slide s-bar" data-i="29" data-reveals="0">
+  <div class="content">
+    <div class="sec-left">
+      <div class="kicker">Why structure matters</div>
+      <h1 class="h1">Apple is the<br><span class="accent">bouncer.</span></h1>
+    </div>
+    <div class="sec-cards">
+      <div class="sec-card">
+        <div class="sec-icon">
+          <svg viewBox="0 0 64 64">
+            <circle class="stroke" cx="32" cy="32" r="22"/>
+            <line class="stroke" x1="32" y1="32" x2="32" y2="16"/>
+            <line class="stroke" x1="32" y1="32" x2="44" y2="38"/>
+            <circle class="stroke" cx="32" cy="32" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="sec-text"><div class="sec-title"><span class="em">Weeks</span>, not minutes.</div></div>
+      </div>
+      <div class="sec-card">
+        <div class="sec-icon">
+          <svg viewBox="0 0 64 64">
+            <circle class="stroke" cx="32" cy="32" r="22"/>
+            <line class="stroke" x1="22" y1="22" x2="42" y2="42" stroke-width="3.2"/>
+            <line class="stroke" x1="42" y1="22" x2="22" y2="42" stroke-width="3.2"/>
+          </svg>
+        </div>
+        <div class="sec-text"><div class="sec-title">First miss → <span class="em">rejected.</span></div></div>
+      </div>
+      <div class="sec-card">
+        <div class="sec-icon">
+          <svg viewBox="0 0 64 64">
+            <line class="stroke" x1="8" y1="56" x2="56" y2="56"/>
+            <rect class="stroke" x="12" y="44" width="9" height="12"/>
+            <rect class="stroke" x="24" y="34" width="9" height="22"/>
+            <rect class="stroke" x="36" y="22" width="9" height="34"/>
+            <path class="stroke" d="M48 18 L54 12 L54 18 M54 12 L48 12" stroke-width="2.8"/>
+            <line class="stroke" x1="48" y1="12" x2="40" y2="20" stroke-width="2.8"/>
+          </svg>
+        </div>
+        <div class="sec-text"><div class="sec-title">The <span class="em">bar is rising.</span></div></div>
+      </div>
+    </div>
+    <div class="footer-line"><span class="em">Structure</span> is how you clear it.</div>
+  </div>
+</section>
+
+<!-- 13 · THE HOW, BRIEFLY -->
 <section class="slide s-how" data-i="10" data-reveals="3">
   <div class="content">
     <div class="kicker">The how, briefly</div>
@@ -989,7 +1109,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
   var slides=allSlides;
   if(!embed){
     try{
-      var st=JSON.parse(localStorage.getItem('arrange-state-v1')||'null');
+      var st=JSON.parse(localStorage.getItem('arrange-state-v2')||'null');
       if(st&&Array.isArray(st.order)&&Array.isArray(st.hidden)){
         var byIndex={};
         allSlides.forEach(function(s){byIndex[parseInt(s.getAttribute('data-i'),10)]=s});
