@@ -520,6 +520,11 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;color:var(--fg)
   function fit(){var s=Math.min(window.innerWidth/1920,window.innerHeight/1080);deck.style.transform='translate(-50%,-50%) scale('+s+')'}
   window.addEventListener('resize',fit);fit();
 
+  // Broadcast state to notes.html (or any subscriber on same origin)
+  var bc=(typeof BroadcastChannel!=='undefined')?new BroadcastChannel('deck-sync'):null;
+  function broadcast(){if(bc)bc.postMessage({slideIdx:cur,fragIdx:curFrag,total:slides.length,t:Date.now()})}
+  if(bc){bc.onmessage=function(e){if(e.data&&e.data.req==='state')broadcast()}}
+
   // QR placeholder pattern
   (function(){
     var qr=document.getElementById('closeQr');if(!qr)return;
@@ -548,6 +553,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;color:var(--fg)
     applyReveals(slides[slideIdx],fragIdx);
     cur=slideIdx;curFrag=fragIdx;
     if(location.hash!=='#'+(cur+1))history.replaceState(null,'','#'+(cur+1));
+    broadcast();
   }
 
   function next(){

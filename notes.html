@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notes · Tom · Product Unleashed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..900,0..100&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#110b1a;
+  --fg:#f4ecd9;
+  --fg-soft:rgba(244,236,217,.6);
+  --fg-faint:rgba(244,236,217,.35);
+  --accent:#ff4533;
+  --good:#a8e08c;
+  --warn:#ffd54a;
+  --serif:'Fraunces',Georgia,serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--fg);font-family:var(--serif);font-optical-sizing:auto;min-height:100vh;-webkit-font-smoothing:antialiased}
+body{padding:32px 48px;display:flex;flex-direction:column;gap:24px;min-height:100vh}
+
+/* HEADER */
+.head{display:flex;justify-content:space-between;align-items:baseline;gap:32px;padding-bottom:18px;border-bottom:1px solid rgba(244,236,217,.12)}
+.head-left{display:flex;gap:18px;align-items:baseline;flex-wrap:wrap}
+.pill{display:inline-block;background:var(--accent);color:var(--bg);padding:6px 14px;border-radius:6px;font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+.pill.muted{background:rgba(244,236,217,.1);color:var(--fg-soft)}
+.slide-title{font-family:var(--serif);font-size:36px;font-weight:700;font-variation-settings:'opsz' 144,'SOFT' 60;letter-spacing:-.01em}
+.head-right{display:flex;align-items:baseline;gap:18px;font-family:var(--mono);font-size:15px;color:var(--fg-soft);letter-spacing:2px;text-transform:uppercase}
+.timer{font-size:32px;color:var(--fg);font-weight:700;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
+.timer.over{color:var(--accent)}
+.timer.warn{color:var(--warn)}
+.timer-label{opacity:.55}
+
+/* CONNECTION */
+.conn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--fg-faint)}
+.conn::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--fg-faint)}
+.conn.live{color:var(--good)}
+.conn.live::before{background:var(--good);box-shadow:0 0 8px var(--good)}
+
+/* HEADLINE ECHO */
+.echo{font-family:var(--serif);font-size:52px;font-weight:700;font-variation-settings:'opsz' 144,'SOFT' 60;line-height:1.05;letter-spacing:-.02em;color:var(--fg)}
+.echo .accent{color:var(--accent);font-style:italic}
+
+/* MAIN NOTES */
+.body-wrap{flex:1;display:grid;grid-template-columns:1.5fr 1fr;gap:36px;min-height:0}
+.col{display:flex;flex-direction:column;gap:18px;min-height:0;overflow:hidden}
+.col-title{font-family:var(--mono);font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--fg-soft);font-weight:700}
+.beats{display:flex;flex-direction:column;gap:14px;overflow-y:auto;padding-right:8px}
+.beat{font-family:var(--serif);font-size:24px;line-height:1.4;padding-left:24px;position:relative}
+.beat::before{content:'';position:absolute;left:0;top:14px;width:10px;height:2px;background:var(--accent)}
+.beat strong{color:var(--accent);font-weight:700}
+.beat em{font-style:italic;color:var(--fg-soft)}
+
+.aside{background:rgba(255,69,51,.08);border-left:3px solid var(--accent);padding:18px 22px;font-family:var(--serif);font-style:italic;font-size:22px;line-height:1.45;color:var(--fg);font-variation-settings:'SOFT' 80}
+.aside-label{display:block;font-family:var(--mono);font-style:normal;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:8px}
+
+.fragment-meta{display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-family:var(--mono);font-size:13px;color:var(--fg-soft);letter-spacing:2px;text-transform:uppercase}
+.frag-dots{display:flex;gap:6px}
+.frag-dot{width:14px;height:14px;border-radius:50%;background:rgba(244,236,217,.15);transition:background 200ms ease}
+.frag-dot.shown{background:var(--accent)}
+
+/* NEXT-UP */
+.next-card{background:rgba(244,236,217,.04);border:1px solid rgba(244,236,217,.1);border-radius:10px;padding:18px 22px;display:flex;flex-direction:column;gap:8px}
+.next-label{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--fg-faint);font-weight:700}
+.next-title{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--fg)}
+.next-hint{font-family:var(--serif);font-style:italic;font-size:17px;line-height:1.4;color:var(--fg-soft)}
+
+/* FOOTER */
+.foot{display:flex;justify-content:space-between;align-items:baseline;padding-top:14px;border-top:1px solid rgba(244,236,217,.1);font-family:var(--mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--fg-faint)}
+.foot a{color:var(--accent);text-decoration:none}
+
+@media (max-width:1100px){
+  body{padding:20px 24px}
+  .body-wrap{grid-template-columns:1fr}
+  .echo{font-size:36px}
+  .beat{font-size:20px}
+}
+</style>
+</head>
+<body>
+
+<div class="head">
+  <div class="head-left">
+    <span class="pill" id="slide-num">01 / 10</span>
+    <span class="slide-title" id="slide-title">Hook</span>
+    <span class="pill muted" id="slide-budget">~30s</span>
+  </div>
+  <div class="head-right">
+    <span class="conn" id="conn">awaiting deck</span>
+    <span class="timer-label">elapsed</span>
+    <span class="timer" id="timer">0:00</span>
+  </div>
+</div>
+
+<div class="echo" id="echo">Speaker view loaded.</div>
+
+<div class="body-wrap">
+  <div class="col">
+    <div class="col-title">Beats</div>
+    <div class="beats" id="beats"></div>
+    <div class="fragment-meta">
+      <span id="frag-text">reveal 0 / 0</span>
+      <span class="frag-dots" id="frag-dots"></span>
+    </div>
+  </div>
+  <div class="col">
+    <div class="col-title">Verbal asides</div>
+    <div class="beats" id="asides"></div>
+    <div class="col-title" style="margin-top:8px">Up next</div>
+    <div class="next-card" id="next-card"></div>
+  </div>
+</div>
+
+<div class="foot">
+  <span>Notes view · syncs via BroadcastChannel <span style="color:var(--fg-soft)">deck-sync</span></span>
+  <span>Open the deck in another tab on this domain. <a href="./" target="_blank">deck →</a></span>
+</div>
+
+<script>
+const NOTES = {
+  1:{title:"Hook",budget:"~30s",echo:'How many of you have an app idea you <span class="accent">haven\'t built yet?</span>',
+     beats:["Stand still. Make eye contact with the back row.","Pause <strong>after</strong> the question. Let it sit two beats.","On click — quietly: <em>'Six months ago, I had one too.'</em>"],
+     asides:[],
+     next:{title:"What I built",hint:"Migrapulse facts + live site embed + demo."}},
+  2:{title:"What I built",budget:"~90s",echo:'<span class="accent">Migrapulse.</span>',
+     beats:["Site embed appears first — let it sit for a beat.","Then four facts, one click each: voice-first, action button, no signup, two months solo.","Demo video plays in the corner once the facts have landed."],
+     asides:[{label:"After the facts",text:"I haven't done any marketing for this yet. There's a free tier and a paid tier. People are paying. I haven't pushed any of it."}],
+     next:{title:"The objection",hint:"\"Why not just Lovable it?\" Casino GIF answers it."}},
+  3:{title:"The obvious objection",budget:"~30s",echo:'"Why didn\'t you just build it in <span class="accent">Lovable in two hours?"</span>',
+     beats:["Casino GIF lands the metaphor in one image — give it three seconds.","Inset reveals: <strong>two quick things first.</strong>","Reveal 1: I did <em>not</em> learn to code.","Reveal 2: Lovable is shorthand for the category."],
+     asides:[{label:"After the inset reveals",text:"Cursor sits next to Xcode. I can see what the AI is generating. I can read the file tree. I can pause it before it does something dumb. The AI is still doing the typing. I'm just watching it happen instead of having it hidden behind a chat box."}],
+     next:{title:"Reason 1 · Distribution",hint:"Yhorm + funnel comparison."}},
+  4:{title:"Reason 1 · Distribution",budget:"~100s",echo:'<span class="accent">Distribution.</span>',
+     beats:["Yhorm reveals first — gut-punch image of distribution dwarfing product.","Funnel reveals second. Walk down the web funnel slowly (steps shrink). Then up the iOS funnel (steps stay substantial).","The visual contrast IS the argument."],
+     asides:[{label:"Somewhere in the funnel beat",text:"I haven't done any marketing yet. People are still finding it. Some are paying. That's the pond doing the work, not me."}],
+     next:{title:"Reason 2 · Security",hint:"Architecture diagram. Vibe-coded web vs Migrapulse."}},
+  5:{title:"Reason 2 · Security",budget:"~90s",echo:'<span class="accent">Security.</span>',
+     beats:["Open with the horror story. Sub reveals.","Then the architecture diagram drops in.","Let the contrast land silently: four arrows vs one node."],
+     asides:[{label:"Opening line for this slide",text:"Last month a vibe-coded SaaS leaked every customer's data because the database was open to the internet. The week before, another one had its auth bypassed by a teenager. These aren't AI's fault. They're the failure modes of moving fast on the web."}],
+     next:{title:"Reason 3 · Device",hint:"Two phones. Lovable signup vs Migrapulse home."}},
+  6:{title:"Reason 3 · Device",budget:"~90s",echo:'<span class="accent">Device.</span>',
+     beats:["Sub reveals first: some products <strong>cannot exist</strong> on the web.","Two phones reveal. Left fades — browser tab, email, password.","Right is the action button + voice. Three seconds beats three minutes.","<strong>Introduce \"iOS-shaped idea\" here.</strong> This is where the phrase enters the talk."],
+     asides:[{label:"Define iOS-shaped idea",text:"Anything that touches the body or the moment. The camera. The mic. The watch. Your health. The action you take in the seconds before you forget."}],
+     next:{title:"Reason 4 · Creativity",hint:"Web verbs vs iOS verbs."}},
+  7:{title:"Reason 4 · Creativity",budget:"~90s",echo:'<span class="accent">Creativity.</span>',
+     beats:["Sub: the platform changes the product you imagine.","Verbs reveal. Left: 4 web verbs. Right: 20+ iOS verbs.","Let the accumulation do the work. <em>The cascade IS the argument.</em>","Read 3–4 iOS verbs aloud at the end for emphasis."],
+     asides:[],
+     next:{title:"The catch",hint:"Effort is the moat. Four reveals."}},
+  8:{title:"The catch · Effort is the moat",budget:"~100s",echo:'Effort is <span class="accent">the moat now.</span>',
+     beats:["<strong>Dense slide. Give each reveal its own breath.</strong>","R1 — Requirements list. Walk through: $20, $99, Free, week, rejection.","R2 — Rejection timeline. Walk the four dates. Acknowledge the wait.","R3 — Inflatable furniture. <strong>Deliver slowly.</strong>","R4 — Moat-line. Land it and stop talking for a beat."],
+     asides:[{label:"R3 delivery cadence",text:"A vibe-coded app is inflatable furniture. [pause] Real humans at Apple sit on it. They can tell. The bar is rising. Make your first submission count."}],
+     next:{title:"The how, briefly",hint:"Vibes in. Structure out. Equation cards."}},
+  9:{title:"The how, briefly",budget:"~60s",echo:'Vibes in. <span class="accent">Structure out.</span>',
+     beats:["Sub: I can't fit the workflow in ten minutes.","Forcing pair reveals. Swift forces it. RN abstracts.","Equation cards reveal. Walk left-to-right at a brisk pace, one phrase per card.","How-callout: <strong>plug the masterclass.</strong> QR is next slide."],
+     asides:[],
+     next:{title:"Close",hint:"iOS-shaped idea callback + QR."}},
+  10:{title:"Close",budget:"~60s",echo:'If you\'ve got an<br><span class="accent">iOS-shaped idea</span><br>sitting in your head,<br>the tools are finally there.',
+      beats:["<strong>Open with the migraine callback.</strong>","Then the takeaway headline.","Then the load-bearing sub.","QR appears. Stand still. Drop the mic."],
+      asides:[{label:"The callback opener",text:"Six months ago I had a migraine and I couldn't open my journal app fast enough. I built an app. I shipped it. Two months. One person. No team. No funding."}],
+      next:null}
+};
+
+const SLIDE_BUDGETS_S = {1:30,2:90,3:30,4:100,5:90,6:90,7:90,8:100,9:60,10:60};
+
+let curSlide = 1, curFrag = 0, totalReveals = {};
+let slideStart = Date.now(), timerHandle = null;
+
+const $ = id => document.getElementById(id);
+
+function fmt(ms){var s=Math.floor(ms/1000);var m=Math.floor(s/60);return m+':'+String(s%60).padStart(2,'0')}
+
+function renderTimer(){
+  var elapsed = Date.now() - slideStart;
+  var budget = (SLIDE_BUDGETS_S[curSlide]||60)*1000;
+  var el = $('timer');
+  el.textContent = fmt(elapsed);
+  el.classList.remove('over','warn');
+  if(elapsed > budget) el.classList.add('over');
+  else if(elapsed > budget*0.75) el.classList.add('warn');
+}
+
+function renderBeats(list, into){
+  into.innerHTML = '';
+  if(!list || !list.length){into.innerHTML = '<div style="color:var(--fg-faint);font-style:italic;font-size:18px">No notes.</div>';return}
+  list.forEach(function(t){
+    var d = document.createElement('div');
+    d.className = 'beat';
+    d.innerHTML = t;
+    into.appendChild(d);
+  });
+}
+
+function renderAsides(list, into){
+  into.innerHTML = '';
+  if(!list || !list.length){into.innerHTML = '<div style="color:var(--fg-faint);font-style:italic;font-size:18px">No asides for this slide.</div>';return}
+  list.forEach(function(a){
+    var d = document.createElement('div');
+    d.className = 'aside';
+    d.innerHTML = '<span class="aside-label">'+a.label+'</span>'+a.text;
+    into.appendChild(d);
+  });
+}
+
+function renderFragDots(total, current){
+  var into = $('frag-dots'); into.innerHTML='';
+  for(var i=1;i<=total;i++){
+    var dot=document.createElement('span');
+    dot.className='frag-dot'+(i<=current?' shown':'');
+    into.appendChild(dot);
+  }
+  $('frag-text').textContent = 'reveal '+current+' / '+total;
+}
+
+function renderNext(nextObj){
+  var card = $('next-card');
+  if(!nextObj){card.innerHTML = '<span class="next-label">End of deck</span><div class="next-title">Drop the mic.</div>';return}
+  card.innerHTML = '<span class="next-label">Next</span><div class="next-title">'+nextObj.title+'</div><div class="next-hint">'+nextObj.hint+'</div>';
+}
+
+function render(slideIdx, fragIdx, totalRevealsOnSlide){
+  var n = NOTES[slideIdx] || NOTES[1];
+  $('slide-num').textContent = String(slideIdx).padStart(2,'0')+' / 10';
+  $('slide-title').textContent = n.title;
+  $('slide-budget').textContent = n.budget;
+  $('echo').innerHTML = n.echo;
+  renderBeats(n.beats, $('beats'));
+  renderAsides(n.asides, $('asides'));
+  renderNext(n.next);
+  renderFragDots(totalRevealsOnSlide || 0, fragIdx);
+}
+
+function setSlide(slideIdx, fragIdx, total){
+  if(slideIdx !== curSlide){
+    slideStart = Date.now();
+  }
+  curSlide = slideIdx;
+  curFrag = fragIdx;
+  totalReveals[slideIdx] = total || totalReveals[slideIdx] || 0;
+  render(slideIdx, fragIdx, totalReveals[slideIdx]);
+}
+
+// BroadcastChannel — listen for deck state
+var bc = (typeof BroadcastChannel !== 'undefined') ? new BroadcastChannel('deck-sync') : null;
+if(bc){
+  bc.onmessage = function(e){
+    if(!e.data || typeof e.data.slideIdx !== 'number') return;
+    $('conn').textContent = 'live';
+    $('conn').classList.add('live');
+    // deck broadcasts 0-indexed
+    setSlide(e.data.slideIdx + 1, e.data.fragIdx, null);
+    // try to fetch slide reveal count by re-asking the deck (we don't know exact count here)
+    if(typeof e.data.fragIdx === 'number'){
+      // Best effort: track max frag seen as the total. Deck doesn't broadcast total.
+      var seen = totalReveals[curSlide] || 0;
+      if(curFrag > seen){ totalReveals[curSlide] = curFrag; render(curSlide, curFrag, curFrag); }
+    }
+  };
+  // Ask deck for current state in case we connected late
+  bc.postMessage({req:'state'});
+}
+
+// Timer tick
+timerHandle = setInterval(renderTimer, 250);
+
+// Initial render
+render(1, 0, 1);
+</script>
+</body>
+</html>
