@@ -335,14 +335,14 @@ body.dark-slide::after{opacity:.05}
 .s-vs .vs-item.pro::before{content:'✓';color:var(--accent)}
 .s-vs .vs-item.con::before{content:'✕';color:var(--leak)}
 
-/* APPLE PRESS PUSH-BACK (40), 4 article tiles */
-.s-press .fr-content{display:flex;flex-direction:column}
-.s-press .h-rule{font-size:104px;line-height:1.02}
-.s-press .press-sub{font-family:var(--serif);font-style:italic;font-size:32px;line-height:1.35;color:var(--fg-soft);margin-top:18px;max-width:1600px}
+/* APPLE PRESS PUSH-BACK (40), 4 article tiles · all fit viewport, vertical crop allowed */
+.s-press .fr-content{display:flex;flex-direction:column;height:100%}
+.s-press .h-rule{font-size:88px;line-height:1.02}
+.s-press .press-sub{font-family:var(--serif);font-style:italic;font-size:28px;line-height:1.3;color:var(--fg-soft);margin-top:14px;max-width:1600px}
 .s-press .press-sub .em{color:var(--coral);font-style:italic;font-weight:500}
-.s-press .press-grid{margin-top:48px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:28px;max-width:1700px;align-self:center}
-.s-press .press-tile{background:#fff;border:2px solid rgba(28,26,36,.14);border-radius:14px;overflow:hidden;box-shadow:0 24px 50px rgba(28,26,36,.14);min-height:340px;display:flex;align-items:center;justify-content:center}
-.s-press .press-tile img{display:block;width:100%;height:100%;object-fit:cover}
+.s-press .press-grid{margin-top:32px;flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:22px;max-width:1700px;align-self:center;width:100%;min-height:0}
+.s-press .press-tile{background:#fff;border:2px solid rgba(28,26,36,.14);border-radius:14px;overflow:hidden;box-shadow:0 24px 50px rgba(28,26,36,.14);display:flex;align-items:center;justify-content:center;min-height:0;min-width:0}
+.s-press .press-tile img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top}
 
 /* FEATURE PAIRING (34), Migrapulse ↔ iOS capability map */
 .s-pair .content{justify-content:center;gap:48px}
@@ -605,12 +605,10 @@ body.dark-slide::after{opacity:.05}
 .draw-on-reveal{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2400ms cubic-bezier(.2,.7,.3,1) 200ms}
 .reveal.shown .draw-on-reveal{stroke-dashoffset:0}
 
-/* my-timeline · 2s entrance delay + 2× slower for all animations on this slide */
-.slide[data-slide="my-timeline"].active .anim-draw{transition:stroke-dashoffset 4400ms cubic-bezier(.2,.7,.3,1) 2000ms}
-.slide[data-slide="my-timeline"] .draw-on-reveal{transition:stroke-dashoffset 4800ms cubic-bezier(.2,.7,.3,1) 400ms}
+/* my-timeline · 2× slower draws so each press lands as its own beat */
+.slide[data-slide="my-timeline"] .draw-on-reveal{transition:stroke-dashoffset 4800ms cubic-bezier(.2,.7,.3,1) 200ms}
 .slide[data-slide="my-timeline"].active .anim-fade-up{transition:opacity 900ms cubic-bezier(.2,.7,.3,1),transform 900ms cubic-bezier(.2,.7,.3,1)}
 .slide[data-slide="my-timeline"].active .anim-fade-in{transition:opacity 900ms cubic-bezier(.2,.7,.3,1)}
-.slide[data-slide="my-timeline"].active .anim-grow{transition:width 1800ms cubic-bezier(.2,.7,.3,1)}
 
 /* closing (load-bearing) */
 .closing-h{font-family:var(--serif);font-weight:500;font-size:132px;line-height:1;letter-spacing:-4px;margin:0;max-width:1700px}
@@ -1412,7 +1410,7 @@ body.dark-slide::after{opacity:.05}
 </section>
 
 <!-- 37 · TIMELINE · Tom's 3-month journey (state 2 reveals confidence) -->
-<section class="slide" data-i="37" data-slide="my-timeline" data-reveals="1">
+<section class="slide" data-i="37" data-slide="my-timeline" data-reveals="2">
   <div class="fr-content top">
     <div class="payoff-h">Three months. <span class="accent">My timeline.</span></div>
     <div class="payoff-curve-stage tl-stage">
@@ -1436,18 +1434,18 @@ body.dark-slide::after{opacity:.05}
         <text x="400" y="448" font-family="EB Garamond" font-size="15" fill="#1c1a24" opacity=".55" letter-spacing="2" text-anchor="middle">MONTH 2</text>
         <text x="740" y="448" font-family="EB Garamond" font-size="15" fill="#1c1a24" opacity=".55" letter-spacing="2" text-anchor="end">MONTH 3 →</text>
 
-        <!-- Quality line: jagged sawtooth through vibing, smooth climb after -->
-        <path class="anim-draw" pathLength="1"
-              d="M 60 320 L 88 230 L 115 335 L 145 245 L 175 330 L 205 250 L 235 325 L 263 265 L 280 315 C 360 300 440 235 540 160 C 620 130 700 115 740 115"
-              stroke="#2f7a4f" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <text x="755" y="119" font-family="EB Garamond" font-style="italic" font-size="22" fill="#2f7a4f" font-weight="500">quality</text>
-
-        <!-- Realization beat, end of Vibing phase -->
-        <circle cx="280" cy="325" r="6" fill="#d4604f"/>
-        <text x="280" y="358" font-family="EB Garamond" font-style="italic" font-size="16" fill="#d4604f" text-anchor="middle">"I can't build this here"</text>
-
-        <!-- Reveal: confidence line, starts very high, drops fast in vibing, slow ramp through structured + review -->
+        <!-- Stage 1: Quality line + realization beat (drawn on first press) -->
         <g class="reveal" data-reveal="1">
+          <path class="draw-on-reveal" pathLength="1"
+                d="M 60 320 L 88 230 L 115 335 L 145 245 L 175 330 L 205 250 L 235 325 L 263 265 L 280 315 C 360 300 440 235 540 160 C 620 130 700 115 740 115"
+                stroke="#2f7a4f" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="755" y="119" font-family="EB Garamond" font-style="italic" font-size="22" fill="#2f7a4f" font-weight="500">quality</text>
+          <circle cx="280" cy="325" r="6" fill="#d4604f"/>
+          <text x="280" y="358" font-family="EB Garamond" font-style="italic" font-size="16" fill="#d4604f" text-anchor="middle">"I can't build this here"</text>
+        </g>
+
+        <!-- Stage 2: Confidence line (drawn on second press) -->
+        <g class="reveal" data-reveal="2">
           <path class="draw-on-reveal" pathLength="1"
                 d="M 60 160 C 90 200 140 275 190 330 C 225 365 260 380 280 385 C 360 360 440 280 540 200 C 620 165 700 140 740 130"
                 stroke="#a68fc9" stroke-width="3.5" fill="none" stroke-linecap="round"/>
