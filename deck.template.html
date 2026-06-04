@@ -177,6 +177,20 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 .s-moat .sec-title .em,.s-bar .sec-title .em{color:var(--accent);font-style:italic;font-weight:500}
 .s-moat .footer-line,.s-bar .footer-line{grid-column:1 / -1;grid-row:2;background:rgba(47,122,79,.08);border-left:4px solid var(--accent);padding:22px 30px;font-family:var(--serif);font-style:italic;font-size:32px;line-height:1.35;color:var(--fg);max-width:none}
 .s-moat .footer-line .em,.s-bar .footer-line .em{color:var(--accent);font-style:normal;font-weight:600}
+.s-moat .moat-default{font-family:var(--serif);font-style:italic;font-weight:400;font-size:84px;letter-spacing:-.02em;color:rgba(28,26,36,.3);margin-top:18px;line-height:1;position:relative}
+.s-moat .moat-default::before{content:'';position:absolute;left:0;right:auto;top:50%;width:1.05em;border-top:3px solid rgba(28,26,36,.18);transform:translateX(-1.4em)}
+
+/* iOS MOATS — defensive vs offensive two-column */
+.s-moats .content{display:flex;flex-direction:column;justify-content:center;gap:64px}
+.s-moats h1{font-size:130px;line-height:1;letter-spacing:-.03em;max-width:1700px}
+.s-moats .moats-grid{display:grid;grid-template-columns:1fr 1fr;gap:90px;margin-top:8px}
+.s-moats .moats-col{display:flex;flex-direction:column;gap:22px}
+.s-moats .moats-tag{font-family:var(--mono);font-size:20px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:700}
+.s-moats .moats-sub{font-family:var(--serif);font-style:italic;font-size:30px;line-height:1.25;color:var(--fg-soft)}
+.s-moats .moats-sub .hint{color:rgba(28,26,36,.38);font-size:24px}
+.s-moats .moats-list{display:flex;flex-direction:column;gap:14px;margin-top:8px;padding-top:18px;border-top:1px solid rgba(28,26,36,.14)}
+.s-moats .moats-item{font-family:var(--serif);font-weight:500;font-size:46px;letter-spacing:-.018em;line-height:1;color:var(--fg)}
+.s-moats .moats-item .em{color:var(--accent);font-style:italic;font-weight:500}
 
 /* FINAL BOSS — manifesto slide */
 .s-boss .content{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
@@ -495,8 +509,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 <section class="slide s-moat" data-i="27" data-reveals="0">
   <div class="content">
     <div class="sec-left">
-      <div class="kicker">The question nobody asks</div>
       <h1 class="h1">What's your<br><span class="accent">moat?</span></h1>
+      <div class="moat-default">Product.</div>
     </div>
     <div class="sec-cards">
       <div class="sec-card">
@@ -531,14 +545,43 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
         <div class="sec-text"><div class="sec-title"><span class="em">Privacy &amp; security.</span></div></div>
       </div>
     </div>
-    <div class="footer-line">Copy a vibe-coded SaaS and you have <span class="em">none of them.</span></div>
   </div>
 </section>
 
-<!-- 5 · DON'T BUILD WITHOUT A DISTRIBUTION PLAN (manifesto) -->
+<!-- 5 · iOS HANDS YOU BOTH (defensive + offensive moats) -->
+<section class="slide s-moats" data-i="30" data-reveals="0">
+  <div class="content">
+    <h1 class="h1">iOS hands you <span class="accent">both.</span></h1>
+    <div class="moats-grid">
+      <div class="moats-col">
+        <div class="moats-tag">Defensive</div>
+        <div class="moats-sub">What iOS handles for you.</div>
+        <div class="moats-list">
+          <div class="moats-item">Security</div>
+          <div class="moats-item">Payments</div>
+          <div class="moats-item">Identity</div>
+          <div class="moats-item">Privacy</div>
+        </div>
+      </div>
+      <div class="moats-col">
+        <div class="moats-tag">Offensive</div>
+        <div class="moats-sub">What iOS lets you reach. <span class="hint">(harder, but yours.)</span></div>
+        <div class="moats-list">
+          <div class="moats-item">Sensors</div>
+          <div class="moats-item">Health</div>
+          <div class="moats-item">Camera &amp; mic</div>
+          <div class="moats-item">Action button &amp; watch</div>
+          <div class="moats-item">On-device AI</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · DON'T BUILD WITHOUT A DISTRIBUTION PLAN (manifesto) -->
 <section class="slide s-boss" data-i="28" data-reveals="0">
   <div class="content">
-    <h1 class="h1">If monetization is the plan,<br><span class="accent">don't build</span><br>until you have a <span class="accent">distribution plan.</span></h1>
+    <h1 class="h1">Planning to monetise?<br><span class="accent">Don't build</span> until you've<br><span class="accent">planned distribution.</span></h1>
   </div>
 </section>
 

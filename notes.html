@@ -89,7 +89,7 @@ body{padding:clamp(16px,2.5vw,32px) clamp(20px,3vw,48px);display:flex;flex-direc
 
 <div class="head">
   <div class="head-left">
-    <span class="pill" id="slide-num">01 / 14</span>
+    <span class="pill" id="slide-num">01 / 15</span>
     <span class="slide-title" id="slide-title">Hook</span>
     <span class="pill muted" id="slide-budget">~30s</span>
   </div>
@@ -139,46 +139,50 @@ const NOTES = {
      asides:[],
      next:{title:"What's your moat?",hint:"The setup for the iOS argument."}},
   4:{title:"What's your moat?",budget:"~75s",echo:'What\'s your <span class="accent">moat?</span>',
-     beats:["<strong>Define what a moat is</strong> — the thing that stops the next person copying you in a day.","Three cards are on screen — read them as one sentence: <em>Distribution. Credibility. Privacy and security.</em>","Land the strip: <em>'Copy a vibe-coded SaaS and you have none of them.'</em>","Pause. Let the audience sit with it."],
-     asides:[{label:"The hot take",text:"Moats are critical in product design. Whole other talk in itself. But in an age where everyone can ship a working clone of a SaaS in a day, the question 'what's your moat' has never mattered more."},{label:"Other moats to name-check",text:"Network effects. Cost. Brand. Switching cost. Regulatory."}],
-     next:{title:"Final boss",hint:"Distribution is the answer. Land the imperative."}},
-  5:{title:"Don't build without a plan",budget:"~45s",echo:'<span class="accent">Don\'t build</span> until you have a <span class="accent">distribution plan.</span>',
+     beats:["<strong>Frame:</strong> <em>'The question nobody asks.'</em>","Ask it: <em>'What's your moat?'</em>","Tease the default — gesture at the faded <em>'Product.'</em> under the headline. <em>'Most founders say product. Product is table stakes — it's not a moat.'</em>","Reframe with the right column. Read it as one sentence: <em>Distribution. Credibility. Privacy and security.</em>","<strong>Land the punch line:</strong> <em>'Copy a vibe-coded SaaS and you have none of them.'</em>","Pause. Let it sit."],
+     asides:[{label:"Define moat",text:"A moat is the thing that stops the next person copying you in a day. In an age where everyone can vibe-code a working clone of a SaaS in an afternoon, the question 'what's your moat' has never mattered more."},{label:"The hot take",text:"Moats are critical in product design. Whole other talk in itself. The short version for tonight: product alone isn't a moat — it's table stakes."},{label:"Other moats to name-check (optional)",text:"Network effects. Cost. Brand. Switching cost. Regulatory."}],
+     next:{title:"iOS hands you both",hint:"Defensive vs offensive moats — the two-column answer."}},
+  5:{title:"iOS hands you both",budget:"~60s",echo:'iOS hands you <span class="accent">both.</span>',
+     beats:["<strong>Two columns on screen.</strong> Defensive on the left, offensive on the right.","Frame: <em>'iOS hands you both kinds of moat out of the box.'</em>","<strong>Defensive — what iOS handles for you:</strong> Security. Payments. Identity. Privacy. Sign in with Apple replaces a whole auth team.","<strong>Offensive — what iOS lets you reach:</strong> Sensors. Health. Camera &amp; mic. Action button &amp; watch. On-device AI. <em>Note: 'It's harder, but it's yours.'</em>","Close: <em>'The web can touch almost none of the right column.'</em>"],
+     asides:[{label:"Why the split matters",text:"Defensive moats keep the things you ship safe and trusted. Offensive moats let you ship things that aren't possible elsewhere. iOS is the rare platform that hands you both."},{label:"Don't go too deep here",text:"This is the framing slide. The next few slides (Security, Device, Creativity) drill into specifics. Keep this one fast — 60 seconds tops."}],
+     next:{title:"Planning to monetise?",hint:"The imperative. Don't build until you've planned distribution."}},
+  6:{title:"Planning to monetise?",budget:"~45s",echo:'Planning to monetise? <span class="accent">Don\'t build</span> until you\'ve <span class="accent">planned distribution.</span>',
      beats:["<strong>One line on screen.</strong> Read it slowly.","No clicks. Hold the silence. Let it sting.","\"Distribution is the final boss\" — save that line for the Yhorm slide that follows."],
      asides:[{label:"Why this matters now",text:"Web is at the mercy of paid acquisition, SEO, and luck. The vibe-coded clone game has made all three harder. If monetisation matters, the question \"how will anyone find this?\" has to be answered before the first line of code."}],
      next:{title:"Distribution (Yhorm)",hint:"Visual stinger. This is where 'final boss' lands."}},
-  6:{title:"Distribution",budget:"~30s",echo:'<span class="accent">Distribution.</span>',
+  7:{title:"Distribution",budget:"~30s",echo:'<span class="accent">Distribution.</span>',
      beats:["Yhorm is the whole slide. No headline. No text.","<strong>This is where the line lands:</strong> <em>'Distribution is the final boss of product.'</em>","Hold the silence for a beat before advancing."],
      asides:[],
      next:{title:"A head start",hint:"Four iOS distribution advantages."}},
-  7:{title:"A head start",budget:"~75s",echo:'A <span class="accent">head start.</span>',
+  8:{title:"A head start",budget:"~75s",echo:'A <span class="accent">head start.</span>',
      beats:["Frame: <strong>iOS gives you a head start on distribution.</strong> Well-established. Good guardrails.","All four advantages are on screen. Walk them top to bottom — one beat each.","01 Storefront in 30 minutes — title, subtitle, screenshots. That's the store.","02 A known playbook — ASO + search. 20 years of best practice you can copy.","03 Apple helps you — Featured, social, paid acquisition all built in.","04 Good guardrails — review keeps the bar high; your competitors have to clear it too."],
      asides:[{label:"Why this matters",text:"On the web, every founder has to invent distribution from scratch. On iOS, the pond is already stocked. You're not building the distribution — you're plugging into one that's been compounding for nearly 20 years."}],
      next:{title:"Security",hint:"Three icon cards: database, auth, schema."}},
-  8:{title:"Security",budget:"~90s",echo:'<span class="accent">Security.</span>',
+  9:{title:"Security",budget:"~90s",echo:'<span class="accent">Security.</span>',
      beats:["Open with the horror story aside.","Three cards are already on screen — walk them top to bottom, one beat each.","Database open — default-public, AI ships it.","Auth bypassed — a teenager finds the broken check.","One bad migration — wipes data, no undo."],
      asides:[{label:"Opening line for this slide",text:"Last month a vibe-coded SaaS leaked every customer's data because the database was open to the internet. The week before, another one had its auth bypassed by a teenager. These aren't AI's fault. They're the failure modes of moving fast on the web."}],
      next:{title:"Device",hint:"Two phones. Lovable signup vs Migrapulse home."}},
-  9:{title:"Device",budget:"~90s",echo:'<span class="accent">Device.</span>',
-     beats:["Two phones on screen. Left fades — browser tab, email, password.","Right is the action button + voice. Three seconds beats three minutes.","<strong>Introduce \"iOS-shaped idea\" here.</strong> This is where the phrase enters the talk."],
-     asides:[{label:"Define iOS-shaped idea",text:"Anything that touches the body or the moment. The camera. The mic. The watch. Your health. The action you take in the seconds before you forget."}],
-     next:{title:"Creativity",hint:"Web verbs vs iOS verbs."}},
-  10:{title:"Creativity",budget:"~75s",echo:'<span class="accent">Creativity.</span>',
+  10:{title:"Device",budget:"~90s",echo:'<span class="accent">Device.</span>',
+      beats:["Two phones on screen. Left fades — browser tab, email, password.","Right is the action button + voice. Three seconds beats three minutes.","<strong>Introduce \"iOS-shaped idea\" here.</strong> This is where the phrase enters the talk."],
+      asides:[{label:"Define iOS-shaped idea",text:"Anything that touches the body or the moment. The camera. The mic. The watch. Your health. The action you take in the seconds before you forget."}],
+      next:{title:"Creativity",hint:"Web verbs vs iOS verbs."}},
+  11:{title:"Creativity",budget:"~75s",echo:'<span class="accent">Creativity.</span>',
       beats:["Two verb columns on screen. Left: 4 web verbs. Right: 20+ iOS verbs.","Let the accumulation do the work. <em>The cascade IS the argument.</em>","Read 3 or 4 iOS verbs aloud at the end for emphasis."],
       asides:[],
       next:{title:"The catch",hint:"Effort is the moat. Four reveals."}},
-  11:{title:"The catch · Effort is the moat",budget:"~100s",echo:'Effort is <span class="accent">the moat now.</span>',
+  12:{title:"The catch · Effort is the moat",budget:"~100s",echo:'Effort is <span class="accent">the moat now.</span>',
       beats:["<strong>Dense slide. Give each reveal its own breath.</strong>","R1 — Requirements list. Walk through: $20, $99, Free, week, rejection.","R2 — Rejection timeline. Walk the four dates. Acknowledge the wait.","R3 — Inflatable furniture. <strong>Deliver slowly.</strong>","R4 — Moat-line. Land it and stop talking for a beat."],
       asides:[{label:"R3 delivery cadence",text:"A vibe-coded app is inflatable furniture. [pause] Real humans at Apple sit on it. They can tell. The bar is rising. Make your first submission count."}],
       next:{title:"Apple is the bouncer",hint:"Three cards: weeks · first miss · bar rising."}},
-  12:{title:"Apple is the bouncer",budget:"~75s",echo:'Apple is the <span class="accent">bouncer.</span>',
+  13:{title:"Apple is the bouncer",budget:"~75s",echo:'Apple is the <span class="accent">bouncer.</span>',
       beats:["<strong>This slide motivates why structure matters.</strong>","Walk the three cards top to bottom.","Weeks, not minutes — first review is 1–4 weeks. Then weeks more for re-reviews.","First miss → rejected — Apple finds the FIRST thing wrong and stops. You don't get a punch list.","The bar is rising — Apple is inundated. Polish + originality break through. Screenshots matter.","Close with the strip: <em>'Structure is how you clear it.'</em>"],
       asides:[{label:"The Migrapulse rejection story",text:"My first review came back in about three days. Rejected inside thirty minutes. Apple don't audit your whole app — they find one thing and stop. Then I waited another week. That's the cadence. Every iteration is a week. So you ship quality first time, or you bleed weeks."},{label:"Why Swift matters here",text:"Apple is reviewing code now too — not just the binary. The closer you are to the platform language, the less surface area for things to go wrong."}],
       next:{title:"The how, briefly",hint:"Vibes in. Structure out. Equation cards."}},
-  13:{title:"The how, briefly",budget:"~60s",echo:'Vibes in. <span class="accent">Structure out.</span>',
+  14:{title:"The how, briefly",budget:"~60s",echo:'Vibes in. <span class="accent">Structure out.</span>',
       beats:["Click: forcing pair reveals. Swift forces it. RN abstracts.","Click: equation cards reveal. Walk left-to-right, one phrase per card.","Click: how-callout. <strong>Plug the masterclass.</strong> QR is next slide."],
       asides:[],
       next:{title:"Close",hint:"iOS-shaped idea callback + QR."}},
-  14:{title:"Close",budget:"~60s",echo:'If you\'ve got an<br><span class="accent">iOS-shaped idea</span><br>sitting in your head,<br>the tools are finally there.',
+  15:{title:"Close",budget:"~60s",echo:'If you\'ve got an<br><span class="accent">iOS-shaped idea</span><br>sitting in your head,<br>the tools are finally there.',
       beats:["<strong>Open with the migraine callback.</strong>","Read the headline slowly.","Click: QR appears. Stand still. Drop the mic."],
       asides:[{label:"The callback opener",text:"Six months ago I had a migraine and I couldn't open my journal app fast enough. I built an app. I shipped it. Two months. One person. No team. No funding."}],
       next:null}
@@ -264,7 +268,7 @@ function renderNext(nextObj){
 
 function render(slideIdx, fragIdx, totalRevealsOnSlide){
   var n = NOTES[slideIdx] || NOTES[1];
-  $('slide-num').textContent = String(slideIdx).padStart(2,'0')+' / 14';
+  $('slide-num').textContent = String(slideIdx).padStart(2,'0')+' / 15';
   $('slide-title').textContent = n.title;
   $('slide-budget').textContent = n.budget;
   $('echo').innerHTML = n.echo;
