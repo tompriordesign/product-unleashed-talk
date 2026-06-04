@@ -177,8 +177,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 .s-moat .sec-title .em,.s-bar .sec-title .em{color:var(--accent);font-style:italic;font-weight:500}
 .s-moat .footer-line,.s-bar .footer-line{grid-column:1 / -1;grid-row:2;background:rgba(47,122,79,.08);border-left:4px solid var(--accent);padding:22px 30px;font-family:var(--serif);font-style:italic;font-size:32px;line-height:1.35;color:var(--fg);max-width:none}
 .s-moat .footer-line .em,.s-bar .footer-line .em{color:var(--accent);font-style:normal;font-weight:600}
-.s-moat .moat-default{font-family:var(--serif);font-style:italic;font-weight:400;font-size:84px;letter-spacing:-.02em;color:rgba(28,26,36,.3);margin-top:18px;line-height:1;position:relative}
-.s-moat .moat-default::before{content:'';position:absolute;left:0;right:auto;top:50%;width:1.05em;border-top:3px solid rgba(28,26,36,.18);transform:translateX(-1.4em)}
+.s-moat .moat-def{font-family:var(--serif);font-style:italic;font-size:32px;line-height:1.3;color:var(--fg-soft);margin-top:24px;padding-top:22px;border-top:1px solid rgba(28,26,36,.15);max-width:480px}
 
 /* iOS MOATS — defensive vs offensive two-column */
 .s-moats .content{display:flex;flex-direction:column;justify-content:center;gap:64px}
@@ -238,6 +237,61 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 .s-creat .license-col.win .license-col-tag{color:var(--accent)}
 .s-creat .license-item{font-family:var(--serif);font-size:30px;line-height:1.25;color:var(--fg)}
 .s-creat .license-item .em{color:var(--accent);font-style:italic;font-weight:500}
+
+/* RECKONING (31) + NO MOAT (32) — centered single-line manifesto */
+.s-reckon .content,.s-nomoat .content{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.s-reckon h1,.s-nomoat h1{font-size:170px;line-height:.98;letter-spacing:-.035em;max-width:1700px}
+
+/* FRAMING (35) — the deal up front */
+.s-framing .content{justify-content:center;gap:18px;max-width:1700px;margin:0 auto}
+.s-framing .framing-kicker{font-family:var(--mono);font-size:22px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:24px}
+.s-framing .framing-line{font-family:var(--serif);font-weight:500;font-size:108px;line-height:1.05;letter-spacing:-.028em;color:var(--fg)}
+.s-framing .framing-line .accent{color:var(--accent);font-style:italic;font-weight:500}
+.s-framing .framing-line.muted{color:var(--fg-soft)}
+.s-framing .framing-line.muted .accent{color:var(--accent);opacity:.75}
+.s-framing .framing-sub{font-family:var(--serif);font-style:italic;font-size:30px;color:var(--fg);opacity:.78;margin-top:36px;padding-top:24px;border-top:1px solid rgba(28,26,36,.15);line-height:1.4;max-width:1500px}
+.s-framing .framing-sub .em{color:var(--accent);font-style:normal;font-weight:600;opacity:1}
+
+/* ENVIRONMENT (33) — IDE mock + caption */
+.s-env .content{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:56px}
+.s-env h1{font-size:108px;line-height:1;text-align:center;max-width:1700px}
+.s-env .env-mock{width:100%;max-width:1500px;height:560px;background:#1a1424;border-radius:14px;border:1px solid rgba(28,26,36,.15);box-shadow:0 30px 70px rgba(28,26,36,.25);display:grid;grid-template-columns:200px 1fr 280px;grid-template-rows:36px 1fr;overflow:hidden;position:relative}
+.s-env .env-mock .env-titlebar{grid-column:1 / -1;background:#0e0a16;border-bottom:1px solid rgba(244,236,217,.08);display:flex;align-items:center;padding:0 16px;gap:8px}
+.s-env .env-mock .env-titlebar .dot{width:12px;height:12px;border-radius:50%}
+.s-env .env-mock .env-titlebar .dot.r{background:#ff5f57}
+.s-env .env-mock .env-titlebar .dot.y{background:#febc2e}
+.s-env .env-mock .env-titlebar .dot.g{background:#28c840}
+.s-env .env-mock .env-titlebar .env-filename{margin-left:18px;font-family:var(--mono);font-size:13px;color:rgba(244,236,217,.5)}
+.s-env .env-tree{padding:28px 16px;border-right:1px solid rgba(244,236,217,.08);display:flex;flex-direction:column;gap:10px}
+.s-env .env-tree-row{height:8px;background:rgba(244,236,217,.08);border-radius:2px}
+.s-env .env-tree-row.dim{background:rgba(244,236,217,.04)}
+.s-env .env-tree-row.indent{margin-left:18px;width:70%}
+.s-env .env-code{padding:28px 30px;display:flex;flex-direction:column;gap:9px}
+.s-env .env-code-row{height:10px;background:rgba(244,236,217,.12);border-radius:2px}
+.s-env .env-code-row.purple{background:rgba(166,143,201,.4)}
+.s-env .env-code-row.green{background:rgba(168,224,140,.32)}
+.s-env .env-code-row.blue{background:rgba(124,196,221,.32)}
+.s-env .env-code-row.w-70{width:70%}
+.s-env .env-code-row.w-50{width:50%}
+.s-env .env-code-row.w-80{width:80%}
+.s-env .env-code-row.w-40{width:40%}
+.s-env .env-code-row.indent{margin-left:24px}
+.s-env .env-chat{padding:28px 16px;border-left:1px solid rgba(244,236,217,.08);display:flex;flex-direction:column;gap:12px}
+.s-env .env-bubble{background:rgba(244,236,217,.08);border-radius:8px;padding:12px;height:60px}
+.s-env .env-bubble.user{background:rgba(47,122,79,.22);align-self:flex-end;width:80%;height:42px}
+.s-env .env-bubble.ai{background:rgba(244,236,217,.06);width:90%;height:78px}
+.s-env .env-caption{font-family:var(--serif);font-style:italic;font-size:36px;color:var(--fg);text-align:center;max-width:1400px;line-height:1.3}
+.s-env .env-caption .em{color:var(--accent);font-style:italic;font-weight:600}
+
+/* FEATURE PAIRING (34) — Migrapulse ↔ iOS capability map */
+.s-pair .content{justify-content:center;gap:48px}
+.s-pair h1{font-size:96px;line-height:1;letter-spacing:-.025em}
+.s-pair .pair-grid{display:flex;flex-direction:column;gap:0;max-width:1700px}
+.s-pair .pair-row{display:grid;grid-template-columns:1fr 80px 1fr;gap:32px;align-items:center;padding:22px 0;border-bottom:1px solid rgba(28,26,36,.12)}
+.s-pair .pair-row:last-child{border-bottom:none}
+.s-pair .pair-feature{font-family:var(--serif);font-size:38px;font-weight:500;color:var(--fg);text-align:right;letter-spacing:-.012em;line-height:1.1}
+.s-pair .pair-arrow{font-family:var(--serif);font-style:italic;font-size:42px;color:var(--accent);text-align:center}
+.s-pair .pair-cap{font-family:var(--serif);font-size:38px;font-style:italic;color:var(--accent);font-weight:500;letter-spacing:-.012em;line-height:1.1}
 
 /* CATCH · slide 8 */
 .s-catch .h1{margin-bottom:0}
@@ -374,6 +428,13 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 .stack-name{font-family:var(--serif);font-weight:500;font-size:42px;line-height:1;color:var(--ink);letter-spacing:-1px}
 .stack-name em{color:var(--coral);font-style:italic}
 .stack-meta{font-family:var(--mono);font-size:15px;letter-spacing:1.5px;color:var(--coral);opacity:.85;font-weight:500}
+.chris-callout{display:flex;align-items:center;gap:32px;margin-top:48px;padding:24px 28px;background:rgba(47,122,79,.06);border-left:4px solid var(--coral);border-radius:4px;max-width:1100px;align-self:flex-start}
+.chris-qr-box{width:120px;height:120px;background:#fff;border:1px solid rgba(28,26,36,.18);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chris-qr-placeholder{font-family:var(--mono);font-size:14px;letter-spacing:3px;color:rgba(28,26,36,.35);font-weight:700}
+.chris-text{display:flex;flex-direction:column;gap:6px}
+.chris-name{font-family:var(--serif);font-size:30px;line-height:1.15;font-weight:500;color:var(--ink)}
+.chris-name .em{color:var(--coral);font-style:italic;font-weight:500}
+.chris-sub{font-family:var(--serif);font-style:italic;font-size:22px;color:var(--ink);opacity:.7}
 
 /* rule III — design tools + screenshot */
 .design-stage{margin-top:44px;display:grid;grid-template-columns:.78fr 1fr;gap:56px;align-items:stretch}
@@ -525,9 +586,19 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
   <div class="content">
     <div class="sec-left">
       <h1 class="h1">What's your<br><span class="accent">moat?</span></h1>
-      <div class="moat-default">Product.</div>
+      <div class="moat-def">The thing that stops the next person<br>copying you in a day.</div>
     </div>
     <div class="sec-cards">
+      <div class="sec-card">
+        <div class="sec-icon">
+          <svg viewBox="0 0 64 64">
+            <path class="stroke" d="M32 8 L52 18 V40 L32 50 L12 40 V18 Z"/>
+            <path class="stroke" d="M12 18 L32 28 L52 18"/>
+            <line class="stroke" x1="32" y1="28" x2="32" y2="50"/>
+          </svg>
+        </div>
+        <div class="sec-text"><div class="sec-title">Product.</div></div>
+      </div>
       <div class="sec-card">
         <div class="sec-icon">
           <svg viewBox="0 0 64 64">
@@ -627,7 +698,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
       </div>
       <div class="adv">
         <div class="adv-num">04</div>
-        <div class="adv-title">Good <span class="em">guardrails</span>.</div>
+        <div class="adv-title">Customers <span class="em">ready to pay</span>.</div>
       </div>
     </div>
   </div>
@@ -637,8 +708,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 <section class="slide s-sec" data-i="6" data-reveals="0">
   <div class="content">
     <div class="sec-left">
-      <div class="kicker">Reason 2 of 4</div>
-      <h1 class="h1 md"><span class="accent">Security.</span></h1>
+      <div class="kicker">The biggest one</div>
+      <h1 class="h1 md">A <span class="accent">ticking</span><br>time bomb.</h1>
+      <div class="sec-coda">Privacy. Auth. Health data. <span class="em">The thing that stopped me going vibe-coded.</span></div>
     </div>
     <div class="sec-cards">
       <div class="sec-card">
@@ -956,7 +1028,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
   </div>
 </section>
 
-<!-- 18 · RULE II (stack grid) -->
+<!-- 18 · RULE II (stack grid) + Coding With Chris QR -->
 <section class="slide" data-i="18" data-slide="fr-rule-2" data-reveals="0">
   <div class="fr-content top">
     <div class="h-rule">Set yourself up for success.<br><span class="accent">And realistic expectations.</span></div>
@@ -968,6 +1040,15 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
       <div class="stack-item anim-fade-up" style="transition-delay:280ms"><div class="stack-name">A generous allowance</div><div class="stack-meta">(~$200 / mo)</div></div>
       <div class="stack-item anim-fade-up" style="transition-delay:350ms"><div class="stack-name"><em>Runway</em></div></div>
     </div>
+    <div class="chris-callout">
+      <div class="chris-qr-box">
+        <div class="chris-qr-placeholder">QR</div>
+      </div>
+      <div class="chris-text">
+        <div class="chris-name"><span class="em">Coding With Chris</span> · setup walkthrough</div>
+        <div class="chris-sub">A few hours and you'll feel like a superstar.</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -975,6 +1056,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 <section class="slide" data-i="19" data-slide="fr-rule-3" data-reveals="0">
   <div class="fr-content top">
     <div class="h-rule">Vibe the hell out of <span class="accent">your design.</span></div>
+    <div class="sub" style="font-size:32px;margin-top:18px;max-width:1600px">My taste was way ahead of my Figma. So I <span class="em">vocalised</span> — and AI caught it.</div>
     <div class="design-stage">
       <div class="design-tools">
         <div class="design-tool-card featured anim-fade-up" style="transition-delay:80ms"><div class="design-tool-name">UX Pilot</div><div class="design-tool-desc">My pick. Sketch the whole flow in an hour. Models tuned for design.</div></div>
@@ -1090,22 +1172,28 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
   </div>
 </section>
 
-<!-- 24 · PAYOFF · CURVE -->
-<section class="slide" data-i="24" data-slide="fr-payoff-curve" data-reveals="0">
+<!-- 24 · QUALITY CURVE — 2 states (curve, then App Store bar overlay) -->
+<section class="slide" data-i="24" data-slide="fr-payoff-curve" data-reveals="1">
   <div class="fr-content top">
-    <div class="payoff-h">And quality <span class="accent">keeps climbing.</span></div>
+    <div class="payoff-h">Quality <span class="accent">over time.</span></div>
     <div class="payoff-curve-stage">
       <svg viewBox="0 0 800 460">
         <line x1="60" y1="400" x2="700" y2="400" stroke="#1c1a24" stroke-width="2" opacity=".4"/>
         <line x1="60" y1="40" x2="60" y2="400" stroke="#1c1a24" stroke-width="2" opacity=".4"/>
-        <text x="60" y="430" font-family="JetBrains Mono" font-size="14" fill="#1c1a24" opacity=".55" letter-spacing="2">EFFORT IN →</text>
-        <text x="50" y="40" font-family="JetBrains Mono" font-size="14" fill="#1c1a24" opacity=".55" text-anchor="end" letter-spacing="2" transform="rotate(-90 50 40)">QUALITY OUT →</text>
+        <text x="60" y="430" font-family="EB Garamond" font-size="14" fill="#1c1a24" opacity=".55" letter-spacing="2">EFFORT IN →</text>
+        <text x="50" y="40" font-family="EB Garamond" font-size="14" fill="#1c1a24" opacity=".55" text-anchor="end" letter-spacing="2" transform="rotate(-90 50 40)">QUALITY OUT →</text>
         <path d="M 60 380 Q 180 220 280 200 Q 380 195 700 190" stroke="rgba(28,26,36,0.55)" stroke-width="3" fill="none" stroke-dasharray="6,4"/>
         <text x="710" y="194" font-family="EB Garamond" font-style="italic" font-size="22" fill="#1c1a24" opacity=".7">vibes only</text>
         <path class="anim-draw" pathLength="1" style="transition-delay:600ms" d="M 60 380 Q 200 350 320 250 Q 460 130 700 70" stroke="#2f7a4f" stroke-width="4" fill="none"/>
         <text x="710" y="74" font-family="EB Garamond" font-style="italic" font-size="22" fill="#2f7a4f" font-weight="500">structured</text>
         <line x1="60" y1="190" x2="280" y2="190" stroke="#1c1a24" stroke-width="1" opacity=".2" stroke-dasharray="3,3"/>
-        <text x="70" y="180" font-family="JetBrains Mono" font-size="12" fill="#1c1a24" opacity=".5" letter-spacing="1">CEILING</text>
+        <text x="70" y="180" font-family="EB Garamond" font-size="12" fill="#1c1a24" opacity=".5" letter-spacing="1">CEILING</text>
+        <!-- App Store bar — revealed on click -->
+        <g class="reveal" data-reveal="1">
+          <line x1="60" y1="135" x2="700" y2="135" stroke="#d4604f" stroke-width="3"/>
+          <rect x="540" y="115" width="160" height="32" rx="4" fill="#d4604f"/>
+          <text x="620" y="135" font-family="EB Garamond" font-size="14" fill="#fff" text-anchor="middle" letter-spacing="2" font-weight="600" dy=".35em">APP STORE BAR</text>
+        </g>
       </svg>
     </div>
   </div>
@@ -1144,6 +1232,111 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
   </div>
 </section>
 
+<!-- 31 · 3-MONTH RECKONING (follow-on after Migrapulse reveal) -->
+<section class="slide s-reckon" data-i="31" data-reveals="0">
+  <div class="content">
+    <h1 class="h1">Yeah —<br><span class="accent">that's a long time.</span></h1>
+  </div>
+</section>
+
+<!-- 32 · NO MOAT (transition after inflatable furniture) -->
+<section class="slide s-nomoat" data-i="32" data-reveals="0">
+  <div class="content">
+    <h1 class="h1">Most vibe-coded apps<br>have <span class="accent">no moat.</span></h1>
+  </div>
+</section>
+
+<!-- 33 · ENVIRONMENT · IDE mock + caption -->
+<section class="slide s-env" data-i="33" data-reveals="0">
+  <div class="content">
+    <h1 class="h1">Same room as <span class="accent">the developers.</span></h1>
+    <div class="env-mock">
+      <div class="env-titlebar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="env-filename">migrapulse · EntriesView.swift</span>
+      </div>
+      <div class="env-tree">
+        <div class="env-tree-row"></div>
+        <div class="env-tree-row indent"></div>
+        <div class="env-tree-row indent dim"></div>
+        <div class="env-tree-row indent"></div>
+        <div class="env-tree-row"></div>
+        <div class="env-tree-row indent"></div>
+        <div class="env-tree-row indent dim"></div>
+        <div class="env-tree-row dim"></div>
+        <div class="env-tree-row indent"></div>
+        <div class="env-tree-row indent dim"></div>
+      </div>
+      <div class="env-code">
+        <div class="env-code-row purple w-50"></div>
+        <div class="env-code-row indent w-70"></div>
+        <div class="env-code-row indent green w-40"></div>
+        <div class="env-code-row indent w-80"></div>
+        <div class="env-code-row purple w-50"></div>
+        <div class="env-code-row indent w-70"></div>
+        <div class="env-code-row indent blue w-40"></div>
+        <div class="env-code-row indent w-80"></div>
+        <div class="env-code-row w-50"></div>
+        <div class="env-code-row indent green w-70"></div>
+        <div class="env-code-row indent w-40"></div>
+        <div class="env-code-row purple w-80"></div>
+      </div>
+      <div class="env-chat">
+        <div class="env-bubble user"></div>
+        <div class="env-bubble ai"></div>
+        <div class="env-bubble user"></div>
+        <div class="env-bubble ai"></div>
+        <div class="env-bubble user"></div>
+      </div>
+    </div>
+    <div class="env-caption">You're not coding. You're <span class="em">orchestrating.</span> Steeper learning curve — worth it.</div>
+  </div>
+</section>
+
+<!-- 35 · FRAMING · the deal up front -->
+<section class="slide s-framing" data-i="35" data-reveals="0">
+  <div class="content">
+    <div class="framing-kicker">Heads up</div>
+    <div class="framing-line">Ten minutes for <span class="accent">the why.</span></div>
+    <div class="framing-line muted">Four hours for <span class="accent">the how.</span></div>
+    <div class="framing-sub">Free video at the end — no email, no signup. <span class="em">If you get stuck building yours, reach out.</span></div>
+  </div>
+</section>
+
+<!-- 34 · FEATURE PAIRING · Migrapulse ↔ iOS capability map -->
+<section class="slide s-pair" data-i="34" data-reveals="0">
+  <div class="content">
+    <h1 class="h1">The features<br>that needed <span class="accent">iOS.</span></h1>
+    <div class="pair-grid">
+      <div class="pair-row">
+        <div class="pair-feature">Log a migraine in 3 seconds</div>
+        <div class="pair-arrow">→</div>
+        <div class="pair-cap">Action button + Siri</div>
+      </div>
+      <div class="pair-row">
+        <div class="pair-feature">No account. No password.</div>
+        <div class="pair-arrow">→</div>
+        <div class="pair-cap">Sign in with Apple</div>
+      </div>
+      <div class="pair-row">
+        <div class="pair-feature">Health context, on device</div>
+        <div class="pair-arrow">→</div>
+        <div class="pair-cap">HealthKit + SwiftData</div>
+      </div>
+      <div class="pair-row">
+        <div class="pair-feature">Quiet-month nudges</div>
+        <div class="pair-arrow">→</div>
+        <div class="pair-cap">Live Activities + widgets</div>
+      </div>
+      <div class="pair-row">
+        <div class="pair-feature">Trigger prediction</div>
+        <div class="pair-arrow">→</div>
+        <div class="pair-cap">On-device LLM</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 </div>
 
 <script>
@@ -1152,8 +1345,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 // ║ Edit these arrays via arrange.html → "Copy bake line" and send to   ║
 // ║ Tom Claude to commit. This is the source of truth on every machine. ║
 // ╚════════════════════════════════════════════════════════════════════╝
-const BAKED_ORDER  = [12,14,1,2,3,15,13,27,30,4,28,5,6,7,8,9,29,10,11,16,17,18,19,20,21,22,24,23,25,26];
-const BAKED_HIDDEN = [1,11,10,9,7,17,16,25,8];
+const BAKED_ORDER  = [12,14,2,35,3,31,24,33,13,32,27,30,6,4,5,34,18,19,20,21,22,23,26,1,7,8,9,10,11,15,16,17,25,28,29];
+const BAKED_HIDDEN = [1,7,8,9,10,11,15,16,17,25,28,29];
 
 (function(){
   var deck=document.getElementById('deck');
