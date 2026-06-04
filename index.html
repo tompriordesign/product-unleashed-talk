@@ -19,601 +19,561 @@
   --fg-soft:rgba(244,236,217,.6);
   --fg-faint:rgba(244,236,217,.35);
   --accent:#ff4533;
+  --leak:#ff4533;
   --serif:'Fraunces','Tiempos Headline',Georgia,serif;
   --mono:'JetBrains Mono','SF Mono',ui-monospace,Menlo,monospace;
-  --inset:140px;
+  --ease:cubic-bezier(0.2,0.7,0.3,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;height:100%;overflow:hidden;background:#000;color:var(--fg);font-family:var(--serif);font-optical-sizing:auto;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 
+/* DECK STAGE */
 .deck{position:fixed;left:50%;top:50%;width:1920px;height:1080px;transform-origin:0 0}
-.slide{position:absolute;inset:0;width:1920px;height:1080px;background:var(--bg);overflow:hidden;color:var(--fg);opacity:0;z-index:0;pointer-events:none;visibility:hidden;transition:opacity .6s ease}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;background:var(--bg);overflow:hidden;color:var(--fg);opacity:0;z-index:0;pointer-events:none;visibility:hidden;transition:opacity .25s ease}
 .slide.leaving{opacity:1;z-index:1;visibility:visible;transition:none;will-change:opacity}
 .slide.active{opacity:1;z-index:2;pointer-events:auto;visibility:visible;will-change:opacity}
 
-.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease, transform .7s cubic-bezier(.2,.75,.25,1);transition-delay:var(--d,0ms)}
-.slide.active .reveal,.slide.leaving .reveal{opacity:1;transform:none}
-.slide:not(.active):not(.leaving) .reveal{transition:none}
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity 360ms var(--ease),transform 360ms var(--ease);will-change:opacity,transform}
+.reveal.shown{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{transition:opacity 100ms ease;transform:none}.slide{transition:opacity 0ms}}
 
-.accent{color:var(--accent);font-weight:800;font-variation-settings:'opsz' 144,'SOFT' 60}
-h1,h2,.headline{font-family:var(--serif);font-weight:700;font-variation-settings:'opsz' 144,'SOFT' 60;line-height:1.0;letter-spacing:-.022em}
+/* CHROME — topbar, rule, footer */
+.topbar{position:absolute;top:60px;left:96px;right:96px;display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--mono);font-size:14px;text-transform:uppercase;letter-spacing:3px;color:var(--fg-soft);font-weight:500;z-index:5}
+.topbar .meta{text-align:right;line-height:1.5}
+.rule{position:absolute;top:116px;left:96px;right:96px;height:1px;background:rgba(244,236,217,.15);z-index:5}
+.footer{position:absolute;bottom:48px;left:96px;right:96px;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:3px;color:var(--fg-faint);font-weight:500;z-index:5}
+.next{display:flex;align-items:center;gap:14px}
+.next-label{background:var(--accent);color:var(--bg);padding:6px 12px;border-radius:4px;font-weight:700;font-size:11px;letter-spacing:2px}
+.next-what{color:var(--fg-soft)}
 
-.body{position:absolute;inset:120px;display:flex;flex-direction:column}
+/* CONTENT */
+.content{position:absolute;left:96px;right:96px;top:184px;bottom:120px;display:flex;flex-direction:column}
+.content.center-y{justify-content:center}
 
-/* TITLE */
-.s-title .body{justify-content:center}
-.s-title h1{font-size:220px;max-width:1700px;line-height:1.0}
+/* TYPOGRAPHY */
+.kicker{font-family:var(--mono);font-size:22px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:32px}
+.kicker.neutral{color:var(--fg-soft)}
+.h1{font-family:var(--serif);font-weight:700;font-variation-settings:'opsz' 144,'SOFT' 60;line-height:.98;letter-spacing:-.022em;color:var(--fg)}
+.h1.xl{font-size:156px;letter-spacing:-.03em}
+.h1.lg{font-size:132px;letter-spacing:-.025em}
+.h1.md{font-size:124px;letter-spacing:-.025em}
+.h1.sm{font-size:88px;letter-spacing:-.02em;line-height:1.02}
+.accent{color:var(--accent);font-style:italic;font-weight:700;font-variation-settings:'opsz' 144,'SOFT' 60}
+.quiet{opacity:.5}
+.sub{font-family:var(--serif);font-style:italic;font-size:44px;line-height:1.2;color:var(--fg);opacity:.85;max-width:1500px;margin-top:32px;font-variation-settings:'SOFT' 80}
+.sub.sm{font-size:36px}
+.sub .em{color:var(--accent);font-style:normal;font-weight:700}
 
-/* SITE (embedded migrapulse.com) */
-.s-site .body{justify-content:center;align-items:center}
-.s-site .frame{width:1600px;height:840px;border:2px solid var(--fg-faint);border-radius:24px;background:#fff;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.5);position:relative}
-.s-site iframe{width:100%;height:100%;border:0;display:block}
-.s-site .fallback{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:var(--bg);color:var(--accent);font-family:var(--mono);font-size:16px;letter-spacing:3px;text-transform:uppercase;text-align:center;padding:48px;line-height:1.6}
+/* INSET callout */
+.inset{background:rgba(244,236,217,.04);border:2px solid var(--accent);border-radius:14px;padding:28px 36px;max-width:1500px;margin-top:32px}
+.inset-label{font-family:var(--mono);font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:14px}
+.inset-body{font-family:var(--serif);font-size:30px;line-height:1.35;color:var(--fg)}
+.inset-body .em{color:var(--accent);font-style:italic;font-weight:700}
+.inset-body p+p{margin-top:16px}
 
-/* ME + LOVABLE (casino GIF with side labels) */
-.s-screenshot .body{justify-content:center;align-items:center;flex-direction:row;gap:60px}
-.s-screenshot .label{font-family:var(--serif);font-weight:800;font-size:120px;line-height:1;font-variation-settings:'opsz' 144,'SOFT' 60;letter-spacing:-.02em;flex-shrink:0}
-.s-screenshot .label-left{color:var(--accent)}
-.s-screenshot .label-right{color:var(--fg)}
-.s-screenshot .meme{max-width:900px;max-height:640px;width:auto;height:auto;display:block;border-radius:16px;filter:drop-shadow(0 16px 40px rgba(0,0,0,.55));flex-shrink:0}
-.s-screenshot .meme-placeholder{width:600px;height:400px;border:2px dashed var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);text-align:center;padding:24px;border-radius:16px;line-height:1.6}
+/* MOAT line */
+.moat-line{background:rgba(255,69,51,.08);border-left:4px solid var(--accent);padding:22px 30px;font-family:var(--serif);font-style:italic;font-size:32px;line-height:1.35;color:var(--fg);max-width:1600px;margin-top:24px;font-variation-settings:'SOFT' 80}
+.moat-line .em{color:var(--accent);font-style:normal;font-weight:800}
 
-/* EQUATION (build step composition — colour-coded cards) */
-.s-equation .body{justify-content:center;gap:64px}
-.s-equation h1{font-size:140px;line-height:1.0}
-.s-equation h1 code{font-family:var(--mono);font-weight:700;font-size:.78em;letter-spacing:-.01em;color:var(--fg)}
-.s-equation .equation{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:nowrap}
-.s-equation .card{background:var(--card-color);color:var(--card-text,#1c1410);padding:18px 22px;border-radius:12px;width:200px;height:180px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 12px 30px rgba(0,0,0,.45)}
-.s-equation .card-type{font-family:var(--mono);font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:700;opacity:.75}
-.s-equation .card-id{font-family:var(--mono);font-size:44px;font-weight:700;letter-spacing:-.02em}
-.s-equation .card-desc{font-family:var(--serif);font-size:18px;font-weight:500;line-height:1.2}
-.s-equation .op{font-family:var(--mono);font-size:48px;font-weight:300;color:var(--fg-soft);padding:0 2px}
-.s-equation .card-us{--card-color:#ffd54a}
-.s-equation .card-s{--card-color:#a68fc9;--card-text:#fff}
-.s-equation .card-f{--card-color:#a8e08c}
-.s-equation .card-d{--card-color:#7cc4dd}
-.s-equation .card-b{--card-color:#ff4533;--card-text:#fff}
-.s-equation .card-t{--card-color:#f4ecd9;border:2px solid var(--fg-faint)}
-.s-equation .card-t .card-id{font-size:64px}
+/* FORCING pair */
+.forcing{display:flex;flex-direction:column;gap:14px;max-width:1600px;margin-top:24px}
+.forcing-line{background:rgba(255,69,51,.08);border-left:4px solid var(--accent);padding:18px 28px;font-family:var(--serif);font-style:italic;font-size:26px;line-height:1.35;font-variation-settings:'SOFT' 80}
+.forcing-line strong{color:var(--accent);font-weight:800;font-style:normal}
+.forcing-line em{color:var(--accent);font-style:italic}
+.forcing-line.muted{background:rgba(244,236,217,.05);border-left-color:var(--fg-faint);color:var(--fg-soft)}
+.forcing-line.muted strong{color:var(--fg);font-weight:700}
 
-/* MOAT (ledger) */
-.s-moat .body{justify-content:center;gap:80px}
-.s-moat h1{font-size:200px;max-width:1500px}
-.s-moat .ledger{display:grid;grid-template-columns:1fr 1fr;gap:120px;position:relative;align-items:start}
-.s-moat .ledger::before{content:'';position:absolute;left:50%;top:24px;bottom:24px;width:1px;background:rgba(244,236,217,.15)}
-.s-moat .col{display:flex;flex-direction:column;gap:6px}
-.s-moat .col-head{font-family:var(--mono);font-size:32px;letter-spacing:5px;text-transform:uppercase;font-weight:700;color:var(--fg-soft);margin-bottom:24px}
-.s-moat .col-right .col-head{color:var(--accent)}
-.s-moat .col ul{list-style:none;display:flex;flex-direction:column;gap:14px}
-.s-moat .col li{font-family:var(--serif);font-weight:700;font-size:58px;line-height:1.0;font-variation-settings:'opsz' 144,'SOFT' 60}
+/* HOW-CALLOUT */
+.how-callout{background:rgba(255,69,51,.1);border-left:4px solid var(--accent);padding:22px 30px;font-family:var(--serif);font-size:28px;line-height:1.4;max-width:1600px;margin-top:24px}
+.how-callout .em{color:var(--accent);font-weight:800;font-style:italic}
 
-/* HIERARCHY (Distribution > Product — Yhorm meme, full-bleed right) */
-.s-hierarchy .body{justify-content:center;align-items:flex-start}
-.s-hierarchy .text-col{display:flex;flex-direction:column;gap:32px;max-width:1180px;position:relative;z-index:2}
-.s-hierarchy h1{font-size:140px;line-height:.98;max-width:none;white-space:nowrap}
-.s-hierarchy .meme{position:absolute;right:0;top:0;height:100%;width:auto;display:block;z-index:1}
-.s-hierarchy .meme-placeholder{position:absolute;right:60px;top:60px;width:480px;height:780px;border:2px dashed var(--accent);display:none;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);text-align:center;padding:24px;line-height:1.6;z-index:1}
+/* HOOK · slide 1 */
+.s-hook .content{justify-content:center}
+.s-hook .h1{max-width:1700px}
 
-/* FIRST PAYER (podium meme) */
-.s-notif .body{justify-content:center;align-items:center}
-.s-notif .meme-row{display:flex;align-items:center;justify-content:center}
-.s-notif .meme{max-width:1640px;max-height:900px;width:auto;height:auto;display:block;border-radius:20px;filter:drop-shadow(0 24px 60px rgba(0,0,0,.6))}
-.s-notif .meme-placeholder{width:1100px;height:560px;border:2px dashed var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);text-align:center;padding:24px;border-radius:16px;line-height:1.6}
+/* WHAT I BUILT · slide 2 */
+.s-built .content{justify-content:flex-start}
+.s-built .built-row{display:grid;grid-template-columns:1.4fr 1fr;gap:60px;align-items:start;margin-top:24px}
+.s-built .site-frame{width:100%;height:560px;border:2px solid var(--fg-faint);border-radius:18px;background:#fff;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.5);position:relative}
+.s-built .site-frame iframe{width:100%;height:100%;border:0;display:block}
+.s-built .facts{display:flex;flex-direction:column;gap:14px}
+.s-built .fact{background:rgba(244,236,217,.05);border-left:3px solid var(--accent);padding:18px 22px;font-family:var(--serif);font-size:24px;line-height:1.35;color:var(--fg)}
+.s-built .fact .em{color:var(--accent);font-weight:700}
 
-/* HOTFIX (split comparison) */
-.s-hotfix .body{justify-content:center;gap:80px}
-.s-hotfix h1{font-size:180px;max-width:1500px}
-.s-hotfix .split{display:grid;grid-template-columns:1fr 1fr;gap:80px}
-.s-hotfix .col{padding-top:36px;border-top:2px solid currentColor}
-.s-hotfix .col-label{font-family:var(--mono);font-size:36px;letter-spacing:6px;font-weight:700;margin-bottom:40px;color:var(--fg-soft)}
-.s-hotfix .col-step{font-family:var(--mono);font-size:44px;font-weight:500;margin-bottom:22px}
-.s-hotfix .bad{color:var(--accent);font-weight:700}
+/* OBJECTION · slide 3 */
+.s-obj .h1{max-width:1700px}
+.s-obj .gif-row{display:flex;justify-content:center;align-items:center;gap:48px;margin-top:32px}
+.s-obj .gif-label{font-family:var(--serif);font-weight:800;font-size:96px;line-height:1;font-variation-settings:'opsz' 144,'SOFT' 60;letter-spacing:-.02em;flex-shrink:0}
+.s-obj .gif-label.left{color:var(--accent)}
+.s-obj .gif-label.right{color:var(--fg)}
+.s-obj .gif-meme{max-width:760px;max-height:440px;width:auto;height:auto;display:block;border-radius:14px;filter:drop-shadow(0 16px 40px rgba(0,0,0,.55));flex-shrink:0}
 
-/* INFLATABLE FURNITURE */
-.s-furn .body{justify-content:center;align-items:center}
-.s-furn .chair{width:900px;height:auto}
+/* DISTRIBUTION · slide 4 */
+.s-dist .dist-row{display:grid;grid-template-columns:1fr 1.3fr;gap:60px;align-items:start;margin-top:32px;flex:1}
+.s-dist .yhorm-col{display:flex;align-items:center;justify-content:center;position:relative;height:100%;min-height:520px}
+.s-dist .yhorm{max-height:560px;width:auto;display:block;filter:drop-shadow(0 16px 40px rgba(0,0,0,.55));border-radius:8px}
+.s-dist .funnels{display:flex;flex-direction:column;gap:24px}
+.s-dist .funnel{display:flex;flex-direction:column;gap:8px}
+.s-dist .funnel-title{font-family:var(--mono);font-size:18px;letter-spacing:3px;text-transform:uppercase;color:var(--fg-soft);font-weight:700;margin-bottom:6px}
+.s-dist .funnel.win .funnel-title{color:var(--accent)}
+.s-dist .funnel-step{background:rgba(244,236,217,.06);border-radius:8px;padding:10px 18px;display:flex;justify-content:space-between;align-items:center;align-self:flex-start}
+.s-dist .funnel-step .label{font-family:var(--serif);font-weight:600;font-size:22px}
+.s-dist .funnel-step .meta{font-family:var(--mono);font-size:13px;color:var(--fg-soft);text-transform:uppercase;letter-spacing:2px;margin-left:24px}
+.s-dist .funnel.faded .funnel-step:nth-child(1){width:92%;opacity:.9}
+.s-dist .funnel.faded .funnel-step:nth-child(2){width:80%;opacity:.7}
+.s-dist .funnel.faded .funnel-step:nth-child(3){width:65%;opacity:.5}
+.s-dist .funnel.faded .funnel-step:nth-child(4){width:50%;opacity:.35}
+.s-dist .funnel.win .funnel-step{border-left:3px solid var(--accent);width:96%}
 
-/* WORKFLOW */
-.s-flow .body{justify-content:center;gap:60px}
-.s-flow .row{display:grid;grid-template-columns:140px 1fr;gap:60px;align-items:baseline}
-.s-flow .num{font-family:var(--mono);font-size:64px;font-weight:500;color:var(--fg-faint)}
-.s-flow .row-main{font-size:104px;line-height:1.02;font-weight:800;font-variation-settings:'opsz' 144,'SOFT' 60}
-.s-flow .row-main code{font-family:var(--mono);font-weight:700;font-size:.82em;letter-spacing:-.01em;color:var(--fg)}
-.s-flow .post-it{position:absolute;top:80px;right:80px;max-width:380px;background:#ffd54a;color:#1c1410;font-family:var(--mono);font-size:20px;letter-spacing:0;font-weight:600;padding:28px 32px;border-radius:4px;transform:rotate(4deg);box-shadow:0 18px 40px rgba(0,0,0,.55),0 4px 10px rgba(0,0,0,.35);line-height:1.45;z-index:6}
-.s-flow .row-sub{display:block;font-family:var(--mono);font-size:26px;letter-spacing:1px;margin-top:16px;color:var(--fg-soft);font-weight:400}
+/* SECURITY · slide 5 */
+.s-sec .archs{display:grid;grid-template-columns:1.4fr 1fr;gap:80px;margin-top:36px;align-items:start}
+.s-sec .arch{display:flex;flex-direction:column;gap:16px}
+.s-sec .arch-title{font-family:var(--mono);font-size:18px;letter-spacing:3px;text-transform:uppercase;color:var(--fg-soft);font-weight:700;margin-bottom:6px}
+.s-sec .arch.win .arch-title{color:var(--accent)}
+.s-sec .arch-flow{display:flex;align-items:center;gap:14px;padding-top:30px}
+.s-sec .arch-node{background:rgba(244,236,217,.08);border-radius:10px;padding:18px 20px;font-family:var(--serif);font-weight:700;font-size:22px;flex:1;text-align:center;min-height:80px;display:flex;align-items:center;justify-content:center}
+.s-sec .arch.win .arch-node{background:rgba(255,69,51,.12);color:var(--accent);border:2px solid var(--accent)}
+.s-sec .arch-arrow{font-family:var(--mono);font-size:26px;color:var(--fg-soft);position:relative;padding:0 4px}
+.s-sec .arch-arrow .leak{position:absolute;top:-30px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11px;color:var(--accent);font-weight:700;letter-spacing:2px;white-space:nowrap;background:var(--bg);padding:3px 8px;border:1px solid var(--accent);border-radius:4px}
+.s-sec .arch-caption{font-family:var(--serif);font-style:italic;font-size:22px;color:var(--fg-soft);margin-top:18px;line-height:1.35;max-width:560px}
+.s-sec .arch-caption .em{color:var(--accent);font-weight:700;font-style:normal}
 
-/* SPEC (instructions.md preview) */
-.s-spec .body{justify-content:center;gap:48px}
-.s-spec h1{font-size:160px}
-.s-spec h1 code{font-family:var(--mono);font-weight:700;font-size:.78em;letter-spacing:-.01em;color:var(--fg)}
+/* DEVICE · slide 6 */
+.s-dev .twophones{display:grid;grid-template-columns:1fr 1fr;gap:120px;margin-top:32px;justify-content:center}
+.s-dev .tp-col{display:flex;flex-direction:column;align-items:center;gap:20px}
+.s-dev .tp-title{font-family:var(--mono);font-size:16px;letter-spacing:3px;text-transform:uppercase;color:var(--fg-soft);font-weight:500}
+.s-dev .tp-col.win .tp-title{color:var(--accent)}
+.s-dev .tp-friction{font-family:var(--serif);font-size:22px;line-height:1.3;text-align:center;font-style:italic;color:var(--fg);max-width:380px}
+.s-dev .phone{width:280px;height:520px;background:linear-gradient(165deg,#1a1424 0%,#0e0a16 100%);border-radius:36px;border:2px solid var(--fg-faint);position:relative;overflow:hidden;display:flex;flex-direction:column;padding:50px 22px 30px;gap:14px}
+.s-dev .phone::before{content:'';position:absolute;top:18px;left:50%;transform:translateX(-50%);width:96px;height:8px;border-radius:5px;background:#000}
+.s-dev .tp-col.faded .phone{opacity:.65;filter:grayscale(.4)}
+.s-dev .phone-title{font-family:var(--serif);font-weight:700;font-size:22px;color:var(--fg);line-height:1.1}
+.s-dev .phone-sub{font-family:var(--serif);font-style:italic;font-size:16px;color:var(--fg-soft);margin-bottom:8px}
+.s-dev .phone-field{background:rgba(244,236,217,.08);border-radius:8px;padding:14px 16px;font-family:var(--mono);font-size:13px;color:var(--fg-soft)}
+.s-dev .phone-card{background:rgba(244,236,217,.06);border-radius:10px;padding:14px 16px;font-family:var(--mono);font-size:13px;color:var(--fg-soft);letter-spacing:1px}
+.s-dev .phone-btn{background:#a89cc2;color:#1c1410;padding:14px;border-radius:8px;font-family:var(--mono);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:2px;text-align:center;margin-top:auto}
+.s-dev .phone-mic{font-size:48px;margin-top:auto;align-self:center;text-align:center;animation:micPulse 1.8s ease-in-out infinite}
+@keyframes micPulse{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.1);opacity:1}}
 
-/* TOO MUCH (video callout — buildup punchline) */
-.s-toomuch .body{justify-content:center;align-items:flex-start;gap:40px}
-.s-toomuch h1{font-size:220px;max-width:1700px;line-height:1.0}
-.s-toomuch .sub{font-family:var(--mono);font-size:30px;letter-spacing:2px;color:var(--fg-soft);font-weight:500}
-.s-spec .doc{background:rgba(0,0,0,.28);border:1px solid rgba(244,236,217,.12);border-radius:18px;padding:40px 56px;display:flex;flex-direction:column;gap:4px;overflow:hidden;font-family:var(--mono);font-size:26px;line-height:1.55}
-.s-spec .doc-section{font-family:var(--serif);font-weight:700;font-size:36px;font-variation-settings:'opsz' 144,'SOFT' 60;color:var(--accent);margin-top:14px;margin-bottom:6px;letter-spacing:-.01em}
-.s-spec .doc-section:first-child{margin-top:0}
-.s-spec .doc-line{color:var(--fg);font-weight:400;padding:2px 0;letter-spacing:.4px}
-.s-spec .doc-line.dim{color:var(--fg-faint);font-style:italic;letter-spacing:1px;padding-left:32px}
-.s-spec .doc-line mark{background:rgba(255,69,51,.18);color:var(--accent);padding:1px 8px;border-radius:4px;font-weight:700}
-.s-spec .doc-line.highlight{background:rgba(255,69,51,.12);color:var(--fg);border-left:3px solid var(--accent);padding-left:14px;margin-left:-17px;font-weight:600}
-.s-spec .doc-line.indent{color:var(--accent);padding-left:38px;font-weight:500;font-size:22px}
+/* CREATIVITY · slide 7 */
+.s-creat .verbs-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:80px;margin-top:32px;align-items:start}
+.s-creat .verbs-col{display:flex;flex-direction:column;gap:16px}
+.s-creat .verbs-title{font-family:var(--mono);font-size:18px;letter-spacing:3px;text-transform:uppercase;color:var(--fg-soft);font-weight:700}
+.s-creat .verbs-col.win .verbs-title{color:var(--accent)}
+.s-creat .verbs-list{display:flex;flex-wrap:wrap;gap:10px}
+.s-creat .verb{background:rgba(244,236,217,.08);padding:10px 18px;border-radius:30px;font-family:var(--serif);font-weight:600;font-size:22px;color:var(--fg-soft)}
+.s-creat .verbs-col.win .verb{background:rgba(255,69,51,.1);color:var(--fg);border:1px solid rgba(255,69,51,.45)}
+.s-creat .verbs-count{font-family:var(--mono);font-size:16px;color:var(--fg-soft);letter-spacing:2px;text-transform:uppercase;margin-top:12px}
+.s-creat .verbs-col.win .verbs-count{color:var(--accent);font-weight:700}
 
-/* SPINE LINE — single line slide */
-.s-spine .body{justify-content:center;align-items:flex-start}
-.s-spine h1{font-size:240px;max-width:1700px;line-height:1.0}
+/* CATCH · slide 8 */
+.s-catch .h1{margin-bottom:0}
+.s-catch .catch-grid{display:grid;grid-template-columns:1fr 1.05fr;grid-template-rows:auto auto;gap:32px 56px;margin-top:32px}
+.s-catch .requirements{display:flex;flex-direction:column;gap:10px}
+.s-catch .req{display:grid;grid-template-columns:48px 1fr 140px;gap:18px;align-items:center;background:rgba(244,236,217,.04);padding:14px 20px;border-radius:10px}
+.s-catch .req-icon{font-size:26px;text-align:center}
+.s-catch .req-name{font-family:var(--serif);font-weight:600;font-size:22px}
+.s-catch .req-cost{font-family:var(--mono);font-size:14px;color:var(--accent);text-align:right;letter-spacing:1px;text-transform:uppercase;font-weight:700}
+.s-catch .timeline{display:flex;flex-direction:column;gap:8px}
+.s-catch .tl-row{display:grid;grid-template-columns:120px 110px 1fr 80px;gap:18px;align-items:baseline;padding:10px 0;border-bottom:1px solid rgba(244,236,217,.1)}
+.s-catch .tl-row .date{font-family:var(--mono);font-size:14px;letter-spacing:2px;color:var(--fg-soft);font-weight:500}
+.s-catch .tl-row .status{font-family:var(--mono);font-size:14px;letter-spacing:2px;font-weight:700}
+.s-catch .tl-row .reason{font-family:var(--serif);font-size:22px;font-weight:500}
+.s-catch .tl-row .wait{font-family:var(--mono);font-size:12px;color:var(--fg-faint);letter-spacing:1px;text-align:right;font-weight:500}
+.s-catch .tl-row .rejected{color:var(--accent)}
+.s-catch .tl-row .approved{color:#a8e08c}
+.s-catch .inflatable-block{display:flex;align-items:center;gap:32px}
+.s-catch .inflatable-chair{width:240px;height:auto;flex-shrink:0}
+.s-catch .inflatable-inset{flex:1;background:rgba(244,236,217,.04);border:2px solid var(--accent);border-radius:12px;padding:22px 26px;font-family:var(--serif);font-size:22px;line-height:1.35}
+.s-catch .inflatable-inset .em{color:var(--accent);font-weight:700;font-style:italic}
+.s-catch .moat-final{background:rgba(255,69,51,.08);border-left:4px solid var(--accent);padding:22px 28px;font-family:var(--serif);font-style:italic;font-size:26px;line-height:1.35;color:var(--fg);font-variation-settings:'SOFT' 80}
+.s-catch .moat-final .em{color:var(--accent);font-style:normal;font-weight:800}
 
-/* REVIEW (one-star card) */
-.s-review .body{justify-content:center;gap:64px}
-.s-review h1{font-size:150px;max-width:1500px}
-.s-review .review{align-self:center;background:rgba(244,236,217,.06);border:1px solid rgba(244,236,217,.18);border-radius:24px;padding:60px 72px;display:flex;flex-direction:column;gap:28px;max-width:1400px;width:92%}
-.s-review .review-stars{font-size:64px;letter-spacing:14px;color:var(--accent);line-height:1}
-.s-review .review-stars .empty{color:var(--fg-faint)}
-.s-review .review-title{font-family:var(--serif);font-weight:700;font-size:72px;line-height:1.1;font-variation-settings:'opsz' 144,'SOFT' 60;letter-spacing:-.015em}
-.s-review .review-body{font-family:var(--serif);font-style:italic;font-size:38px;line-height:1.4;color:var(--fg-soft);font-variation-settings:'SOFT' 80}
+/* HOW · slide 9 */
+.s-how .content{justify-content:flex-start}
+.s-how .forcing{margin-top:20px;margin-bottom:18px;max-width:none}
+.s-how .equation{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:nowrap;margin-top:16px}
+.s-how .card{background:var(--card-color);color:var(--card-text,#1c1410);padding:12px 14px;border-radius:8px;width:148px;height:130px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 8px 22px rgba(0,0,0,.4)}
+.s-how .card-type{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;opacity:.75}
+.s-how .card-id{font-family:var(--mono);font-size:28px;font-weight:700;letter-spacing:-.02em}
+.s-how .card-desc{font-family:var(--serif);font-size:13px;font-weight:500;line-height:1.2}
+.s-how .op{font-family:var(--mono);font-size:34px;font-weight:300;color:var(--fg-soft)}
+.s-how .card-us{--card-color:#ffd54a}
+.s-how .card-s{--card-color:#a68fc9;--card-text:#fff}
+.s-how .card-f{--card-color:#a8e08c}
+.s-how .card-d{--card-color:#7cc4dd}
+.s-how .card-b{--card-color:#ff4533;--card-text:#fff}
+.s-how .card-t{--card-color:#f4ecd9;border:2px solid var(--fg-faint)}
+.s-how .card-t .card-id{font-size:40px}
 
-/* REJECTION TIMELINE */
-.s-timeline .body{justify-content:center;gap:64px}
-.s-timeline h1{font-size:140px}
-.s-timeline .timeline{display:flex;flex-direction:column;gap:28px;max-width:1640px}
-.s-timeline .row{display:grid;grid-template-columns:240px 180px 1fr 280px;gap:40px;align-items:baseline;padding-bottom:22px;border-bottom:1px solid rgba(244,236,217,.12)}
-.s-timeline .row .date{font-family:var(--mono);font-size:28px;letter-spacing:3px;color:var(--fg-soft);font-weight:500}
-.s-timeline .row .status{font-family:var(--mono);font-size:28px;letter-spacing:3px;font-weight:700}
-.s-timeline .row .reason{font-family:var(--serif);font-size:42px;font-weight:500;color:var(--fg)}
-.s-timeline .row .wait{font-family:var(--mono);font-size:24px;letter-spacing:3px;color:var(--fg-faint);text-align:right;font-weight:500}
-.s-timeline .rejected{color:var(--accent)}
-.s-timeline .approved{color:#a8e08c}
-
-/* PORTFOLIO MAKERS */
-.s-makers .body{justify-content:center;gap:80px}
-.s-makers .pair{display:flex;align-items:center;justify-content:center;gap:200px}
-.s-makers .maker{display:flex;flex-direction:column;align-items:center;gap:32px;max-width:520px;text-align:center}
-.s-makers .portrait{width:340px;height:340px;border-radius:50%;background:linear-gradient(135deg,rgba(255,69,51,.2),rgba(244,236,217,.08));border:2px solid var(--fg-faint);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:140px;font-weight:700;color:var(--accent);position:relative;overflow:hidden}
-.s-makers .portrait::after{content:attr(data-swap);position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--accent);background:var(--bg);padding:4px 8px;border:1px solid var(--accent);text-transform:uppercase}
-.s-makers .name{font-family:var(--serif);font-size:60px;font-weight:700;font-variation-settings:'opsz' 144,'SOFT' 60;line-height:1.05}
-.s-makers .role{font-family:var(--mono);font-size:22px;letter-spacing:3px;color:var(--fg-soft);text-transform:uppercase;font-weight:500;margin-top:6px}
-.s-makers .strapline{font-family:var(--serif);font-size:64px;font-weight:700;text-align:center;font-variation-settings:'opsz' 144,'SOFT' 60;letter-spacing:-.015em;color:var(--fg)}
-.s-makers .strapline .accent{font-weight:800}
-
-/* CLOSE */
-.s-close .body{justify-content:center;align-items:flex-start}
-.s-close h1{font-size:220px;max-width:1700px;line-height:1.0}
-.s-close .qr-block{position:absolute;right:120px;bottom:120px;display:flex;align-items:flex-end}
-.s-close .qr{width:240px;height:240px;background:var(--fg);padding:20px;display:grid;grid-template-columns:repeat(11,1fr);grid-template-rows:repeat(11,1fr);gap:2px}
+/* CLOSE · slide 10 */
+.s-close .content{justify-content:center}
+.s-close .h1{max-width:1700px}
+.s-close .qr-wrap{position:absolute;right:96px;bottom:120px;display:flex;flex-direction:column;align-items:flex-end;gap:10px;z-index:6}
+.s-close .qr{width:200px;height:200px;background:var(--fg);padding:16px;display:grid;grid-template-columns:repeat(11,1fr);grid-template-rows:repeat(11,1fr);gap:2px}
 .s-close .qr i{background:var(--bg)}
+.s-close .qr-label{font-family:var(--mono);font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:700}
 </style>
 </head>
 <body>
 <div class="deck" id="deck">
 
-<!-- 1 · TITLE -->
-<section class="slide s-title" data-i="1">
-  <div class="body">
-    <h1 class="reveal" style="--d:200ms">Learn to ship<br>native, <span class="accent">with&nbsp;AI</span>.</h1>
+<!-- 1 · HOOK -->
+<section class="slide s-hook" data-i="1" data-reveals="1">
+  <header class="topbar"><div>Learn to ship native, with AI</div><div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+  <div class="rule"></div>
+  <div class="content center-y">
+    <div class="kicker neutral">The question</div>
+    <h1 class="h1 xl">How many of you<br>have an app idea you<br><span class="accent">haven't built yet?</span></h1>
+    <div class="sub reveal" data-reveal="1">Six months ago, I had one too.</div>
   </div>
+  <footer class="footer"><div>01 / 10</div><div class="next"><span class="next-label">Next</span><span class="next-what">What I built</span></div></footer>
 </section>
 
-<!-- 2 · MIGRAPULSE — live embed -->
-<section class="slide s-site" data-i="2">
-  <div class="body">
-    <div class="frame reveal" style="--d:120ms">
-      <iframe src="https://www.migrapulse.com/" title="MigraPulse — voice-first migraine tracker" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      <div class="fallback">▶ migrapulse.com refused to embed<br>(X-Frame-Options or CSP)<br>fall back to a screenshot</div>
-    </div>
-  </div>
-</section>
-
-<!-- 3 · ME + LOVABLE (casino GIF with side labels) -->
-<section class="slide s-screenshot" data-i="3">
-  <div class="body">
-    <div class="label label-left reveal" style="--d:120ms">Lovable</div>
-    <img class="meme reveal" style="--d:300ms" src="https://media1.tenor.com/m/M6WgkbXFHjwAAAAd/casino-oldpeople.gif" alt="Old people at a casino slot machine — vibe coding as gambling" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-    <div class="label label-right reveal" style="--d:480ms">Me</div>
-  </div>
-</section>
-
-<!-- 3 · THE MOAT -->
-<section class="slide s-moat" data-i="4">
-  <div class="body">
-    <h1 class="reveal" style="--d:120ms">Not laziness.<br><span class="accent">Leverage</span>.</h1>
-    <div class="ledger reveal" style="--d:380ms">
-      <div class="col col-left">
-        <div class="col-head">On the web</div>
-        <ul>
-          <li>Auth</li>
-          <li>Database</li>
-          <li>Payments</li>
-          <li>Compliance</li>
-          <li>Distribution</li>
-          <li>Trust</li>
-        </ul>
+<!-- 2 · WHAT I BUILT -->
+<section class="slide s-built" data-i="2" data-reveals="5">
+  <header class="topbar"><div>Learn to ship native, with AI</div><div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+  <div class="rule"></div>
+  <div class="content">
+    <div class="kicker">What I built</div>
+    <h1 class="h1 md"><span class="accent">Migrapulse.</span></h1>
+    <div class="built-row">
+      <div class="site-frame reveal" data-reveal="1">
+        <iframe src="https://www.migrapulse.com/" title="Migrapulse marketing site" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
-      <div class="col col-right">
-        <div class="col-head">On iOS</div>
-        <ul>
-          <li>The phone</li>
-          <li>On-device storage</li>
-          <li>App Store Connect</li>
-          <li>The platform</li>
-          <li>The store + search</li>
-          <li>The badge</li>
-        </ul>
+      <div class="facts">
+        <div class="fact reveal" data-reveal="2">Voice-first migraine tracker. <span class="em">On-device AI.</span></div>
+        <div class="fact reveal" data-reveal="3">Triggered by the action button or Siri. No screen needed.</div>
+        <div class="fact reveal" data-reveal="4"><span class="em">No sign up.</span> No password. Nothing ever leaves your phone.</div>
+        <div class="fact reveal" data-reveal="5">Built solo in Cursor with Claude. Two months end to end.</div>
       </div>
     </div>
   </div>
+  <footer class="footer"><div>02 / 10</div><div class="next"><span class="next-label">Next</span><span class="next-what">The obvious objection</span></div></footer>
 </section>
 
-<!-- 5 · DISTRIBUTION > PRODUCT (Yhorm meme — full-bleed right) -->
-<section class="slide s-hierarchy" data-i="5">
-  <div class="body">
-    <div class="text-col">
-      <h1 class="reveal" style="--d:120ms">Distribution is<br>the <span class="accent">final boss</span>.</h1>
+<!-- 3 · THE OBJECTION -->
+<section class="slide s-obj" data-i="3" data-reveals="3">
+  <header class="topbar"><div>Learn to ship native, with AI</div><div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+  <div class="rule"></div>
+  <div class="content">
+    <div class="kicker">The obvious objection</div>
+    <h1 class="h1 sm">"Why didn't you just build it in<br><span class="accent">Lovable in two hours?"</span></h1>
+    <div class="gif-row reveal" data-reveal="1">
+      <div class="gif-label left">Lovable</div>
+      <img class="gif-meme" src="https://media1.tenor.com/m/M6WgkbXFHjwAAAAd/casino-oldpeople.gif" alt="Old people at a casino slot machine">
+      <div class="gif-label right">Me</div>
     </div>
-  </div>
-  <img class="meme" src="https://i.imgflip.com/atg7zr.jpg" alt="Yhorm meme — a giant labelled DISTRIBUTION towers over a tiny knight labelled PRODUCT" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-  <div class="meme-placeholder">▶ Meme unreachable</div>
-</section>
-
-<!-- 5 · £4.99 FIRST PAYER -->
-<section class="slide s-notif" data-i="6">
-  <div class="body">
-    <div class="meme-row reveal" style="--d:120ms">
-      <img class="meme" src="https://i.imgflip.com/atgama.jpg" alt="Podium meme — over-celebrating the first £4.99 on the App Store next to a corporate designer salary" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="meme-placeholder" style="display:none">▶ Save your meme to<br>assets/first-payer-meme.png<br>and commit · push</div>
-    </div>
-  </div>
-</section>
-
-<!-- 6 · NO HOTFIX -->
-<section class="slide s-hotfix" data-i="7">
-  <div class="body">
-    <h1 class="reveal" style="--d:120ms">On iOS, there is<br><span class="accent">no hotfix</span>.</h1>
-    <div class="split reveal" style="--d:380ms">
-      <div class="col">
-        <div class="col-label">Web</div>
-        <div class="col-step">9:00pm — broken</div>
-        <div class="col-step">9:02pm — fixed</div>
-      </div>
-      <div class="col">
-        <div class="col-label">iOS</div>
-        <div class="col-step">9:00pm — broken</div>
-        <div class="col-step bad">4 days later — fixed</div>
+    <div class="inset reveal" data-reveal="2">
+      <div class="inset-label">Two quick things first</div>
+      <div class="inset-body">
+        <p>I did <span class="em">not</span> learn to code. I still don't write code. What changed is the tool I use to talk to AI.</p>
+        <p class="reveal" data-reveal="3" style="display:none">"Lovable" here is shorthand. Same argument applies to Bolt, v0, Replit Mobile Apps (which now ships React Native to iOS, not Swift).</p>
       </div>
     </div>
   </div>
+  <footer class="footer"><div>03 / 10</div><div class="next"><span class="next-label">Next</span><span class="next-what">Reason 1 · Distribution</span></div></footer>
 </section>
 
-<!-- 7 · INFLATABLE FURNITURE -->
-<section class="slide s-furn" data-i="8">
-  <div class="body">
-    <div class="reveal" style="--d:200ms">
-      <svg class="chair" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
-        <g fill="#ff4533">
-          <path d="M40 290 Q52 230 95 222 L95 158 Q100 108 150 102 L260 102 Q310 108 315 158 L315 222 Q358 230 370 290 Z"/>
-        </g>
-        <ellipse cx="205" cy="298" rx="200" ry="14" fill="rgba(255,69,51,.25)"/>
-        <g stroke="rgba(244,236,217,.5)" stroke-width="2" fill="none" stroke-dasharray="6 7">
-          <path d="M110 70 L88 48"/>
-          <path d="M200 50 L200 20"/>
-          <path d="M295 70 L317 48"/>
-          <path d="M50 200 L20 215"/>
-          <path d="M360 200 L390 215"/>
-        </g>
-      </svg>
-    </div>
-  </div>
-</section>
-
-<!-- 8 · WORKFLOW -->
-<section class="slide s-flow" data-i="9">
-  <div class="body">
-    <div class="row reveal" style="--d:120ms">
-      <div class="num">01</div>
-      <div>
-        <div class="row-main">Write the <span class="accent">brief</span>.</div>
-        <span class="row-sub">Like briefing a senior creative director. Three or four evocative paragraphs.</span>
+<!-- 4 · DISTRIBUTION -->
+<section class="slide s-dist" data-i="4" data-reveals="2">
+  <header class="topbar"><div>Learn to ship native, with AI</div><div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+  <div class="rule"></div>
+  <div class="content">
+    <div class="kicker">Reason 1 of 4</div>
+    <h1 class="h1 md"><span class="accent">Distribution.</span></h1>
+    <div class="sub">The final boss of every side project you've ever launched.</div>
+    <div class="dist-row">
+      <div class="yhorm-col reveal" data-reveal="1">
+        <img class="yhorm" src="https://i.imgflip.com/atg7zr.jpg" alt="Yhorm meme: Distribution dwarfs Product">
       </div>
-    </div>
-    <div class="row reveal" style="--d:320ms">
-      <div class="num">02</div>
-      <div>
-        <div class="row-main"><code>instructions.md</code> = your <span class="accent">spec</span>.</div>
-        <span class="row-sub">User stories · screens · data · build steps — every part with an ID.</span>
-      </div>
-    </div>
-    <div class="row reveal" style="--d:520ms">
-      <div class="num">03</div>
-      <div>
-        <div class="row-main">One <span class="accent">step</span> at a time.</div>
-        <span class="row-sub">And a panel — including an App Store reviewer — before you ship.</span>
+      <div class="funnels reveal" data-reveal="2">
+        <div class="funnel faded">
+          <div class="funnel-title">Web</div>
+          <div class="funnel-step"><span class="label">Lovable site</span><span class="meta">2 hours</span></div>
+          <div class="funnel-step"><span class="label">Tweet a link</span><span class="meta">12 likes</span></div>
+          <div class="funnel-step"><span class="label">Hope</span><span class="meta">SEO, ads, prayer</span></div>
+          <div class="funnel-step"><span class="label">Forgotten</span><span class="meta">a month later</span></div>
+        </div>
+        <div class="funnel win">
+          <div class="funnel-title">iOS native</div>
+          <div class="funnel-step"><span class="label">App Store listing</span><span class="meta">title, screens</span></div>
+          <div class="funnel-step"><span class="label">ASO + search</span><span class="meta">20-year playbook</span></div>
+          <div class="funnel-step"><span class="label">Featured, social, paid</span><span class="meta">Apple helps</span></div>
+          <div class="funnel-step"><span class="label">Install + pay</span><span class="meta">payment on file</span></div>
+        </div>
       </div>
     </div>
   </div>
+  <footer class="footer"><div>04 / 10</div><div class="next"><span class="next-label">Next</span><span class="next-what">Reason 2 · Security</span></div></footer>
 </section>
 
-<!-- 10 · EQUATION · Stage 1 (4 input cards) -->
-<section class="slide s-equation" data-i="10">
-  <div class="body">
-    <h1 class="reveal" style="--d:120ms">Every part has<br>an <span class="accent">ID</span>.</h1>
-    <div class="equation reveal" style="--d:380ms">
-      <div class="card card-us">
-        <div class="card-type">User story</div>
-        <div class="card-id">US-001</div>
-        <div class="card-desc">Log symptoms by voice</div>
+<!-- 5 · SECURITY -->
+<section class="slide s-sec" data-i="5" data-reveals="2">
+  <header class="topbar"><div>Learn to ship native, with AI</div><div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+  <div class="rule"></div>
+  <div class="content">
+    <div class="kicker">Reason 2 of 4</div>
+    <h1 class="h1 md"><span class="accent">Security.</span></h1>
+    <div class="sub reveal" data-reveal="1">iOS removes the failure modes <span class="em">AI is most likely to make.</span></div>
+    <div class="archs reveal" data-reveal="2">
+      <div class="arch">
+        <div class="arch-title">Vibe-coded web app</div>
+        <div class="arch-flow">
+          <div class="arch-node">Device</div>
+          <div class="arch-arrow">→<span class="leak">AUTH BYPASS</span></div>
+          <div class="arch-node">Server</div>
+          <div class="arch-arrow">→<span class="leak">LEAKED DB</span></div>
+          <div class="arch-node">Database</div>
+        </div>
+        <div class="arch-caption">Four chances to get owned.</div>
       </div>
+      <div class="arch win">
+        <div class="arch-title">Migrapulse</div>
+        <div class="arch-flow">
+          <div class="arch-node">Device</div>
+        </div>
+        <div class="arch-caption">No server. <span class="em">No breach surface.</span> No breach.</div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer"><div>05 / 10</div><div class="next"><span class="next-label">Next</span><span class="next-what">Reason 3 · Device</span></div></footer>
+</section>
+
+<!-- 6 · DEVICE -->
+<section class="slide s-dev" data-i="6" data-reveals="2">
+  <header class="topbar"><div>Learn to ship native, with AI</div><div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+  <div class="rule"></div>
+  <div class="content">
+    <div class="kicker">Reason 3 of 4</div>
+    <h1 class="h1 md"><span class="accent">Device.</span></h1>
+    <div class="sub reveal" data-reveal="1">Some products literally <span class="em">cannot exist</span> on the web.</div>
+    <div class="twophones reveal" data-reveal="2">
+      <div class="tp-col faded">
+        <div class="tp-title">Same idea, in Lovable</div>
+        <div class="tp-friction">Browser tab. Email + password. Forgotten by lunchtime.</div>
+        <div class="phone">
+          <div class="phone-title">Welcome to Lovable</div>
+          <div class="phone-field">Email</div>
+          <div class="phone-field">Password</div>
+          <div class="phone-btn">Log in</div>
+        </div>
+      </div>
+      <div class="tp-col win">
+        <div class="tp-title">Migrapulse, on iOS</div>
+        <div class="tp-friction">Action button. Speak. Done.</div>
+        <div class="phone">
+          <div class="phone-title">Welcome back.</div>
+          <div class="phone-sub">A quiet month.</div>
+          <div class="phone-card">No entries · 14 days</div>
+          <div class="phone-card">Last log · 18 May</div>
+          <div class="phone-mic">🎙</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer"><div>06 / 10</div><div class="next"><span class="next-label">Next</span><span class="next-what">Reason 4 · Creativity</span></div></footer>
+</section>
+
+<!-- 7 · CREATIVITY -->
+<section class="slide s-creat" data-i="7" data-reveals="2">
+  <header class="topbar"><div>Learn to ship native, with AI</div><div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+  <div class="rule"></div>
+  <div class="content">
+    <div class="kicker">Reason 4 of 4</div>
+    <h1 class="h1 md"><span class="accent">Creativity.</span></h1>
+    <div class="sub reveal" data-reveal="1">The platform you choose <span class="em">changes the product</span> you imagine.</div>
+    <div class="verbs-grid reveal" data-reveal="2">
+      <div class="verbs-col faded">
+        <div class="verbs-title">Web verbs</div>
+        <div class="verbs-list">
+          <span class="verb">Browse</span>
+          <span class="verb">Share</span>
+          <span class="verb">Read</span>
+          <span class="verb">Search</span>
+        </div>
+        <div class="verbs-count">4 verbs · forms, dashboards, CRUD</div>
+      </div>
+      <div class="verbs-col win">
+        <div class="verbs-title">iOS verbs</div>
+        <div class="verbs-list">
+          <span class="verb">Tap</span>
+          <span class="verb">Long-press</span>
+          <span class="verb">Swipe</span>
+          <span class="verb">Shake</span>
+          <span class="verb">Voice</span>
+          <span class="verb">Camera</span>
+          <span class="verb">Scan</span>
+          <span class="verb">Walk</span>
+          <span class="verb">Photograph</span>
+          <span class="verb">Health</span>
+          <span class="verb">Heart rate</span>
+          <span class="verb">Action button</span>
+          <span class="verb">Watch tap</span>
+          <span class="verb">Live activity</span>
+          <span class="verb">Widget</span>
+          <span class="verb">Focus mode</span>
+          <span class="verb">Siri</span>
+          <span class="verb">Lock screen</span>
+          <span class="verb">Apple Intelligence</span>
+          <span class="verb">On-device LLM</span>
+        </div>
+        <div class="verbs-count">20+ verbs · more product space</div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer"><div>07 / 10</div><div class="next"><span class="next-label">Next</span><span class="next-what">The catch</span></div></footer>
+</section>
+
+<!-- 8 · THE CATCH -->
+<section class="slide s-catch" data-i="8" data-reveals="4">
+  <header class="topbar"><div>Learn to ship native, with AI</div><div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+  <div class="rule"></div>
+  <div class="content">
+    <div class="kicker">The catch</div>
+    <h1 class="h1 md">Effort is <span class="accent">the moat now.</span></h1>
+    <div class="catch-grid">
+      <div class="requirements reveal" data-reveal="1">
+        <div class="req"><div class="req-icon">⌘</div><div class="req-name">Cursor IDE</div><div class="req-cost">$20/mo</div></div>
+        <div class="req"><div class="req-icon">🍎</div><div class="req-name">Apple developer programme</div><div class="req-cost">$99/yr</div></div>
+        <div class="req"><div class="req-icon">⚒</div><div class="req-name">Xcode</div><div class="req-cost">Free</div></div>
+        <div class="req"><div class="req-icon">⏳</div><div class="req-name">App Store review</div><div class="req-cost">~1 week</div></div>
+        <div class="req"><div class="req-icon">🔁</div><div class="req-name">Be prepared for rejection</div><div class="req-cost">I had 4</div></div>
+      </div>
+      <div class="timeline reveal" data-reveal="2">
+        <div class="tl-row"><div class="date">06 Feb 2026</div><div class="status rejected">REJECTED</div><div class="reason">Microphone-permission copy</div><div class="wait">4 days</div></div>
+        <div class="tl-row"><div class="date">14 Feb 2026</div><div class="status rejected">REJECTED</div><div class="reason">US territory button label</div><div class="wait">3 days</div></div>
+        <div class="tl-row"><div class="date">22 Feb 2026</div><div class="status rejected">REJECTED</div><div class="reason">Missing medical disclaimer</div><div class="wait">5 days</div></div>
+        <div class="tl-row"><div class="date">08 Mar 2026</div><div class="status approved">APPROVED</div><div class="reason">Live in App Store</div><div class="wait">—</div></div>
+      </div>
+      <div class="inflatable-block reveal" data-reveal="3">
+        <svg class="inflatable-chair" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+          <g fill="#ff4533"><path d="M40 290 Q52 230 95 222 L95 158 Q100 108 150 102 L260 102 Q310 108 315 158 L315 222 Q358 230 370 290 Z"/></g>
+          <ellipse cx="205" cy="298" rx="200" ry="14" fill="rgba(255,69,51,.25)"/>
+          <g stroke="rgba(244,236,217,.5)" stroke-width="2" fill="none" stroke-dasharray="6 7">
+            <path d="M110 70 L88 48"/><path d="M200 50 L200 20"/><path d="M295 70 L317 48"/>
+          </g>
+        </svg>
+        <div class="inflatable-inset">A vibe-coded app is <span class="em">inflatable furniture.</span> Real humans at Apple sit on it. They can tell. The bar is rising. Make your <span class="em">first</span> submission count.</div>
+      </div>
+      <div class="moat-final reveal" data-reveal="4">The list of things that scare designers off iOS is <span class="em">exactly the list of things that make it defensible.</span></div>
+    </div>
+  </div>
+  <footer class="footer"><div>08 / 10</div><div class="next"><span class="next-label">Next</span><span class="next-what">The how, briefly</span></div></footer>
+</section>
+
+<!-- 9 · THE HOW, BRIEFLY -->
+<section class="slide s-how" data-i="9" data-reveals="4">
+  <header class="topbar"><div>Learn to ship native, with AI</div><div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+  <div class="rule"></div>
+  <div class="content">
+    <div class="kicker">The how, briefly</div>
+    <h1 class="h1 md">Vibes in. <span class="accent">Structure out.</span></h1>
+    <div class="sub sm reveal" data-reveal="1">I can't fit the workflow in ten minutes. Here's the shape, and why it has to be more involved than a Lovable prompt.</div>
+    <div class="forcing reveal" data-reveal="2">
+      <div class="forcing-line"><strong>Swift forces it on you.</strong> Real Swift in your IDE. A compiler that says no when it means no. An App Store that says no when it means no.</div>
+      <div class="forcing-line muted">React Native ships to iOS too, abstracted. Fine for apps that <em>use</em> the moat features. For apps that <em>are</em> the moat features, Swift wins.</div>
+    </div>
+    <div class="equation reveal" data-reveal="3">
+      <div class="card card-us"><div class="card-type">User story</div><div class="card-id">US-001</div><div class="card-desc">Log by voice</div></div>
       <div class="op">+</div>
-      <div class="card card-s">
-        <div class="card-type">Screen</div>
-        <div class="card-id">S-001</div>
-        <div class="card-desc">Home — orb + entries</div>
-      </div>
+      <div class="card card-s"><div class="card-type">Screen</div><div class="card-id">S-001</div><div class="card-desc">Home + entries</div></div>
       <div class="op">+</div>
-      <div class="card card-f">
-        <div class="card-type">Feature</div>
-        <div class="card-id">F-007</div>
-        <div class="card-desc">Entries list on home</div>
-      </div>
+      <div class="card card-f"><div class="card-type">Feature</div><div class="card-id">F-007</div><div class="card-desc">Entries list</div></div>
       <div class="op">+</div>
-      <div class="card card-d">
-        <div class="card-type">Data</div>
-        <div class="card-id">D-002</div>
-        <div class="card-desc">Entry { date · severity }</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 11 · EQUATION · Stage 2 (= B-002) -->
-<section class="slide s-equation" data-i="11">
-  <div class="body">
-    <h1 class="reveal" style="--d:120ms">Build <code>B&#8209;002</code> →<br>builds <span class="accent">just that</span>.</h1>
-    <div class="equation reveal" style="--d:380ms">
-      <div class="card card-us">
-        <div class="card-type">User story</div>
-        <div class="card-id">US-001</div>
-        <div class="card-desc">Log symptoms by voice</div>
-      </div>
-      <div class="op">+</div>
-      <div class="card card-s">
-        <div class="card-type">Screen</div>
-        <div class="card-id">S-001</div>
-        <div class="card-desc">Home — orb + entries</div>
-      </div>
-      <div class="op">+</div>
-      <div class="card card-f">
-        <div class="card-type">Feature</div>
-        <div class="card-id">F-007</div>
-        <div class="card-desc">Entries list on home</div>
-      </div>
-      <div class="op">+</div>
-      <div class="card card-d">
-        <div class="card-type">Data</div>
-        <div class="card-id">D-002</div>
-        <div class="card-desc">Entry { date · severity }</div>
-      </div>
+      <div class="card card-d"><div class="card-type">Data</div><div class="card-id">D-002</div><div class="card-desc">Entry shape</div></div>
       <div class="op">=</div>
-      <div class="card card-b">
-        <div class="card-type">Build step</div>
-        <div class="card-id">B-002</div>
-        <div class="card-desc">Build the home screen</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 12 · EQUATION · Stage 3 (+ → test) -->
-<section class="slide s-equation" data-i="12">
-  <div class="body">
-    <h1 class="reveal" style="--d:120ms">Build. <span class="accent">Test</span>.<br>Move on.</h1>
-    <div class="equation reveal" style="--d:380ms">
-      <div class="card card-us">
-        <div class="card-type">User story</div>
-        <div class="card-id">US-001</div>
-        <div class="card-desc">Log symptoms by voice</div>
-      </div>
-      <div class="op">+</div>
-      <div class="card card-s">
-        <div class="card-type">Screen</div>
-        <div class="card-id">S-001</div>
-        <div class="card-desc">Home — orb + entries</div>
-      </div>
-      <div class="op">+</div>
-      <div class="card card-f">
-        <div class="card-type">Feature</div>
-        <div class="card-id">F-007</div>
-        <div class="card-desc">Entries list on home</div>
-      </div>
-      <div class="op">+</div>
-      <div class="card card-d">
-        <div class="card-type">Data</div>
-        <div class="card-id">D-002</div>
-        <div class="card-desc">Entry { date · severity }</div>
-      </div>
-      <div class="op">=</div>
-      <div class="card card-b">
-        <div class="card-type">Build step</div>
-        <div class="card-id">B-002</div>
-        <div class="card-desc">Build the home screen</div>
-      </div>
+      <div class="card card-b"><div class="card-type">Build step</div><div class="card-id">B-002</div><div class="card-desc">Home screen</div></div>
       <div class="op">→</div>
-      <div class="card card-t">
-        <div class="card-type">Test</div>
-        <div class="card-id">▶</div>
-        <div class="card-desc">Run in simulator</div>
-      </div>
+      <div class="card card-t"><div class="card-type">Test</div><div class="card-id">▶</div><div class="card-desc">Simulator</div></div>
     </div>
+    <div class="how-callout reveal" data-reveal="4">I'm not telling you how here. <span class="em">There isn't time.</span> The full workflow is a four-hour video, free, no email. QR on the next slide.</div>
   </div>
+  <footer class="footer"><div>09 / 10</div><div class="next"><span class="next-label">Next</span><span class="next-what">Close</span></div></footer>
 </section>
 
-<!-- 12 · TOO MUCH FOR NOW (video callout) -->
-<section class="slide s-toomuch" data-i="13">
-  <div class="body">
-    <h1 class="reveal" style="--d:200ms">It's too much<br>for <span class="accent">now</span>.</h1>
-    <div class="sub reveal" style="--d:600ms">↓ Three hours of this in the video at the end</div>
+<!-- 10 · CLOSE -->
+<section class="slide s-close" data-i="10" data-reveals="2">
+  <header class="topbar"><div>Learn to ship native, with AI</div><div class="meta">Tom · Product Unleashed<br>June 5, 2026</div></header>
+  <div class="rule"></div>
+  <div class="content center-y">
+    <div class="kicker">The takeaway</div>
+    <h1 class="h1 md">If you've got an<br><span class="accent">iOS-shaped idea</span><br>sitting in your head,<br>the tools are finally there.</h1>
+    <div class="sub reveal" data-reveal="1">Your designer skills are load-bearing.<br>AI handles the conventional. <span class="em">You handle the unsolved.</span></div>
   </div>
-</section>
-
-<!-- 13 · VIBE-DESIGNED, NOT VIBE-CODED -->
-<section class="slide s-spine" data-i="14">
-  <div class="body">
-    <h1 class="reveal" style="--d:200ms">Vibe&#8209;designed,<br>not <span class="accent">vibe&#8209;coded</span>.</h1>
+  <div class="qr-wrap reveal" data-reveal="2">
+    <div class="qr" id="closeQr"></div>
+    <div class="qr-label">4-hour masterclass →</div>
   </div>
-</section>
-
-<!-- 11 · ONE-STAR REVIEW -->
-<section class="slide s-review" data-i="15">
-  <div class="body">
-    <h1 class="reveal" style="--d:120ms">On iOS, you wait<br><span class="accent">3 days</span> to fix it.</h1>
-    <div class="review reveal" style="--d:380ms">
-      <div class="review-stars">★<span class="empty"> ☆ ☆ ☆ ☆</span></div>
-      <div class="review-title">"Three months of data, gone."</div>
-      <div class="review-body">My son and I had been tracking his migraine symptoms since November. After last week's update, every entry has vanished. I've cancelled my subscription. Furious.</div>
-    </div>
-  </div>
-</section>
-
-<!-- 12 · REJECTION TIMELINE -->
-<section class="slide s-timeline" data-i="16">
-  <div class="body">
-    <h1 class="reveal" style="--d:120ms">None of it was<br>about the <span class="accent">code</span>.</h1>
-    <div class="timeline reveal" style="--d:380ms">
-      <div class="row">
-        <div class="date">06 Feb 2026</div>
-        <div class="status rejected">REJECTED</div>
-        <div class="reason">Microphone-permission copy</div>
-        <div class="wait">4 day wait</div>
-      </div>
-      <div class="row">
-        <div class="date">14 Feb 2026</div>
-        <div class="status rejected">REJECTED</div>
-        <div class="reason">US territory button label</div>
-        <div class="wait">3 day wait</div>
-      </div>
-      <div class="row">
-        <div class="date">22 Feb 2026</div>
-        <div class="status rejected">REJECTED</div>
-        <div class="reason">Missing medical disclaimer</div>
-        <div class="wait">5 day wait</div>
-      </div>
-      <div class="row">
-        <div class="date">08 Mar 2026</div>
-        <div class="status approved">APPROVED</div>
-        <div class="reason">Live in App Store</div>
-        <div class="wait">—</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 13 · PORTFOLIO MAKERS -->
-<section class="slide s-makers" data-i="17">
-  <div class="body">
-    <div class="pair reveal" style="--d:120ms">
-      <div class="maker">
-        <div class="portrait" data-swap="Swap photo">JB</div>
-        <div>
-          <div class="name">Jordi Bruin</div>
-          <div class="role">Good Snooze · Amsterdam</div>
-        </div>
-      </div>
-      <div class="maker">
-        <div class="portrait" data-swap="Swap photo">PL</div>
-        <div>
-          <div class="name">Pieter Levels</div>
-          <div class="role">@levelsio · Building in public</div>
-        </div>
-      </div>
-    </div>
-    <div class="strapline reveal" style="--d:520ms">They're not chasing unicorns.<br>They're <span class="accent">stacking</span>.</div>
-  </div>
-</section>
-
-<!-- 14 · CLOSE -->
-<section class="slide s-close" data-i="18">
-  <div class="body">
-    <h1 class="reveal" style="--d:200ms">See you in<br>the <span class="accent">App Store</span>.</h1>
-  </div>
-  <div class="qr-block reveal" style="--d:600ms">
-    <div class="qr">
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-    </div>
-  </div>
+  <footer class="footer"><div>10 / 10</div><div class="next" style="color:var(--fg-soft)">Thank you · @tomprior</div></footer>
 </section>
 
 </div>
 
 <script>
 (function(){
-  var deck = document.getElementById('deck');
-  var slides = Array.prototype.slice.call(deck.querySelectorAll('.slide'));
-  var cur = -1;
+  var deck=document.getElementById('deck');
+  var slides=Array.prototype.slice.call(deck.querySelectorAll('.slide'));
+  var cur=-1,curFrag=0;
 
-  function fit(){
-    var s = Math.min(window.innerWidth/1920, window.innerHeight/1080);
-    deck.style.transform = 'translate(-50%,-50%) scale(' + s + ')';
-  }
-  window.addEventListener('resize', fit); fit();
+  function fit(){var s=Math.min(window.innerWidth/1920,window.innerHeight/1080);deck.style.transform='translate(-50%,-50%) scale('+s+')'}
+  window.addEventListener('resize',fit);fit();
 
+  // QR placeholder pattern
   (function(){
-    var qr = document.querySelector('.s-close .qr');
-    if (!qr) return;
-    var cells = qr.querySelectorAll('i');
-    var pattern = 'X..X.X.XX.XXX.X..X.X.XXXX.X.X.X..X..XX.XX..X.XXX.X..X.X.X.X.XXXX.XX.X.XX..X.XX..X.X.X.X.X..XXXX.XXXX..X.X.X.X.X..X.X.X.';
-    for (var i = 0; i < cells.length; i++) {
-      cells[i].style.background = pattern[i % pattern.length] === 'X' ? 'var(--bg)' : 'var(--fg)';
-    }
+    var qr=document.getElementById('closeQr');if(!qr)return;
+    var pat='X..X.X.XX.XXX.X..X.X.XXXX.X.X.X..X..XX.XX..X.XXX.X..X.X.X.X.XXXX.XX.X.XX..X.XX..X.X.X.X.X..XXXX.XXXX..X.X.X.X.X..X.X.X.';
+    for(var k=0;k<121;k++){var c=document.createElement('i');if(pat[k%pat.length]!=='X')c.style.background='#fff';else c.style.background='var(--bg)';qr.appendChild(c)}
   })();
 
-  function show(n){
-    n = Math.max(0, Math.min(slides.length-1, n));
-    if (n === cur) return;
-    if (cur >= 0) {
-      var prev = slides[cur];
-      prev.classList.add('leaving');
-      prev.classList.remove('active');
-      (function(p){
-        clearTimeout(p._t);
-        p._t = setTimeout(function(){ p.classList.remove('leaving'); }, 650);
-      })(prev);
-    }
-    slides[n].classList.add('active');
-    cur = n;
-    if (location.hash !== '#' + (cur+1)) history.replaceState(null, '', '#' + (cur+1));
+  function applyReveals(slide,n){
+    var reveals=slide.querySelectorAll('.reveal');
+    Array.prototype.forEach.call(reveals,function(el){
+      var idx=parseInt(el.getAttribute('data-reveal')||'1',10);
+      if(idx<=n){el.classList.add('shown');el.style.display=''}
+      else{el.classList.remove('shown');if(el.tagName==='P'&&el.style.display==='none')return}
+    });
   }
 
-  document.addEventListener('keydown', function(e){
+  function show(slideIdx,fragIdx,allRevealed){
+    slideIdx=Math.max(0,Math.min(slides.length-1,slideIdx));
+    var prev=cur>=0?slides[cur]:null;
+    var totalFrags=parseInt(slides[slideIdx].getAttribute('data-reveals')||'0',10);
+    if(allRevealed)fragIdx=totalFrags;
+    fragIdx=Math.max(0,Math.min(totalFrags,fragIdx));
+    if(slideIdx===cur&&fragIdx===curFrag)return;
+    if(prev&&prev!==slides[slideIdx]){prev.classList.add('leaving');prev.classList.remove('active');(function(p){clearTimeout(p._t);p._t=setTimeout(function(){p.classList.remove('leaving')},280)})(prev)}
+    slides[slideIdx].classList.add('active');
+    applyReveals(slides[slideIdx],fragIdx);
+    cur=slideIdx;curFrag=fragIdx;
+    if(location.hash!=='#'+(cur+1))history.replaceState(null,'','#'+(cur+1));
+  }
+
+  function next(){
+    var totalFrags=parseInt(slides[cur].getAttribute('data-reveals')||'0',10);
+    if(curFrag<totalFrags)show(cur,curFrag+1);
+    else if(cur<slides.length-1)show(cur+1,0);
+  }
+  function prev(){
+    if(curFrag>0)show(cur,curFrag-1);
+    else if(cur>0)show(cur-1,0,true);
+  }
+
+  document.addEventListener('keydown',function(e){
     switch(e.key){
-      case 'ArrowRight': case 'PageDown': case ' ': case 'Spacebar':
-      case 'ArrowDown': e.preventDefault(); show(cur+1); break;
-      case 'ArrowLeft': case 'PageUp': case 'ArrowUp':
-        e.preventDefault(); show(cur-1); break;
-      case 'Home': e.preventDefault(); show(0); break;
-      case 'End': e.preventDefault(); show(slides.length-1); break;
-      case 'f': case 'F':
-        if (document.fullscreenElement) document.exitFullscreen();
-        else document.documentElement.requestFullscreen();
-        break;
+      case 'ArrowRight':case 'PageDown':case ' ':case 'Spacebar':case 'ArrowDown':e.preventDefault();next();break;
+      case 'ArrowLeft':case 'PageUp':case 'ArrowUp':e.preventDefault();prev();break;
+      case 'Home':e.preventDefault();show(0,0);break;
+      case 'End':e.preventDefault();show(slides.length-1,99);break;
+      case 'f':case 'F':if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen();break;
     }
   });
+  document.addEventListener('click',function(e){if(e.clientX<window.innerWidth*0.22)prev();else next()});
 
-  document.addEventListener('click', function(e){
-    if (e.clientX < window.innerWidth * 0.22) show(cur-1); else show(cur+1);
-  });
-
-  var start = parseInt((location.hash || '').replace('#',''), 10);
-  if (!(start >= 1 && start <= slides.length)) start = 1;
-  requestAnimationFrame(function(){ requestAnimationFrame(function(){ show(start-1); }); });
+  var start=parseInt((location.hash||'').replace('#',''),10);
+  if(!(start>=1&&start<=slides.length))start=1;
+  requestAnimationFrame(function(){requestAnimationFrame(function(){show(start-1,0)})});
 })();
 </script>
 </body>
