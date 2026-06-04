@@ -579,8 +579,10 @@ body.dark-slide::after{opacity:.05}
 
 /* cta, video cover + QR */
 .cta-stage{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;width:100%}
-.cta-headline{font-family:var(--serif);font-weight:500;font-size:124px;line-height:1;letter-spacing:-3px;color:var(--ink)}
+.cta-headline{font-family:var(--serif);font-weight:500;font-size:104px;line-height:1;letter-spacing:-2.5px;color:var(--ink);text-align:center;white-space:nowrap}
 .cta-headline .accent{color:var(--coral);font-style:italic;font-weight:500}
+.cta-row{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:64px;width:100%}
+.cta-row .cta-qr-stack{margin-top:0;align-items:center}
 .cta-qr-row{margin-top:48px;display:flex;align-items:center;gap:32px}
 .qr-box{width:240px;height:240px;background:var(--bg);border:1px solid rgba(28,26,36,.18);border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .qr-box img{display:block;width:100%;height:100%}
@@ -1267,18 +1269,14 @@ body.dark-slide::after{opacity:.05}
 <!-- 26 · CTA (video cover + bigger QR + URL) -->
 <section class="slide" data-i="26" data-slide="fr-cta" data-reveals="0">
   <div class="fr-content">
-    <div class="cta-stage">
-      <div>
-        <div class="cta-headline">When you're ready<br>for <span class="accent">the how.</span></div>
-        <div class="cta-qr-stack">
-          <div class="qr-box qr-box-lg"><img src="cta-qr.png" alt="QR · ai-makers.club mobile app course" width="360" height="360"></div>
-          <div class="qr-url">ai-makers.club/mobile-app-course</div>
-        </div>
+    <div class="cta-headline">When you're ready for <span class="accent">the how.</span></div>
+    <div class="cta-row">
+      <div class="cta-qr-stack">
+        <div class="qr-box qr-box-lg"><img src="cta-qr.png" alt="QR · ai-makers.club mobile app course" width="360" height="360"></div>
+        <div class="qr-url">ai-makers.club/mobile-app-course</div>
       </div>
-      <div>
-        <div class="video-cover anim-fade-up" style="transition-delay:140ms">
-          <img src="youtube-cover.png" alt="Four-hour mobile app course">
-        </div>
+      <div class="video-cover anim-fade-up" style="transition-delay:140ms">
+        <img src="youtube-cover.png" alt="Four-hour mobile app course">
       </div>
     </div>
   </div>
