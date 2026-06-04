@@ -217,29 +217,30 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 @keyframes micPulse{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.1);opacity:1}}
 
 /* CREATIVITY · slide 8 — license-to-play axis */
-.s-creat .content{justify-content:center;gap:64px}
+.s-creat .content{justify-content:center;gap:72px}
 .s-creat h1{font-size:140px;line-height:1}
-.s-creat .license-stage{display:flex;flex-direction:column;gap:64px;max-width:1640px;margin:0 auto;width:100%}
-.s-creat .license-axis{position:relative;height:120px;padding:0 80px}
-.s-creat .license-line{position:absolute;top:50%;left:80px;right:80px;height:2px;background:rgba(28,26,36,.22)}
-.s-creat .license-tick{position:absolute;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:14px}
-.s-creat .license-tick.web{left:calc(80px + (100% - 160px) * .28)}
-.s-creat .license-tick.ios{left:calc(80px + (100% - 160px) * .82)}
-.s-creat .license-tick .dot{width:24px;height:24px;border-radius:50%;background:var(--fg)}
-.s-creat .license-tick.ios .dot{background:var(--accent);width:32px;height:32px;box-shadow:0 0 0 6px rgba(47,122,79,.15)}
-.s-creat .license-tick .label{font-family:var(--mono);font-size:22px;letter-spacing:3px;font-weight:700;color:var(--fg);position:absolute;top:48px;white-space:nowrap}
+.s-creat .license-stage{display:flex;flex-direction:column;gap:72px;max-width:1700px;margin:0 auto;width:100%}
+.s-creat .license-axis{position:relative;height:200px;display:flex;align-items:center;gap:36px}
+.s-creat .license-end{font-family:var(--serif);font-style:italic;font-weight:500;font-size:64px;letter-spacing:-.02em;color:var(--fg);flex-shrink:0;line-height:1}
+.s-creat .license-end.left{color:rgba(28,26,36,.5)}
+.s-creat .license-end.right{color:var(--accent)}
+.s-creat .license-track{position:relative;flex:1;height:200px}
+.s-creat .license-line{position:absolute;top:50%;left:0;right:0;height:2px;background:rgba(28,26,36,.22)}
+.s-creat .license-tick{position:absolute;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center}
+.s-creat .license-tick.web{left:28%}
+.s-creat .license-tick.ios{left:82%}
+.s-creat .license-tick .icon{width:72px;height:72px;display:flex;align-items:center;justify-content:center;background:var(--bg);border-radius:50%;padding:6px;position:relative;z-index:2}
+.s-creat .license-tick svg{width:100%;height:100%}
+.s-creat .license-tick.web svg .stroke{stroke:var(--fg);stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.s-creat .license-tick.ios svg .fill{fill:var(--accent)}
+.s-creat .license-tick .label{font-family:var(--mono);font-size:18px;letter-spacing:3px;font-weight:700;color:var(--fg);position:absolute;top:84px;white-space:nowrap}
 .s-creat .license-tick.ios .label{color:var(--accent)}
-.s-creat .license-end{position:absolute;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:16px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(28,26,36,.5);font-weight:500}
-.s-creat .license-end.left{left:0}
-.s-creat .license-end.right{right:0}
-.s-creat .license-cols{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:8px}
+.s-creat .license-cols{display:grid;grid-template-columns:1fr 1fr;gap:80px}
 .s-creat .license-col{display:flex;flex-direction:column;gap:14px}
 .s-creat .license-col-tag{font-family:var(--mono);font-size:16px;letter-spacing:3px;font-weight:700;color:var(--fg-soft);text-transform:uppercase;padding-bottom:14px;border-bottom:1px solid rgba(28,26,36,.18)}
 .s-creat .license-col.win .license-col-tag{color:var(--accent)}
 .s-creat .license-item{font-family:var(--serif);font-size:30px;line-height:1.25;color:var(--fg)}
 .s-creat .license-item .em{color:var(--accent);font-style:italic;font-weight:500}
-.s-creat .license-coda{font-family:var(--serif);font-style:italic;font-size:32px;line-height:1.3;color:var(--fg);text-align:center;max-width:1500px;margin:0 auto;border-top:1px solid rgba(28,26,36,.15);padding-top:28px}
-.s-creat .license-coda .em{color:var(--accent);font-style:italic;font-weight:600}
 
 /* CATCH · slide 8 */
 .s-catch .h1{margin-bottom:0}
@@ -589,6 +590,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
           <div class="moats-item">Camera &amp; mic</div>
           <div class="moats-item">Action button &amp; watch</div>
           <div class="moats-item">On-device AI</div>
+          <div class="moats-item"><span class="em">Creative freedom.</span></div>
         </div>
       </div>
     </div>
@@ -1154,7 +1156,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 // ║ Tom Claude to commit. This is the source of truth on every machine. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 const BAKED_ORDER  = [12,14,1,2,3,15,13,27,30,4,28,5,6,7,8,9,29,10,11,16,17,18,19,20,21,22,24,23,25,26];
-const BAKED_HIDDEN = [1,11,10,9,7,17,16,25];
+const BAKED_HIDDEN = [1,11,10,9,7,17,16,25,8];
 
 (function(){
   var deck=document.getElementById('deck');
