@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arrange · Product Unleashed deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbf7f2;
+  --fg:#1c1a24;
+  --soft:rgba(28,26,36,.6);
+  --faint:rgba(28,26,36,.25);
+  --line:rgba(28,26,36,.12);
+  --accent:#2f7a4f;
+  --leak:#d4604f;
+  --serif:'Fraunces',Georgia,serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--fg);font-family:var(--mono);-webkit-font-smoothing:antialiased}
+body{min-height:100vh;padding:32px 28px 200px;display:flex;flex-direction:column;gap:32px}
+
+header{display:flex;flex-direction:column;gap:10px;max-width:1400px}
+h1{font-family:var(--serif);font-weight:500;font-size:48px;letter-spacing:-.02em;line-height:1}
+h1 .em{color:var(--accent);font-style:italic}
+.lede{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--soft);line-height:1.35;max-width:840px}
+.lede code{font-family:var(--mono);font-size:14px;background:rgba(28,26,36,.06);padding:2px 8px;border-radius:4px;font-style:normal}
+.controls{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+button{font-family:var(--mono);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;padding:9px 16px;border-radius:6px;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer;transition:all .15s ease}
+button:hover{border-color:var(--fg);background:rgba(28,26,36,.04)}
+button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+button.primary:hover{background:#266340;border-color:#266340}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:24px;max-width:1700px}
+
+.card{position:relative;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 4px 14px rgba(28,26,36,.05);transition:opacity .2s ease,transform .15s ease,box-shadow .15s ease}
+.card.dragging{opacity:.4;transform:scale(.97)}
+.card.drag-over{box-shadow:0 0 0 3px var(--accent),0 8px 22px rgba(28,26,36,.12)}
+.card.hidden-slide{opacity:.4}
+.card.hidden-slide .thumb::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent 0,transparent 14px,rgba(28,26,36,.06) 14px,rgba(28,26,36,.06) 28px);pointer-events:none}
+
+.thumb{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:var(--bg)}
+.thumb iframe{position:absolute;top:0;left:0;width:1920px;height:1080px;border:0;transform:scale(.1875);transform-origin:0 0;pointer-events:none}
+@media (min-width:760px){
+  .thumb iframe{transform:scale(.1875)}
+}
+
+.meta{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;gap:12px;border-top:1px solid var(--line)}
+.meta-left{display:flex;align-items:center;gap:14px;min-width:0}
+.pos{font-family:var(--mono);font-size:12px;letter-spacing:2px;color:var(--soft);font-weight:700;flex-shrink:0;background:rgba(28,26,36,.06);padding:5px 9px;border-radius:5px}
+.slide-id{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--fg);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.slide-id .num{color:var(--soft);font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:2px;margin-right:8px}
+.slide-id .group{display:inline-block;font-family:var(--mono);font-style:normal;font-size:9px;letter-spacing:1.5px;font-weight:700;padding:2px 6px;border-radius:3px;margin-right:8px;vertical-align:middle}
+.slide-id .group.EH{background:rgba(47,122,79,.14);color:var(--accent)}
+.slide-id .group.FR{background:rgba(212,96,79,.16);color:var(--leak)}
+
+.actions{display:flex;gap:6px;flex-shrink:0}
+.actions button{padding:6px 12px;font-size:10px;letter-spacing:1.5px}
+.actions .hide{color:var(--soft)}
+.actions .hide:hover{color:var(--leak);border-color:var(--leak)}
+.actions .show{color:var(--accent);border-color:var(--accent)}
+
+.handle{position:absolute;top:10px;left:10px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:rgba(28,26,36,.55);color:#fff;border-radius:50%;cursor:grab;z-index:5;font-size:14px;line-height:1;user-select:none;backdrop-filter:blur(4px)}
+.handle:active{cursor:grabbing}
+
+footer.export{position:fixed;left:0;right:0;bottom:0;background:var(--fg);color:var(--bg);padding:18px 28px;border-top:2px solid var(--accent);display:flex;align-items:center;gap:18px;z-index:50;font-family:var(--mono);font-size:13px}
+footer.export .lbl{color:rgba(244,236,217,.55);letter-spacing:2px;text-transform:uppercase;font-size:11px;font-weight:700;flex-shrink:0}
+footer.export .out{flex:1;font-family:var(--mono);font-size:13px;letter-spacing:.5px;color:#f4ecd9;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+footer.export .out .hidden-tag{color:var(--leak);text-decoration:line-through;opacity:.7;margin:0 2px}
+footer.export button{background:rgba(244,236,217,.1);color:#f4ecd9;border-color:rgba(244,236,217,.25)}
+footer.export button:hover{background:rgba(244,236,217,.18);border-color:#f4ecd9}
+footer.export button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--fg);color:var(--bg);padding:10px 18px;border-radius:6px;font-family:var(--mono);font-size:12px;letter-spacing:1px;opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease;z-index:60}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media (max-width:760px){
+  body{padding:20px 16px 240px}
+  h1{font-size:34px}
+  .grid{grid-template-columns:1fr;gap:16px}
+  footer.export{flex-direction:column;align-items:stretch;gap:10px;padding:14px 16px}
+  footer.export .out{white-space:normal;word-break:break-all;font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Arrange · <span class="em">deck builder</span></h1>
+  <p class="lede">Drag a card to reorder. Tap <em>Hide</em> to mark a slide as not-in-use — it stays in the grid but drops out of the order at the bottom. The order persists in this browser, and the strip below is the line you send Tom when you've got it.</p>
+  <div class="controls">
+    <button onclick="reset()">Reset to original</button>
+    <a href="index.html" target="_blank" style="text-decoration:none"><button>Open deck →</button></a>
+  </div>
+</header>
+
+<div class="grid" id="grid"></div>
+
+<footer class="export">
+  <span class="lbl">Final order →</span>
+  <span class="out" id="output">—</span>
+  <button onclick="copyOrder()">Copy</button>
+  <button class="primary" onclick="copyOrder(true)">Copy + plan</button>
+</footer>
+
+<div class="toast" id="toast">Copied</div>
+
+<script>
+// Slide metadata — keep in sync with deck.template.html headlines
+const SLIDES = [
+  // ─── Editorial Heat deck (cream-skinned) ───────────
+  {n:1,  group:"EH", name:"Hook · haven't built yet"},
+  {n:2,  group:"EH", name:"What I built · Migrapulse"},
+  {n:3,  group:"EH", name:"Objection · Lovable / Me"},
+  {n:4,  group:"EH", name:"Distribution · Yhorm meme"},
+  {n:5,  group:"EH", name:"Head start · iOS advantages"},
+  {n:6,  group:"EH", name:"Security · failure modes (icon cards)"},
+  {n:7,  group:"EH", name:"Device · two phones"},
+  {n:8,  group:"EH", name:"Creativity · web vs iOS verbs"},
+  {n:9,  group:"EH", name:"The catch · effort is the moat"},
+  {n:10, group:"EH", name:"The how, briefly · structure out"},
+  {n:11, group:"EH", name:"Close · iOS-shaped idea + QR"},
+  // ─── Five Rules deck (ported, available to pick) ────
+  {n:12, group:"FR", name:"Title · vibe code an iOS app"},
+  {n:13, group:"FR", name:"Cold open · inflatable sofa"},
+  {n:14, group:"FR", name:"Claim · designer, three months"},
+  {n:15, group:"FR", name:"Why most haven't · Swift table"},
+  {n:16, group:"FR", name:"Five rules preview · I-V"},
+  {n:17, group:"FR", name:"Rule I · Apple handles it (6 lean cards)"},
+  {n:18, group:"FR", name:"Rule II · stack & runway (6 items)"},
+  {n:19, group:"FR", name:"Rule III · design tools + screenshot"},
+  {n:20, group:"FR", name:"Rule IV-A · instructions.md doc"},
+  {n:21, group:"FR", name:"Rule IV-B · build step → screen"},
+  {n:22, group:"FR", name:"Rule V · 1-star review"},
+  {n:23, group:"FR", name:"Payoff · effort bars"},
+  {n:24, group:"FR", name:"Payoff · quality curve"},
+  {n:25, group:"FR", name:"Closing · load-bearing"},
+  {n:26, group:"FR", name:"CTA · video cover + QR"},
+];
+
+const STORAGE_KEY = 'arrange-state-v1';
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return defaultState();
+    const s = JSON.parse(raw);
+    if (!Array.isArray(s.order) || !Array.isArray(s.hidden)) return defaultState();
+    // sanity-check: every slide must be in order exactly once
+    const want = new Set(SLIDES.map(s => s.n));
+    const got = new Set(s.order);
+    if (want.size !== got.size || [...want].some(n => !got.has(n))) return defaultState();
+    return s;
+  } catch (e) {
+    return defaultState();
+  }
+}
+
+function defaultState() {
+  return {
+    order: SLIDES.map(s => s.n),
+    // FR slides start hidden — they're a bank to pick from, not the live deck
+    hidden: SLIDES.filter(s => s.group === 'FR').map(s => s.n)
+  };
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+let state = loadState();
+
+function nameFor(n) {
+  const s = SLIDES.find(s => s.n === n);
+  return s ? s.name : 'slide ' + n;
+}
+
+function groupFor(n) {
+  const s = SLIDES.find(s => s.n === n);
+  return s ? s.group : '';
+}
+
+function render() {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+
+  let visiblePos = 0;
+  state.order.forEach(n => {
+    const isHidden = state.hidden.includes(n);
+    if (!isHidden) visiblePos++;
+
+    const card = document.createElement('div');
+    card.className = 'card' + (isHidden ? ' hidden-slide' : '');
+    card.draggable = true;
+    card.dataset.slide = n;
+
+    card.innerHTML = `
+      <div class="handle" title="Drag to reorder">⋮⋮</div>
+      <div class="thumb">
+        <iframe src="index.html?embed=1#${n}" loading="lazy" tabindex="-1"></iframe>
+      </div>
+      <div class="meta">
+        <div class="meta-left">
+          <span class="pos">${isHidden ? '—' : String(visiblePos).padStart(2,'0')}</span>
+          <span class="slide-id"><span class="num">${String(n).padStart(2,'0')}</span><span class="group ${groupFor(n)}">${groupFor(n)}</span>${nameFor(n)}</span>
+        </div>
+        <div class="actions">
+          <button class="${isHidden ? 'show' : 'hide'}" data-action="toggle">${isHidden ? 'Show' : 'Hide'}</button>
+        </div>
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
+
+  attachDragHandlers();
+  attachActionHandlers();
+  updateOutput();
+}
+
+function updateOutput() {
+  const out = document.getElementById('output');
+  const visible = state.order.filter(n => !state.hidden.includes(n));
+  const hidden = state.order.filter(n => state.hidden.includes(n));
+  let html = visible.join(' → ');
+  if (hidden.length) {
+    html += '   ·   hidden: ';
+    html += hidden.map(n => `<span class="hidden-tag">${n}</span>`).join(', ');
+  }
+  out.innerHTML = html || '—';
+}
+
+function attachActionHandlers() {
+  document.querySelectorAll('button[data-action="toggle"]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const card = btn.closest('.card');
+      const n = parseInt(card.dataset.slide, 10);
+      const idx = state.hidden.indexOf(n);
+      if (idx >= 0) state.hidden.splice(idx, 1);
+      else state.hidden.push(n);
+      saveState();
+      render();
+    });
+  });
+}
+
+let dragSlide = null;
+
+function attachDragHandlers() {
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('dragstart', (e) => {
+      dragSlide = parseInt(card.dataset.slide, 10);
+      card.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', String(dragSlide));
+    });
+    card.addEventListener('dragend', () => {
+      card.classList.remove('dragging');
+      document.querySelectorAll('.card.drag-over').forEach(c => c.classList.remove('drag-over'));
+      dragSlide = null;
+    });
+    card.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      const targetN = parseInt(card.dataset.slide, 10);
+      if (targetN !== dragSlide) card.classList.add('drag-over');
+    });
+    card.addEventListener('dragleave', () => {
+      card.classList.remove('drag-over');
+    });
+    card.addEventListener('drop', (e) => {
+      e.preventDefault();
+      card.classList.remove('drag-over');
+      const targetN = parseInt(card.dataset.slide, 10);
+      if (dragSlide == null || targetN === dragSlide) return;
+      const fromIdx = state.order.indexOf(dragSlide);
+      const toIdx = state.order.indexOf(targetN);
+      state.order.splice(fromIdx, 1);
+      state.order.splice(toIdx, 0, dragSlide);
+      saveState();
+      render();
+    });
+  });
+}
+
+function reset() {
+  if (!confirm('Reset to original order and unhide everything?')) return;
+  state = defaultState();
+  saveState();
+  render();
+}
+
+function copyOrder(withPlan) {
+  const visible = state.order.filter(n => !state.hidden.includes(n));
+  const hidden = state.order.filter(n => state.hidden.includes(n));
+  let text;
+  if (withPlan) {
+    text = 'New deck order: ' + visible.join(', ');
+    if (hidden.length) text += '\nHide slides: ' + hidden.join(', ');
+    text += '\n(11 total · ' + visible.length + ' shown · ' + hidden.length + ' hidden)';
+  } else {
+    text = visible.join(',');
+    if (hidden.length) text += ' (hide: ' + hidden.join(',') + ')';
+  }
+  navigator.clipboard.writeText(text).then(() => toast('Copied to clipboard'));
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+render();
+</script>
+</body>
+</html>

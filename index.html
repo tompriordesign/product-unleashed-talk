@@ -6,7 +6,7 @@
 <title>Learn to ship native, with AI — Tom · Product Unleashed</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..900,0..100;1,9..144,400..900,0..100&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 /* Fonts loaded via Google Fonts CDN <link> tags in deck.template.html.
    Once the Editorial Heat direction is fully locked we'll embed Fraunces
@@ -21,9 +21,13 @@
   --accent:#2f7a4f;
   --accent-rgb:47,122,79;
   --leak:#d4604f;
-  --peach:rgba(225,200,170,.42);
-  --lilac:rgba(195,215,195,.36);
-  --serif:'EB Garamond','Tiempos Headline','Playfair Display',Georgia,serif;
+  /* Editorial wash palette — bumped intensity so the cream doesn't read flat */
+  --peach:rgba(232,176,138,.68);
+  --apricot:rgba(238,202,156,.55);
+  --lilac:rgba(178,200,180,.58);
+  --sage:rgba(162,190,170,.5);
+  --rose:rgba(220,170,162,.5);
+  --serif:'Fraunces','Tiempos Headline','Playfair Display',Georgia,serif;
   --mono:'JetBrains Mono','SF Mono',ui-monospace,Menlo,monospace;
   --ease:cubic-bezier(0.2,0.7,0.3,1);
 }
@@ -35,8 +39,14 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 .slide{position:absolute;inset:0;width:1920px;height:1080px;background:var(--bg);overflow:hidden;color:var(--fg);opacity:0;z-index:0;pointer-events:none;visibility:hidden;transition:opacity .25s ease}
 .slide.leaving{opacity:1;z-index:1;visibility:visible;transition:none;will-change:opacity}
 .slide.active{opacity:1;z-index:2;pointer-events:auto;visibility:visible;will-change:opacity}
-.slide::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 1200px 800px at 85% 12%,var(--peach) 0%,transparent 60%),radial-gradient(ellipse 1000px 700px at 8% 92%,var(--lilac) 0%,transparent 60%)}
-.slide::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.08;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+.slide::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 1400px 950px at 86% 10%,var(--peach) 0%,transparent 62%),radial-gradient(ellipse 1200px 850px at 6% 94%,var(--lilac) 0%,transparent 62%)}
+.slide::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.1;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+/* Per-slide wash variation — keeps consecutive slides feeling related but not identical. */
+.slide:nth-of-type(6n+2)::before{background:radial-gradient(ellipse 1300px 900px at 12% 8%,var(--apricot) 0%,transparent 62%),radial-gradient(ellipse 1100px 800px at 92% 88%,var(--sage) 0%,transparent 62%)}
+.slide:nth-of-type(6n+3)::before{background:radial-gradient(ellipse 1500px 1000px at 50% 100%,var(--rose) 0%,transparent 60%),radial-gradient(ellipse 1100px 800px at 12% 10%,var(--apricot) 0%,transparent 62%)}
+.slide:nth-of-type(6n+4)::before{background:radial-gradient(ellipse 1400px 950px at 88% 92%,var(--peach) 0%,transparent 62%),radial-gradient(ellipse 1100px 800px at 8% 12%,var(--sage) 0%,transparent 62%)}
+.slide:nth-of-type(6n+5)::before{background:radial-gradient(ellipse 1300px 900px at 6% 50%,var(--lilac) 0%,transparent 60%),radial-gradient(ellipse 1100px 800px at 96% 8%,var(--rose) 0%,transparent 62%)}
+.slide:nth-of-type(6n)::before{background:radial-gradient(ellipse 1400px 950px at 50% 6%,var(--apricot) 0%,transparent 58%),radial-gradient(ellipse 1100px 800px at 50% 100%,var(--lilac) 0%,transparent 60%)}
 .content{z-index:1}
 
 /* REVEAL */
@@ -51,12 +61,12 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 /* TYPOGRAPHY */
 .kicker{font-family:var(--mono);font-size:22px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:32px}
 .kicker.neutral{color:var(--fg-soft)}
-.h1{font-family:var(--serif);font-weight:500;line-height:.98;letter-spacing:-.03em;color:var(--fg)}
-.h1.xl{font-size:156px;letter-spacing:-.04em}
-.h1.lg{font-size:132px;letter-spacing:-.035em}
-.h1.md{font-size:124px;letter-spacing:-.033em}
-.h1.sm{font-size:88px;letter-spacing:-.025em;line-height:1.02}
-.accent{color:var(--accent);font-style:italic;font-weight:500}
+.h1{font-family:var(--serif);font-weight:500;font-variation-settings:'opsz' 144,'SOFT' 50;line-height:.98;letter-spacing:-.028em;color:var(--fg)}
+.h1.xl{font-size:156px;letter-spacing:-.035em}
+.h1.lg{font-size:132px;letter-spacing:-.032em}
+.h1.md{font-size:124px;letter-spacing:-.03em}
+.h1.sm{font-size:88px;letter-spacing:-.024em;line-height:1.02}
+.accent{color:var(--accent);font-style:italic;font-weight:500;font-variation-settings:'opsz' 144,'SOFT' 60}
 .quiet{opacity:.5}
 .sub{font-family:var(--serif);font-style:italic;font-size:44px;line-height:1.2;color:var(--fg);opacity:.85;max-width:1500px;margin-top:32px;font-variation-settings:'SOFT' 80}
 .sub.sm{font-size:36px}
@@ -233,6 +243,199 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 .s-close .qr{width:200px;height:200px;background:var(--fg);padding:16px;display:grid;grid-template-columns:repeat(11,1fr);grid-template-rows:repeat(11,1fr);gap:2px}
 .s-close .qr i{background:var(--bg)}
 .s-close .qr-label{font-family:var(--mono);font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:700}
+
+/* ============================================================
+   PORTED FROM FIVE RULES DECK · slides 12 → 26
+   ============================================================ */
+:root{--coral:var(--accent);--ink:var(--fg)}
+
+/* base wrapper used by ported slides (their old .content) */
+.fr-content{position:absolute;inset:0;padding:96px 120px;display:flex;flex-direction:column;justify-content:center;z-index:1}
+.fr-content.top{justify-content:flex-start}
+.fr-content.center-flex{align-items:center;text-align:center}
+
+/* entrance animations from the ported deck */
+.anim-fade-up{opacity:0;transform:translateY(18px);transition:opacity 450ms cubic-bezier(.2,.7,.3,1),transform 450ms cubic-bezier(.2,.7,.3,1)}
+.slide.active .anim-fade-up{opacity:1;transform:none}
+.slide:not(.active) .anim-fade-up{transition:none}
+.anim-fade-in{opacity:0;transition:opacity 450ms cubic-bezier(.2,.7,.3,1)}
+.slide.active .anim-fade-in{opacity:1}
+.slide:not(.active) .anim-fade-in{transition:none}
+
+/* shared typography helpers reused by ported slides */
+.rule-kicker{font-family:var(--serif);font-style:italic;font-weight:500;font-size:64px;color:var(--coral);line-height:1;margin-bottom:22px;letter-spacing:-1px}
+.rule-kicker.cont{font-size:36px;color:rgba(47,122,79,.7)}
+.rule-kicker.cont span{font-style:normal;font-family:var(--mono);font-size:14px;letter-spacing:3px;text-transform:uppercase;margin-left:14px;opacity:.7}
+.h-rule{font-family:var(--serif);font-weight:500;font-size:96px;line-height:1;letter-spacing:-3px;margin:0;max-width:1700px}
+.h-rule.smaller{font-size:80px}
+.h-rule .accent{font-style:italic;color:var(--coral);font-weight:500}
+.filename{font-family:var(--mono);color:var(--coral);font-style:normal;font-weight:500;letter-spacing:-.5px}
+
+/* title */
+.title-stage{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;width:100%}
+.title-h{font-family:var(--serif);font-weight:500;font-size:156px;line-height:.98;letter-spacing:-5px;color:var(--ink);max-width:1700px}
+.title-h .accent{color:var(--coral);font-style:italic;font-weight:500}
+.title-byline{font-family:var(--mono);font-size:20px;letter-spacing:3px;text-transform:uppercase;color:var(--ink);opacity:.5;margin-top:64px}
+
+/* cold open (inflatable sofa) */
+.cold-open-stage{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:56px;width:100%;max-width:1400px;margin:0 auto}
+.cold-open-image{width:440px;height:440px;border-radius:16px;box-shadow:0 28px 64px rgba(28,26,36,.2);object-fit:cover;display:block}
+.cold-open-line{font-family:var(--serif);font-weight:500;font-size:108px;line-height:1.02;letter-spacing:-3px;text-align:center;max-width:1500px}
+.cold-open-line .accent{color:var(--coral);font-style:italic;font-weight:500}
+
+/* claim */
+.claim-h{font-family:var(--serif);font-weight:500;font-size:140px;line-height:1;letter-spacing:-4px;color:var(--ink)}
+.claim-h .accent{color:var(--coral);font-style:italic;font-weight:500}
+.claim-sub{font-family:var(--serif);font-style:italic;font-size:48px;line-height:1.2;opacity:.78;margin-top:40px;max-width:1500px}
+.claim-sub .em{color:var(--coral);font-style:italic;font-weight:500;opacity:1}
+
+/* why most haven't (Swift table) */
+.why-stage{display:grid;grid-template-columns:.95fr 1.05fr;gap:80px;align-items:center;height:100%;width:100%}
+.why-left{display:flex;flex-direction:column;justify-content:center}
+.why-headline{font-family:var(--serif);font-weight:500;font-size:92px;line-height:1.02;letter-spacing:-3px;color:var(--ink);margin:0}
+.why-headline .accent{color:var(--coral);font-style:italic;font-weight:500}
+.why-sub{font-family:var(--serif);font-style:italic;font-size:40px;line-height:1.2;opacity:.74;margin-top:28px;max-width:720px}
+.swift-table{border:2px solid rgba(47,122,79,.22);border-radius:14px;background:rgba(255,255,255,.62);overflow:hidden;align-self:center}
+.swift-row{display:grid;grid-template-columns:1.4fr 1fr 1fr;border-bottom:1px solid rgba(28,26,36,.08)}
+.swift-row:last-child{border-bottom:none}
+.swift-row.swift-head{background:rgba(47,122,79,.08)}
+.swift-row.swift-row-good{background:rgba(47,122,79,.06)}
+.swift-cell{padding:24px 28px;font-family:var(--serif);font-size:28px;line-height:1;color:var(--ink);display:flex;align-items:center}
+.swift-cell.swift-tool{font-weight:500}
+.swift-row.swift-head .swift-cell{font-family:var(--mono);font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--coral);padding:18px 24px;line-height:1.3}
+.swift-cell.swift-col{justify-content:center;text-align:center}
+.swift-cell.swift-yes,.swift-cell.swift-no{justify-content:center;font-size:40px;font-weight:500;line-height:1}
+.swift-cell.swift-yes{color:var(--coral)}
+.swift-cell.swift-no{color:rgba(28,26,36,.28)}
+
+/* preview (five rules numbered list) */
+.rules-preview-h{font-family:var(--serif);font-weight:500;font-size:110px;line-height:1;letter-spacing:-3px;margin-bottom:18px}
+.rules-preview-h .accent{color:var(--coral);font-style:italic;font-weight:500}
+.rules-preview-sub{font-family:var(--serif);font-style:italic;font-size:38px;opacity:.74;line-height:1.2;margin-bottom:56px}
+.rules-preview-list{display:flex;flex-direction:column;gap:14px;max-width:1600px}
+.rp-row{display:grid;grid-template-columns:110px 1fr;gap:36px;align-items:baseline;padding:18px 0;border-top:1px solid rgba(28,26,36,.12)}
+.rp-row:first-child{border-top:none}
+.rp-num{font-family:var(--serif);font-style:italic;font-weight:500;font-size:56px;line-height:1;color:var(--coral);letter-spacing:-1px}
+.rp-title{font-family:var(--serif);font-weight:500;font-size:48px;line-height:1.05;color:var(--ink);letter-spacing:-1.5px}
+
+/* rule I — six lean cards */
+.lean-grid{margin-top:44px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px 28px}
+.lean-card{background:rgba(255,255,255,.6);border:2px solid rgba(47,122,79,.28);border-radius:14px;padding:32px 30px;display:flex;flex-direction:column;gap:12px;min-height:220px}
+.lean-label{font-family:var(--mono);font-size:14px;letter-spacing:2.5px;text-transform:uppercase;color:var(--coral);font-weight:600}
+.lean-line{font-family:var(--serif);font-weight:500;font-size:32px;line-height:1.1;color:var(--ink);letter-spacing:-1px}
+.lean-line em{color:var(--coral);font-style:italic}
+
+/* rule II — stack grid */
+.stack-grid{margin-top:60px;display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.stack-item{background:rgba(255,255,255,.55);border:2px solid rgba(47,122,79,.28);border-radius:14px;padding:44px 28px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:200px}
+.stack-name{font-family:var(--serif);font-weight:500;font-size:42px;line-height:1;color:var(--ink);letter-spacing:-1px}
+.stack-name em{color:var(--coral);font-style:italic}
+.stack-meta{font-family:var(--mono);font-size:15px;letter-spacing:1.5px;color:var(--coral);opacity:.85;font-weight:500}
+
+/* rule III — design tools + screenshot */
+.design-stage{margin-top:44px;display:grid;grid-template-columns:.78fr 1fr;gap:56px;align-items:stretch}
+.design-tools{display:flex;flex-direction:column;gap:22px;justify-content:center}
+.design-tool-card{background:rgba(255,255,255,.62);border:2px solid rgba(47,122,79,.3);border-radius:14px;padding:26px 30px;display:flex;flex-direction:column;gap:8px}
+.design-tool-card.featured{background:rgba(255,255,255,.78);border-color:rgba(47,122,79,.5);box-shadow:0 14px 32px rgba(28,26,36,.08)}
+.design-tool-name{font-family:var(--serif);font-weight:500;font-size:40px;line-height:1;color:var(--ink);letter-spacing:-1.2px}
+.design-tool-name em{color:var(--coral);font-style:italic}
+.design-tool-desc{font-family:var(--serif);font-style:italic;font-size:21px;line-height:1.32;color:var(--ink);opacity:.72}
+.design-screenshot-slot{position:relative;border:1px solid rgba(28,26,36,.18);border-radius:14px;overflow:hidden;background:#f5f5f5;box-shadow:0 30px 60px rgba(28,26,36,.18);min-height:520px;display:flex;align-items:center;justify-content:center}
+.design-screenshot-slot img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.design-screenshot-slot-fallback{font-family:var(--mono);font-size:14px;letter-spacing:2px;text-transform:uppercase;color:rgba(28,26,36,.4);text-align:center;line-height:1.4;padding:32px}
+
+/* rule IV-a — instructions.md doc + callouts */
+.md-tagline{font-family:var(--serif);font-style:italic;font-size:40px;line-height:1.2;color:var(--ink);opacity:.78;margin-top:24px;margin-bottom:40px;max-width:1700px}
+.md-tagline .em{color:var(--coral);font-style:italic;font-weight:500;opacity:1}
+.md-stage{display:grid;grid-template-columns:1.45fr .55fr;gap:56px;align-items:start}
+.md-doc{background:#fff;border:2px solid rgba(47,122,79,.45);border-radius:12px;overflow:hidden;box-shadow:0 24px 50px rgba(28,26,36,.12)}
+.md-doc-header{background:rgba(28,26,36,.04);padding:16px 28px;border-bottom:1px solid rgba(28,26,36,.1);font-family:var(--mono);font-size:17px;opacity:.7;display:flex;gap:10px;align-items:center}
+.md-doc-dot{width:12px;height:12px;border-radius:50%}
+.md-doc-body{padding:30px 36px;font-family:var(--mono);font-size:18px;line-height:1.6}
+.md-doc-h{font-family:var(--serif);font-weight:500;font-size:30px;color:var(--ink);margin:22px 0 8px;letter-spacing:-.5px}
+.md-doc-h:first-child{margin-top:0}
+.md-doc-line{opacity:.78}
+.md-doc-line .coral{color:var(--coral);opacity:1;font-weight:500}
+.md-callouts{display:flex;flex-direction:column;gap:24px;margin-top:8px}
+.md-callout{background:rgba(47,122,79,.06);border-left:4px solid var(--coral);padding:22px 26px;border-radius:4px}
+.md-callout-num{font-family:var(--serif);font-weight:500;font-style:italic;font-size:64px;line-height:1;color:var(--coral);letter-spacing:-2px}
+.md-callout-label{font-family:var(--mono);font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--ink);opacity:.6;margin-top:8px}
+
+/* rule IV-b — build step + phone */
+.bse-stage{margin-top:56px;display:grid;grid-template-columns:1.2fr 80px .85fr;gap:36px;align-items:center}
+.bse-step{background:rgba(255,255,255,.62);border:2px solid rgba(47,122,79,.42);border-radius:18px;padding:36px 38px;box-shadow:0 18px 40px rgba(28,26,36,.08)}
+.bse-step-label{font-family:var(--mono);font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--coral);margin-bottom:8px}
+.bse-step-id{font-family:var(--mono);font-weight:600;font-size:44px;color:var(--coral);letter-spacing:1.5px;margin-bottom:6px}
+.bse-step-title{font-family:var(--serif);font-weight:500;font-size:40px;line-height:1.08;color:var(--ink);letter-spacing:-1.2px;margin-bottom:24px}
+.bse-step-refs{display:flex;flex-direction:column;gap:12px;border-top:1px solid rgba(28,26,36,.1);padding-top:20px}
+.bse-ref{font-family:var(--serif);font-size:22px;line-height:1.3;color:var(--ink);display:flex;align-items:baseline;gap:14px}
+.bse-ref-tag{font-family:var(--mono);font-weight:600;font-size:13px;letter-spacing:1px;color:var(--coral);padding:4px 9px;background:rgba(47,122,79,.14);border-radius:4px;flex:none}
+.bse-ref-tag.t-screen{color:#b86f3a;background:rgba(184,111,58,.14)}
+.bse-ref-tag.t-user{color:#3a6b8b;background:rgba(58,107,139,.14)}
+.bse-ref-tag.t-data{color:#6a4a8b;background:rgba(106,74,139,.14)}
+.bse-arrow{align-self:center;font-family:var(--serif);font-size:64px;color:var(--coral);text-align:center}
+.bse-output{display:flex;flex-direction:column;align-items:center;gap:18px}
+.bse-output-label{font-family:var(--mono);font-size:14px;letter-spacing:2.5px;text-transform:uppercase;color:var(--coral);font-weight:600;text-align:center}
+.bse-phone{width:280px;border-radius:36px;overflow:hidden;box-shadow:0 24px 50px rgba(28,26,36,.22)}
+.bse-phone-img{display:block;width:100%;height:auto}
+
+/* rule V — 1-star review */
+.review-stage{margin-top:100px;display:grid;grid-template-columns:1.1fr .9fr;gap:80px;align-items:center}
+.review-card{background:#fff;border:1.5px solid rgba(28,26,36,.18);border-radius:14px;padding:40px 42px;box-shadow:0 36px 70px rgba(28,26,36,.18)}
+.review-stars{display:flex;gap:6px;margin-bottom:16px}
+.star{width:32px;height:32px;background:rgba(28,26,36,.15);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+.star.filled{background:var(--coral)}
+.review-title{font-family:var(--serif);font-weight:600;font-size:36px;line-height:1.15;color:var(--ink);margin-bottom:14px;letter-spacing:-.5px}
+.review-meta{font-family:var(--mono);font-size:14px;opacity:.55;letter-spacing:.5px;margin-bottom:26px}
+.review-body{font-family:var(--serif);font-size:26px;line-height:1.4;color:var(--ink);opacity:.88}
+.review-body em{font-style:italic;color:var(--coral);font-weight:500}
+.review-body .redacted{background:rgba(28,26,36,.85);color:rgba(28,26,36,.85);border-radius:3px;padding:0 6px;user-select:none}
+.review-aside{font-family:var(--serif);font-style:italic;font-size:44px;line-height:1.2;color:var(--ink);opacity:.88;border-left:4px solid var(--coral);padding-left:32px}
+.review-aside .em{color:var(--coral);font-style:normal;font-weight:500}
+
+/* payoff bars */
+.payoff-h{font-family:var(--serif);font-weight:500;font-size:76px;line-height:1;letter-spacing:-2.5px;margin:0}
+.payoff-h .accent{color:var(--coral);font-style:italic;font-weight:500}
+.payoff-stage{margin-top:96px;display:grid;grid-template-columns:1fr;gap:36px;align-items:center;width:100%;max-width:none}
+.payoff-bars{display:flex;flex-direction:column;gap:52px;width:100%}
+.payoff-curve-stage{margin-top:32px;display:flex;align-items:center;justify-content:center;width:100%}
+.payoff-curve-stage svg{width:100%;max-width:1300px;height:auto}
+.proportion-row{display:flex;flex-direction:column;gap:10px}
+.proportion-cap{font-family:var(--mono);font-size:16px;letter-spacing:2px;text-transform:uppercase;color:rgba(28,26,36,.55)}
+.proportion-cap b{color:var(--ink);font-weight:500}
+.proportion-bar-line{display:flex;align-items:center;gap:22px}
+.proportion-track{height:112px;border-radius:14px;flex:none;min-width:6px}
+.t-grey{background:rgba(28,26,36,.16)}
+.t-coral{background:var(--coral)}
+.t-navy{background:var(--ink)}
+.proportion-val{font-family:var(--mono);font-size:22px;letter-spacing:2px;text-transform:uppercase;color:var(--ink);white-space:nowrap}
+.anim-grow{width:0;transition:width 900ms cubic-bezier(.2,.7,.3,1)}
+.slide.active .anim-grow{width:var(--target,50%)}
+.slide:not(.active) .anim-grow{transition:none}
+.anim-draw{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2200ms cubic-bezier(.2,.7,.3,1)}
+.slide.active .anim-draw{stroke-dashoffset:0}
+.slide:not(.active) .anim-draw{transition:none}
+
+/* closing (load-bearing) */
+.closing-h{font-family:var(--serif);font-weight:500;font-size:132px;line-height:1;letter-spacing:-4px;margin:0;max-width:1700px}
+.closing-h .accent{color:var(--coral);font-style:italic;font-weight:500}
+.closing-list{margin-top:56px;display:flex;flex-direction:column;gap:22px;max-width:1500px}
+.closing-line{font-family:var(--serif);font-style:italic;font-size:38px;line-height:1.22;color:var(--ink);opacity:.82}
+.closing-line .em{color:var(--coral);font-style:italic;font-weight:500;opacity:1}
+.closing-line .label{display:inline-block;width:200px;font-family:var(--mono);font-style:normal;font-size:16px;letter-spacing:2px;text-transform:uppercase;color:var(--coral);opacity:.85;vertical-align:middle}
+.closing-coda{margin-top:44px;font-family:var(--serif);font-weight:500;font-style:italic;font-size:56px;line-height:1.1;color:var(--coral);letter-spacing:-1px}
+
+/* cta — video cover + QR */
+.cta-stage{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;width:100%}
+.cta-headline{font-family:var(--serif);font-weight:500;font-size:124px;line-height:1;letter-spacing:-3px;color:var(--ink)}
+.cta-headline .accent{color:var(--coral);font-style:italic;font-weight:500}
+.cta-qr-row{margin-top:48px;display:flex;align-items:center;gap:32px}
+.qr-box{width:240px;height:240px;background:var(--bg);border:1px solid rgba(28,26,36,.18);border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.qr-box img{display:block;width:100%;height:100%}
+.qr-tag{font-family:var(--mono);font-size:16px;letter-spacing:2px;text-transform:uppercase;color:var(--coral);opacity:.85;line-height:1.4}
+.video-cover{aspect-ratio:16/9;width:100%;border-radius:14px;overflow:hidden;background:#0a0604;box-shadow:0 30px 60px rgba(28,26,36,.22);border:1px solid rgba(28,26,36,.18)}
+.video-cover img{display:block;width:100%;height:100%;object-fit:cover}
+
 </style>
 </head>
 <body>
@@ -537,12 +740,322 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
   </div>
 </section>
 
+<!-- ============================================================
+     PORTED FROM FIVE RULES DECK · slides 12–26
+     Available in the arrange view for picking & re-using.
+     ============================================================ -->
+
+<!-- 12 · TITLE (Five Rules) -->
+<section class="slide" data-i="12" data-slide="fr-title" data-reveals="0">
+  <div class="fr-content">
+    <div class="title-stage">
+      <div class="title-h anim-fade-up">So you want to<br><span class="accent">vibe code</span> an iOS app?</div>
+      <div class="title-byline anim-fade-up" style="transition-delay:240ms">Tom Prior · Product Unleashed · June 5 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 · COLD OPEN (inflatable sofa) -->
+<section class="slide" data-i="13" data-slide="fr-cold-open" data-reveals="0">
+  <div class="fr-content center-flex">
+    <div class="cold-open-stage">
+      <img class="cold-open-image anim-fade-up" src="inflatable-sofa.avif" alt="Inflatable sofa">
+      <div class="cold-open-line anim-fade-up" style="transition-delay:180ms">Vibe-coded apps are<br><span class="accent">like inflatable furniture.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 · CLAIM -->
+<section class="slide" data-i="14" data-slide="fr-claim" data-reveals="0">
+  <div class="fr-content">
+    <div class="claim-h anim-fade-up">I'm a designer.<br>I shipped a <span class="accent">native iOS app</span><br>in three months.</div>
+    <div class="claim-sub anim-fade-up" style="transition-delay:160ms">Two of those <span class="em">wasted vibe-coding</span> before I worked out how.</div>
+  </div>
+</section>
+
+<!-- 15 · WHY MOST HAVEN'T (Swift table) -->
+<section class="slide" data-i="15" data-slide="fr-why" data-reveals="0">
+  <div class="fr-content">
+    <div class="why-stage">
+      <div class="why-left">
+        <div class="why-headline anim-fade-up">Why most <span class="accent">haven't tried.</span></div>
+        <div class="why-sub anim-fade-up" style="transition-delay:140ms">Most vibe-coding tools can wrap a web app and call it iOS. <span style="color:var(--coral);font-style:italic;font-weight:500">Almost none ship Swift.</span></div>
+      </div>
+      <div class="swift-table anim-fade-up" style="transition-delay:240ms">
+        <div class="swift-row swift-head">
+          <div class="swift-cell swift-tool"></div>
+          <div class="swift-cell swift-col">Wrapper<br>iOS</div>
+          <div class="swift-cell swift-col">Native<br>Swift</div>
+        </div>
+        <div class="swift-row"><div class="swift-cell swift-tool">Lovable</div><div class="swift-cell swift-yes">✓</div><div class="swift-cell swift-no">✗</div></div>
+        <div class="swift-row"><div class="swift-cell swift-tool">Bolt</div><div class="swift-cell swift-yes">✓</div><div class="swift-cell swift-no">✗</div></div>
+        <div class="swift-row"><div class="swift-cell swift-tool">v0</div><div class="swift-cell swift-yes">✓</div><div class="swift-cell swift-no">✗</div></div>
+        <div class="swift-row"><div class="swift-cell swift-tool">Replit Agent</div><div class="swift-cell swift-yes">✓</div><div class="swift-cell swift-no">✗</div></div>
+        <div class="swift-row swift-row-good"><div class="swift-cell swift-tool">Cursor</div><div class="swift-cell swift-yes">✓</div><div class="swift-cell swift-yes">✓</div></div>
+        <div class="swift-row swift-row-good"><div class="swift-cell swift-tool">Claude Code</div><div class="swift-cell swift-yes">✓</div><div class="swift-cell swift-yes">✓</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 16 · FIVE RULES PREVIEW -->
+<section class="slide" data-i="16" data-slide="fr-preview" data-reveals="0">
+  <div class="fr-content top">
+    <div class="rules-preview-h">Five rules.</div>
+    <div class="rules-preview-sub">Break them and you waste three months.</div>
+    <div class="rules-preview-list">
+      <div class="rp-row anim-fade-up"><div class="rp-num">I.</div><div class="rp-title">Let Apple handle the bits vibe-coding gets wrong.</div></div>
+      <div class="rp-row anim-fade-up" style="transition-delay:80ms"><div class="rp-num">II.</div><div class="rp-title">Set yourself up for success. And realistic expectations.</div></div>
+      <div class="rp-row anim-fade-up" style="transition-delay:160ms"><div class="rp-num">III.</div><div class="rp-title">Vibe the hell out of your design. <span style="opacity:.55;font-style:italic;color:var(--coral)">(before you build)</span></div></div>
+      <div class="rp-row anim-fade-up" style="transition-delay:240ms"><div class="rp-num">IV.</div><div class="rp-title">Embrace <span class="filename" style="font-size:.85em">instructions.md</span>.</div></div>
+      <div class="rp-row anim-fade-up" style="transition-delay:320ms"><div class="rp-num">V.</div><div class="rp-title">Understand your schema.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 17 · RULE I (six lean cards) -->
+<section class="slide" data-i="17" data-slide="fr-rule-1" data-reveals="0">
+  <div class="fr-content top">
+    <div class="rule-kicker anim-fade-up">I.</div>
+    <div class="h-rule">Let Apple handle the bits<br><span class="accent">vibe-coding gets wrong.</span></div>
+    <div class="lean-grid">
+      <div class="lean-card anim-fade-up"><div class="lean-label">Distribution</div><div class="lean-line">The App Store <em>ships your work</em> to real users.</div></div>
+      <div class="lean-card anim-fade-up" style="transition-delay:60ms"><div class="lean-label">Monetisation</div><div class="lean-line">Apple's payment rails. <em>Not Stripe.</em></div></div>
+      <div class="lean-card anim-fade-up" style="transition-delay:120ms"><div class="lean-label">Authorisation</div><div class="lean-line">Sign in with Apple. <em>One line.</em></div></div>
+      <div class="lean-card anim-fade-up" style="transition-delay:180ms"><div class="lean-label">Privacy</div><div class="lean-line">On-device. <em>No server to leak.</em></div></div>
+      <div class="lean-card anim-fade-up" style="transition-delay:240ms"><div class="lean-label">Hardware</div><div class="lean-line">HealthKit. Camera. Mic. <em>Web can't touch it.</em></div></div>
+      <div class="lean-card anim-fade-up" style="transition-delay:300ms"><div class="lean-label">On-device AI</div><div class="lean-line">Apple Intelligence + Neural Engine. <em>Free. Private.</em></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 18 · RULE II (stack grid) -->
+<section class="slide" data-i="18" data-slide="fr-rule-2" data-reveals="0">
+  <div class="fr-content top">
+    <div class="rule-kicker anim-fade-up">II.</div>
+    <div class="h-rule">Set yourself up for success.<br><span class="accent">And realistic expectations.</span></div>
+    <div class="stack-grid">
+      <div class="stack-item anim-fade-up"><div class="stack-name">An IDE</div><div class="stack-meta">(e.g. Cursor)</div></div>
+      <div class="stack-item anim-fade-up" style="transition-delay:70ms"><div class="stack-name">Xcode</div></div>
+      <div class="stack-item anim-fade-up" style="transition-delay:140ms"><div class="stack-name">An AI design tool</div><div class="stack-meta">(e.g. UX Pilot)</div></div>
+      <div class="stack-item anim-fade-up" style="transition-delay:210ms"><div class="stack-name">Apple Developer</div><div class="stack-meta">(£99 / year)</div></div>
+      <div class="stack-item anim-fade-up" style="transition-delay:280ms"><div class="stack-name">A generous allowance</div><div class="stack-meta">(~$200 / mo)</div></div>
+      <div class="stack-item anim-fade-up" style="transition-delay:350ms"><div class="stack-name"><em>Runway</em></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 19 · RULE III (design tools) -->
+<section class="slide" data-i="19" data-slide="fr-rule-3" data-reveals="0">
+  <div class="fr-content top">
+    <div class="rule-kicker anim-fade-up">III.</div>
+    <div class="h-rule">Vibe the hell out of <span class="accent">your design.</span></div>
+    <div class="sub" style="margin-top:18px">(before you build)</div>
+    <div class="design-stage">
+      <div class="design-tools">
+        <div class="design-tool-card featured anim-fade-up" style="transition-delay:80ms"><div class="design-tool-name">UX Pilot</div><div class="design-tool-desc">My pick. Sketch the whole flow in an hour. Models tuned for design.</div></div>
+        <div class="design-tool-card anim-fade-up" style="transition-delay:160ms"><div class="design-tool-name">Claude Design</div><div class="design-tool-desc">Polish the screens. Refine by describing what you want.</div></div>
+        <div class="design-tool-card anim-fade-up" style="transition-delay:240ms"><div class="design-tool-name">Google Stitch</div><div class="design-tool-desc">Generate from a brief. Iterate fast.</div></div>
+      </div>
+      <div class="design-screenshot-slot anim-fade-up" style="transition-delay:320ms">
+        <img src="ux-pilot.png" alt="UX Pilot · designing Migrapulse" onerror="this.style.display='none';this.parentNode.querySelector('.design-screenshot-slot-fallback').style.display='block'">
+        <div class="design-screenshot-slot-fallback" style="display:none">Save your screenshot as<br>ux-pilot.png<br>in the talk-deck folder</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 20 · RULE IV-A (instructions.md doc) -->
+<section class="slide" data-i="20" data-slide="fr-rule-4a" data-reveals="0">
+  <div class="fr-content top">
+    <div class="rule-kicker anim-fade-up">IV.</div>
+    <div class="h-rule">Embrace <span class="filename" style="font-size:.82em">instructions.md</span>.</div>
+    <div class="sub anim-fade-up" style="transition-delay:120ms;margin-top:22px">Vibes in. <span class="em">Order out.</span></div>
+    <div class="md-stage" style="margin-top:56px">
+      <div class="md-doc anim-fade-up" style="transition-delay:200ms">
+        <div class="md-doc-header">
+          <span class="md-doc-dot" style="background:#ff5f57"></span>
+          <span class="md-doc-dot" style="background:#febc2e"></span>
+          <span class="md-doc-dot" style="background:#28c840"></span>
+          <span style="margin-left:12px">instructions.md · 186 build steps</span>
+        </div>
+        <div class="md-doc-body">
+          <div class="md-doc-h">01 · Overview</div>
+          <div class="md-doc-line">Voice-first migraine tracker. On-device. No accounts.</div>
+          <div class="md-doc-h">02 · User stories</div>
+          <div class="md-doc-line">U-001 to U-024.  e.g. <span class="coral">U-014 Track early signs.</span></div>
+          <div class="md-doc-h">03 · Screens</div>
+          <div class="md-doc-line">S-001 to S-019.  Each references a UX Pilot HTML file.</div>
+          <div class="md-doc-h">04 · Data</div>
+          <div class="md-doc-line">D-001 to D-027.  SwiftData models, on-device.</div>
+          <div class="md-doc-h">05 · Build steps</div>
+          <div class="md-doc-line"><span class="coral">B-076 Add prodrome card to Entries view</span> · refs S-008, U-014, D-019</div>
+          <div class="md-doc-line">B-077, B-078, B-079 ...</div>
+        </div>
+      </div>
+      <div class="md-callouts">
+        <div class="md-callout anim-fade-up" style="transition-delay:300ms"><div class="md-callout-num">186</div><div class="md-callout-label">numbered build steps</div></div>
+        <div class="md-callout anim-fade-up" style="transition-delay:380ms"><div class="md-callout-num">×4</div><div class="md-callout-label">cross-references each</div></div>
+        <div class="md-callout anim-fade-up" style="transition-delay:460ms"><div class="md-callout-num">0</div><div class="md-callout-label">things AI has to guess</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 21 · RULE IV-B (build step) -->
+<section class="slide" data-i="21" data-slide="fr-rule-4b" data-reveals="0">
+  <div class="fr-content top">
+    <div class="rule-kicker cont anim-fade-up">IV.<span>continued</span></div>
+    <div class="h-rule">Build step <span class="accent">by step.</span></div>
+    <div class="bse-stage">
+      <div class="bse-step anim-fade-up" style="transition-delay:80ms">
+        <div class="bse-step-label">Build step</div>
+        <div class="bse-step-id">B-012</div>
+        <div class="bse-step-title">Build the onboarding goals screen</div>
+        <div class="bse-step-refs">
+          <div class="bse-ref"><span class="bse-ref-tag t-screen">S-005</span> Goals screen (HTML from UX Pilot)</div>
+          <div class="bse-ref"><span class="bse-ref-tag t-user">U-002</span> Personalise the experience</div>
+          <div class="bse-ref"><span class="bse-ref-tag t-data">D-004</span> User goals model</div>
+        </div>
+      </div>
+      <div class="bse-arrow anim-fade-in" style="transition-delay:240ms">→</div>
+      <div class="bse-output anim-fade-up" style="transition-delay:280ms">
+        <div class="bse-output-label">A working screen<br>you can test</div>
+        <div class="bse-phone">
+          <img class="bse-phone-img" src="migrapulse-onboarding/05-goals.png" alt="Migrapulse onboarding goals screen">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 22 · RULE V (1-star review) -->
+<section class="slide" data-i="22" data-slide="fr-rule-5" data-reveals="0">
+  <div class="fr-content top">
+    <div class="rule-kicker anim-fade-up">V.</div>
+    <div class="h-rule">Understand <span class="accent">your schema.</span></div>
+    <div class="review-stage">
+      <div class="review-card anim-fade-up" style="transition-delay:120ms">
+        <div class="review-stars"><div class="star filled"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+        <div class="review-title">Latest update wiped 8 months of data</div>
+        <div class="review-meta">★ 1 · <span class="redacted">██████</span> · 28 May 2026 · v2.4</div>
+        <div class="review-body">"Updated last night and the app opened to <em>nothing</em>. Eight months of headache logs, gone. Wrote in to support, they said they can't recover it. <span class="redacted">████</span> never replied. <em>Switching to another tracker.</em>"</div>
+      </div>
+      <div class="review-aside anim-fade-up" style="transition-delay:220ms">
+        AI is the friend who'll happily help you move house. <span class="em">It won't ask if your insurance is up to date.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 23 · PAYOFF · BARS -->
+<section class="slide" data-i="23" data-slide="fr-payoff-bars" data-reveals="0">
+  <div class="fr-content top">
+    <div class="payoff-h">The effort, <span class="accent">in proportion.</span></div>
+    <div class="payoff-stage">
+      <div class="payoff-bars">
+        <div class="proportion-row">
+          <div class="proportion-cap">The old way · <b>dev team</b></div>
+          <div class="proportion-bar-line"><div class="proportion-track t-grey anim-grow" style="--target:92%"></div><div class="proportion-val anim-fade-up" style="transition-delay:400ms">Months</div></div>
+        </div>
+        <div class="proportion-row">
+          <div class="proportion-cap">Pure vibes · <b>one big prompt</b></div>
+          <div class="proportion-bar-line"><div class="proportion-track t-coral anim-grow" style="--target:4%;transition-delay:200ms"></div><div class="proportion-val anim-fade-up" style="transition-delay:600ms">A day or two</div></div>
+        </div>
+        <div class="proportion-row">
+          <div class="proportion-cap">A better way · <b>the five rules</b></div>
+          <div class="proportion-bar-line"><div class="proportion-track t-navy anim-grow" style="--target:22%;transition-delay:400ms"></div><div class="proportion-val anim-fade-up" style="transition-delay:800ms">~2 weeks</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 24 · PAYOFF · CURVE -->
+<section class="slide" data-i="24" data-slide="fr-payoff-curve" data-reveals="0">
+  <div class="fr-content top">
+    <div class="payoff-h">And quality <span class="accent">keeps climbing.</span></div>
+    <div class="payoff-curve-stage">
+      <svg viewBox="0 0 800 460">
+        <line x1="60" y1="400" x2="700" y2="400" stroke="#1c1a24" stroke-width="2" opacity=".4"/>
+        <line x1="60" y1="40" x2="60" y2="400" stroke="#1c1a24" stroke-width="2" opacity=".4"/>
+        <text x="60" y="430" font-family="JetBrains Mono" font-size="14" fill="#1c1a24" opacity=".55" letter-spacing="2">EFFORT IN →</text>
+        <text x="50" y="40" font-family="JetBrains Mono" font-size="14" fill="#1c1a24" opacity=".55" text-anchor="end" letter-spacing="2" transform="rotate(-90 50 40)">QUALITY OUT →</text>
+        <path d="M 60 380 Q 180 220 280 200 Q 380 195 700 190" stroke="rgba(28,26,36,0.55)" stroke-width="3" fill="none" stroke-dasharray="6,4"/>
+        <text x="710" y="194" font-family="Fraunces" font-style="italic" font-size="22" fill="#1c1a24" opacity=".7">vibes only</text>
+        <path class="anim-draw" pathLength="1" style="transition-delay:600ms" d="M 60 380 Q 200 350 320 250 Q 460 130 700 70" stroke="#2f7a4f" stroke-width="4" fill="none"/>
+        <text x="710" y="74" font-family="Fraunces" font-style="italic" font-size="22" fill="#2f7a4f" font-weight="500">structured</text>
+        <line x1="60" y1="190" x2="280" y2="190" stroke="#1c1a24" stroke-width="1" opacity=".2" stroke-dasharray="3,3"/>
+        <text x="70" y="180" font-family="JetBrains Mono" font-size="12" fill="#1c1a24" opacity=".5" letter-spacing="1">CEILING</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- 25 · CLOSING (load-bearing) -->
+<section class="slide" data-i="25" data-slide="fr-closing" data-reveals="0">
+  <div class="fr-content">
+    <div class="closing-h anim-fade-up">Your design skills<br>are <span class="accent">load-bearing.</span></div>
+    <div class="closing-list">
+      <div class="closing-line anim-fade-up" style="transition-delay:140ms"><span class="label">App Store</span>Review rewards polish AI doesn't volunteer.</div>
+      <div class="closing-line anim-fade-up" style="transition-delay:220ms"><span class="label">Native</span>iOS conventions come from taste, not templates.</div>
+      <div class="closing-line anim-fade-up" style="transition-delay:300ms"><span class="label">Trust</span>Users pay more for apps that feel <em>made.</em></div>
+    </div>
+    <div class="closing-coda anim-fade-up" style="transition-delay:400ms">AI handles the conventional. You handle the unsolved.</div>
+  </div>
+</section>
+
+<!-- 26 · CTA (video cover + QR) -->
+<section class="slide" data-i="26" data-slide="fr-cta" data-reveals="0">
+  <div class="fr-content">
+    <div class="cta-stage">
+      <div>
+        <div class="cta-headline">Want to go <span class="accent">deeper?</span></div>
+        <div class="cta-qr-row">
+          <div class="qr-box"><img src="cta-qr.png" alt="QR · scan for the four-hour video" width="240" height="240"></div>
+          <div><div class="qr-tag">Scan ·<br>4-hour video</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="video-cover anim-fade-up" style="transition-delay:140ms">
+          <img src="youtube-cover.png" alt="Four-hour video — RIP Vibe Coding">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 </div>
 
 <script>
 (function(){
   var deck=document.getElementById('deck');
-  var slides=Array.prototype.slice.call(deck.querySelectorAll('.slide'));
+  var allSlides=Array.prototype.slice.call(deck.querySelectorAll('.slide'));
+  var embed=/[?&]embed=1\b/.test(location.search);
+
+  // Apply user-curated order + hidden list from arrange.html (localStorage).
+  // In embed mode (iframe in arrange.html) we always show the natural slide order.
+  var slides=allSlides;
+  if(!embed){
+    try{
+      var st=JSON.parse(localStorage.getItem('arrange-state-v1')||'null');
+      if(st&&Array.isArray(st.order)&&Array.isArray(st.hidden)){
+        var byIndex={};
+        allSlides.forEach(function(s){byIndex[parseInt(s.getAttribute('data-i'),10)]=s});
+        var hiddenSet={};st.hidden.forEach(function(n){hiddenSet[n]=true});
+        var ordered=[];
+        st.order.forEach(function(n){
+          var s=byIndex[n];if(!s)return;
+          if(hiddenSet[n]){s.setAttribute('data-arranged-hidden','1');return}
+          ordered.push(s);
+          deck.appendChild(s);
+        });
+        if(ordered.length)slides=ordered;
+        // park hidden slides out of nav flow
+        allSlides.forEach(function(s){if(s.getAttribute('data-arranged-hidden')==='1')s.style.display='none'});
+      }
+    }catch(e){}
+  }
   var cur=-1,curFrag=0;
 
   function fit(){var s=Math.min(window.innerWidth/1920,window.innerHeight/1080);deck.style.transform='translate(-50%,-50%) scale('+s+')'}
@@ -594,20 +1107,22 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
     else if(cur>0)show(cur-1,0,true);
   }
 
-  document.addEventListener('keydown',function(e){
-    switch(e.key){
-      case 'ArrowRight':case 'PageDown':case ' ':case 'Spacebar':case 'ArrowDown':e.preventDefault();next();break;
-      case 'ArrowLeft':case 'PageUp':case 'ArrowUp':e.preventDefault();prev();break;
-      case 'Home':e.preventDefault();show(0,0);break;
-      case 'End':e.preventDefault();show(slides.length-1,99);break;
-      case 'f':case 'F':if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen();break;
-    }
-  });
-  document.addEventListener('click',function(e){if(e.clientX<window.innerWidth*0.22)prev();else next()});
+  if(!embed){
+    document.addEventListener('keydown',function(e){
+      switch(e.key){
+        case 'ArrowRight':case 'PageDown':case ' ':case 'Spacebar':case 'ArrowDown':e.preventDefault();next();break;
+        case 'ArrowLeft':case 'PageUp':case 'ArrowUp':e.preventDefault();prev();break;
+        case 'Home':e.preventDefault();show(0,0);break;
+        case 'End':e.preventDefault();show(slides.length-1,99);break;
+        case 'f':case 'F':if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen();break;
+      }
+    });
+    document.addEventListener('click',function(e){if(e.clientX<window.innerWidth*0.22)prev();else next()});
+  }
 
   var start=parseInt((location.hash||'').replace('#',''),10);
   if(!(start>=1&&start<=slides.length))start=1;
-  requestAnimationFrame(function(){requestAnimationFrame(function(){show(start-1,0)})});
+  requestAnimationFrame(function(){requestAnimationFrame(function(){show(start-1,embed?0:0,embed)})});
 })();
 </script>
 </body>
