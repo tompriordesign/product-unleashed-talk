@@ -116,7 +116,8 @@ footer.export button.primary{background:var(--accent);border-color:var(--accent)
 <div class="toast" id="toast">Copied</div>
 
 <script>
-// Slide metadata — keep in sync with deck.template.html headlines
+// Slide metadata — keep in sync with deck.template.html headlines.
+// Order here = default order in the arrange grid (also the BAKED_ORDER default).
 const SLIDES = [
   // ─── Editorial Heat deck (cream, live) ─────────────
   {n:1,  group:"EH", name:"Hook · haven't built yet?"},
@@ -152,7 +153,7 @@ const SLIDES = [
   {n:26, group:"FR", name:"FR CTA · 4-hour video cover + QR"},
 ];
 
-const STORAGE_KEY = 'arrange-state-v2';
+const STORAGE_KEY = 'arrange-state-v3';
 
 function loadState() {
   try {
@@ -173,8 +174,7 @@ function loadState() {
 function defaultState() {
   return {
     order: SLIDES.map(s => s.n),
-    // FR slides start hidden — they're a bank to pick from, not the live deck
-    hidden: SLIDES.filter(s => s.group === 'FR').map(s => s.n)
+    hidden: []
   };
 }
 
