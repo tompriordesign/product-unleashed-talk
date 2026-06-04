@@ -34,6 +34,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
    the background never letterboxes regardless of viewport aspect. */
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 78% 88% at 86% 10%,var(--peach) 0%,transparent 62%),radial-gradient(ellipse 70% 78% at 6% 94%,var(--lilac) 0%,transparent 62%)}
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.1;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+body{transition:background 320ms ease}
+body.dark-slide{background:#13101a}
+body.dark-slide::before{background:radial-gradient(ellipse 78% 88% at 50% 0%,rgba(238,125,107,.10) 0%,transparent 60%),radial-gradient(ellipse 70% 78% at 50% 100%,rgba(47,122,79,.10) 0%,transparent 60%)}
+body.dark-slide::after{opacity:.05}
 
 /* DECK STAGE */
 .deck{position:fixed;left:50%;top:50%;width:1920px;height:1080px;transform-origin:50% 50%;z-index:1}
@@ -1192,27 +1196,53 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opac
   </div>
 </section>
 
-<!-- 24 · QUALITY CURVE — 2 states (curve, then App Store bar overlay) -->
+<!-- 24 · TIMELINE — 3-month journey (vibing → structured → review)
+     Two states: (1) the quality line + phases, (2) confidence line + App Store bar -->
 <section class="slide" data-i="24" data-slide="fr-payoff-curve" data-reveals="1">
   <div class="fr-content top">
-    <div class="payoff-h">Quality <span class="accent">over time.</span></div>
+    <div class="payoff-h">Three months. <span class="accent">A timeline.</span></div>
     <div class="payoff-curve-stage">
       <svg viewBox="0 0 800 460">
-        <line x1="60" y1="400" x2="700" y2="400" stroke="#1c1a24" stroke-width="2" opacity=".4"/>
+        <!-- Phase backgrounds -->
+        <rect x="60" y="40" width="220" height="360" fill="rgba(212,96,79,0.07)"/>
+        <rect x="280" y="40" width="320" height="360" fill="rgba(47,122,79,0.07)"/>
+        <rect x="600" y="40" width="140" height="360" fill="rgba(255,213,74,0.10)"/>
+
+        <!-- Phase labels -->
+        <text x="170" y="62" font-family="JetBrains Mono" font-size="13" fill="#d4604f" font-weight="700" text-anchor="middle" letter-spacing="2.5">VIBING</text>
+        <text x="440" y="62" font-family="JetBrains Mono" font-size="13" fill="#2f7a4f" font-weight="700" text-anchor="middle" letter-spacing="2.5">STRUCTURED · NATIVE SWIFT</text>
+        <text x="670" y="62" font-family="JetBrains Mono" font-size="13" fill="#1c1a24" font-weight="700" text-anchor="middle" letter-spacing="2.5" opacity="0.55">REVIEW</text>
+
+        <!-- Axes -->
+        <line x1="60" y1="400" x2="740" y2="400" stroke="#1c1a24" stroke-width="2" opacity=".4"/>
         <line x1="60" y1="40" x2="60" y2="400" stroke="#1c1a24" stroke-width="2" opacity=".4"/>
-        <text x="60" y="430" font-family="EB Garamond" font-size="14" fill="#1c1a24" opacity=".55" letter-spacing="2">EFFORT IN →</text>
-        <text x="50" y="40" font-family="EB Garamond" font-size="14" fill="#1c1a24" opacity=".55" text-anchor="end" letter-spacing="2" transform="rotate(-90 50 40)">QUALITY OUT →</text>
-        <path d="M 60 380 Q 180 220 280 200 Q 380 195 700 190" stroke="rgba(28,26,36,0.55)" stroke-width="3" fill="none" stroke-dasharray="6,4"/>
-        <text x="710" y="194" font-family="EB Garamond" font-style="italic" font-size="22" fill="#1c1a24" opacity=".7">vibes only</text>
-        <path class="anim-draw" pathLength="1" style="transition-delay:600ms" d="M 60 380 Q 200 350 320 250 Q 460 130 700 70" stroke="#2f7a4f" stroke-width="4" fill="none"/>
-        <text x="710" y="74" font-family="EB Garamond" font-style="italic" font-size="22" fill="#2f7a4f" font-weight="500">structured</text>
-        <line x1="60" y1="190" x2="280" y2="190" stroke="#1c1a24" stroke-width="1" opacity=".2" stroke-dasharray="3,3"/>
-        <text x="70" y="180" font-family="EB Garamond" font-size="12" fill="#1c1a24" opacity=".5" letter-spacing="1">CEILING</text>
-        <!-- App Store bar — revealed on click -->
+
+        <!-- Time labels -->
+        <text x="60" y="425" font-family="EB Garamond" font-size="13" fill="#1c1a24" opacity=".55" letter-spacing="2">MONTH 1</text>
+        <text x="400" y="425" font-family="EB Garamond" font-size="13" fill="#1c1a24" opacity=".55" letter-spacing="2" text-anchor="middle">MONTH 2</text>
+        <text x="740" y="425" font-family="EB Garamond" font-size="13" fill="#1c1a24" opacity=".55" letter-spacing="2" text-anchor="end">MONTH 3 →</text>
+
+        <!-- Quality line: jagged month 1, smooth climb after -->
+        <path class="anim-draw" pathLength="1"
+              d="M 60 360 L 78 220 L 100 340 L 124 200 L 150 330 L 175 230 L 200 320 L 228 210 L 252 300 L 280 310 C 360 290 440 200 540 130 C 620 100 700 85 740 80"
+              stroke="#2f7a4f" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="745" y="84" font-family="EB Garamond" font-style="italic" font-size="20" fill="#2f7a4f" font-weight="500">quality</text>
+
+        <!-- Realization beat — end of Vibing phase -->
+        <circle cx="280" cy="310" r="5" fill="#d4604f"/>
+        <text x="280" y="338" font-family="EB Garamond" font-style="italic" font-size="14" fill="#d4604f" text-anchor="middle">"I can't build this here"</text>
+
+        <!-- Reveal: confidence line + App Store bar -->
         <g class="reveal" data-reveal="1">
-          <line x1="60" y1="135" x2="700" y2="135" stroke="#d4604f" stroke-width="3"/>
-          <rect x="540" y="115" width="160" height="32" rx="4" fill="#d4604f"/>
-          <text x="620" y="135" font-family="EB Garamond" font-size="14" fill="#fff" text-anchor="middle" letter-spacing="2" font-weight="600" dy=".35em">APP STORE BAR</text>
+          <!-- App Store bar -->
+          <line x1="60" y1="155" x2="740" y2="155" stroke="#d4604f" stroke-width="2" stroke-dasharray="6,4" opacity=".85"/>
+          <rect x="595" y="138" width="140" height="32" rx="4" fill="#d4604f"/>
+          <text x="665" y="155" font-family="EB Garamond" font-size="13" fill="#fff" text-anchor="middle" font-weight="600" letter-spacing="1" dy=".35em">APP STORE BAR</text>
+
+          <!-- Confidence line — flat in vibing, smooth climb in structured -->
+          <path d="M 60 385 L 280 372 C 360 340 440 260 540 180 C 620 145 700 130 740 122"
+                stroke="#a68fc9" stroke-width="2.5" fill="none" stroke-dasharray="6,5" stroke-linecap="round"/>
+          <text x="745" y="126" font-family="EB Garamond" font-style="italic" font-size="20" fill="#a68fc9" font-weight="500">confidence</text>
         </g>
       </svg>
     </div>
@@ -1483,6 +1513,8 @@ const BAKED_HIDDEN = [1,7,8,9,10,11,15,16,17,25,28,29];
     slides[slideIdx].classList.add('active');
     applyReveals(slides[slideIdx],fragIdx);
     cur=slideIdx;curFrag=fragIdx;
+    // Match body bg to dark slides so the letterbox flips with them
+    document.body.classList.toggle('dark-slide',slides[slideIdx].classList.contains('s-built'));
     var dataI=slides[cur].getAttribute('data-i');
     if(location.hash!=='#'+dataI)history.replaceState(null,'','#'+dataI);
     broadcast();
