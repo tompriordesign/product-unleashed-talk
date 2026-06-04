@@ -90,7 +90,13 @@ footer.export button.primary{background:var(--accent);border-color:var(--accent)
 
 <header>
   <h1>Arrange · <span class="em">deck builder</span></h1>
-  <p class="lede">Drag a card to reorder. Tap <em>Hide</em> to mark a slide as not-in-use — it stays in the grid but drops out of the order at the bottom. The order persists in this browser, and the strip below is the line you send Tom when you've got it.</p>
+  <p class="lede">Drag to reorder. Tap <em>Hide</em> to drop a slide from the deck.
+    Changes save to this browser instantly, but localStorage doesn't travel.
+    <strong>To make changes permanent across machines:</strong>
+    <em>Copy share link</em> gives a URL that re-applies your order on any browser
+    (bookmark it for the event laptop). <em>Copy bake line</em> gives the one-liner
+    you paste back to Claude — once committed, every machine opening the deck
+    sees this order by default, no URL needed.</p>
   <div class="controls">
     <button onclick="reset()">Reset to original</button>
     <a href="index.html" target="_blank" style="text-decoration:none"><button>Open deck →</button></a>
@@ -102,8 +108,9 @@ footer.export button.primary{background:var(--accent);border-color:var(--accent)
 <footer class="export">
   <span class="lbl">Final order →</span>
   <span class="out" id="output">—</span>
-  <button onclick="copyOrder()">Copy</button>
-  <button class="primary" onclick="copyOrder(true)">Copy + plan</button>
+  <button onclick="copyShareLink()" title="A URL that opens the deck with this exact order — works on any machine, no localStorage needed.">Copy share link</button>
+  <button onclick="copyBakeLine()" title="A one-liner to send to Claude — gets committed into the deck as the new source-of-truth default.">Copy bake line</button>
+  <button class="primary" onclick="copyOrder(true)">Copy plan</button>
 </footer>
 
 <div class="toast" id="toast">Copied</div>
@@ -301,16 +308,38 @@ function reset() {
 function copyOrder(withPlan) {
   const visible = state.order.filter(n => !state.hidden.includes(n));
   const hidden = state.order.filter(n => state.hidden.includes(n));
+  const total = SLIDES.length;
   let text;
   if (withPlan) {
     text = 'New deck order: ' + visible.join(', ');
     if (hidden.length) text += '\nHide slides: ' + hidden.join(', ');
-    text += '\n(11 total · ' + visible.length + ' shown · ' + hidden.length + ' hidden)';
+    text += '\n(' + total + ' total · ' + visible.length + ' shown · ' + hidden.length + ' hidden)';
   } else {
     text = visible.join(',');
     if (hidden.length) text += ' (hide: ' + hidden.join(',') + ')';
   }
-  navigator.clipboard.writeText(text).then(() => toast('Copied to clipboard'));
+  navigator.clipboard.writeText(text).then(() => toast('Plan copied'));
+}
+
+// Portable URL that re-applies this order on any machine, any browser.
+// The deck reads ?order= and ?hide= in priority over localStorage and the baked default.
+function copyShareLink() {
+  const base = location.origin + location.pathname.replace(/arrange\.html$/, '') + 'index.html';
+  const url = base
+    + '?order=' + state.order.join(',')
+    + (state.hidden.length ? '&hide=' + state.hidden.join(',') : '')
+    + '#1';
+  navigator.clipboard.writeText(url).then(() => toast('Share URL copied — bookmark this anywhere'));
+}
+
+// A one-liner to send to Claude so the order gets COMMITTED into deck source.
+// After committing, every browser/machine sees this order by default — no URL needed.
+function copyBakeLine() {
+  const text =
+    'Bake this into the deck source:\n' +
+    'BAKED_ORDER  = [' + state.order.join(',') + ']\n' +
+    'BAKED_HIDDEN = [' + state.hidden.join(',') + ']';
+  navigator.clipboard.writeText(text).then(() => toast('Bake line copied — paste to Claude'));
 }
 
 function toast(msg) {
