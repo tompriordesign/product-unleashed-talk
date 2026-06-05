@@ -776,9 +776,9 @@ body.dark-slide::after{opacity:.05}
 .s-steps .steps-sub{font-family:var(--serif);font-style:italic;font-weight:400;font-size:30px;line-height:1.25;color:var(--fg-soft);letter-spacing:-.005em;max-width:1500px}
 .s-steps .steps-sub em{font-style:italic;font-weight:500}
 .s-steps .steps-list{display:flex;flex-direction:column;gap:0;margin-top:6px;border-top:1px solid rgba(28,26,36,.15)}
-.s-steps .steps-row{display:grid;grid-template-columns:60px 80px 1fr 240px;gap:20px;align-items:center;padding:14px 0;border-bottom:1px solid rgba(28,26,36,.10)}
-.s-steps .steps-tick{width:42px;height:42px;border-radius:9px;border:2px solid rgba(28,26,36,.18);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:20px;color:var(--fg-faint)}
-.s-steps .steps-row.ai .steps-tick{border-color:var(--accent);background:var(--accent);color:#fff}
+.s-steps .steps-row{display:grid;grid-template-columns:72px 80px 1fr 240px;gap:20px;align-items:center;padding:14px 0;border-bottom:1px solid rgba(28,26,36,.10)}
+.s-steps .steps-tick{min-width:42px;height:42px;padding:0 14px;border-radius:9px;border:2px solid transparent;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:17px;letter-spacing:2px;color:transparent}
+.s-steps .steps-row.ai .steps-tick,
 .s-steps .steps-row.both .steps-tick{border-color:var(--accent);background:var(--accent);color:#fff}
 .s-steps .steps-num{font-family:var(--mono);font-size:16px;letter-spacing:2.5px;color:var(--fg-faint);font-weight:700}
 .s-steps .steps-name{font-family:var(--serif);font-weight:500;font-size:36px;line-height:1.02;letter-spacing:-.018em;color:var(--fg);display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}
@@ -1930,25 +1930,25 @@ body.dark-slide::after{opacity:.05}
         <div class="steps-who">You</div>
       </div>
       <div class="steps-row ai">
-        <div class="steps-tick">&check;</div>
+        <div class="steps-tick">AI</div>
         <div class="steps-num">03</div>
         <div class="steps-name">Spec it <span class="steps-meta">Voice-note &rarr; structured instructions.md.</span></div>
         <div class="steps-who">AI writes</div>
       </div>
       <div class="steps-row ai">
-        <div class="steps-tick">&check;</div>
+        <div class="steps-tick">AI</div>
         <div class="steps-num">04</div>
         <div class="steps-name">Design it <span class="steps-meta">UX Pilot generates screens. You direct the taste.</span></div>
         <div class="steps-who">AI generates</div>
       </div>
       <div class="steps-row ai">
-        <div class="steps-tick">&check;</div>
+        <div class="steps-tick">AI</div>
         <div class="steps-num">05</div>
         <div class="steps-name">Build it <span class="steps-meta">Step by step. AI writes every line of code.</span></div>
         <div class="steps-who">AI codes</div>
       </div>
       <div class="steps-row both">
-        <div class="steps-tick">&check;</div>
+        <div class="steps-tick">AI</div>
         <div class="steps-num">06</div>
         <div class="steps-name">Review it <span class="steps-meta">You spot-check. AI fixes what&rsquo;s broken.</span></div>
         <div class="steps-who">You + AI</div>
