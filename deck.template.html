@@ -780,13 +780,11 @@ body.dark-slide::after{opacity:.05}
 .s-steps .steps-num{font-family:var(--mono);font-size:16px;letter-spacing:2.5px;color:var(--fg-faint);font-weight:700}
 .s-steps .steps-name{font-family:var(--serif);font-weight:500;font-size:36px;line-height:1.02;letter-spacing:-.018em;color:var(--fg);display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}
 .s-steps .steps-meta{font-family:var(--serif);font-style:italic;font-weight:400;font-size:21px;line-height:1.3;color:var(--fg-soft);letter-spacing:-.005em;flex:1;min-width:0}
-.s-steps .steps-who{font-family:var(--mono);font-size:13px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;text-align:right;color:var(--fg-faint)}
-.s-steps .steps-row.ai .steps-who{color:var(--accent)}
-.s-steps .steps-row.you .steps-who{color:var(--coral)}
-.s-steps .steps-row.both .steps-who{color:var(--violet)}
-.s-steps .steps-row.apple .steps-who{color:var(--fg-soft)}
-.s-steps .steps-ref{font-family:var(--mono);font-size:15px;letter-spacing:3px;text-transform:uppercase;color:var(--fg-faint);font-weight:700;margin-top:8px}
-.s-steps .steps-ref .em{color:var(--accent);font-style:normal}
+.s-steps .steps-who{font-family:var(--mono);font-size:18px;letter-spacing:2px;text-transform:uppercase;font-weight:700;padding:12px 22px;border-radius:999px;text-align:center;justify-self:end;background:rgba(28,26,36,.06);color:var(--fg-faint);min-width:180px}
+.s-steps .steps-row.you .steps-who{background:rgba(212,96,79,.15);color:var(--coral)}
+.s-steps .steps-row.ai .steps-who{background:var(--accent);color:#fff}
+.s-steps .steps-row.both .steps-who{background:var(--violet);color:#fff}
+.s-steps .steps-row.apple .steps-who{background:rgba(28,26,36,.10);color:var(--fg-soft)}
 
 /* A11 · LIGHTWEIGHT MODES COMPARISON (data-i 52) · plants the two names early */
 .s-modes .content{justify-content:center;align-items:flex-start;gap:30px;max-width:1820px}
@@ -1912,7 +1910,6 @@ body.dark-slide::after{opacity:.05}
   <div class="content">
     <div class="steps-banner"><span class="steps-banner-icon">&#9658;</span> Full video walkthrough &middot; link at the end of the talk</div>
     <h1 class="steps-h1">The <span class="accent">process.</span></h1>
-    <div class="steps-sub">Top to bottom &mdash; and where AI <em>does the work.</em></div>
     <div class="steps-list">
       <div class="steps-row you">
         <div class="steps-tick"></div>
@@ -1963,7 +1960,6 @@ body.dark-slide::after{opacity:.05}
         <div class="steps-who">Apple</div>
       </div>
     </div>
-    <div class="steps-ref">Don&rsquo;t worry about catching every step &mdash; <span class="em">full walkthrough in the four-hour video.</span></div>
   </div>
 </section>
 
